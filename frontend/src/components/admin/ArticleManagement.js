@@ -269,7 +269,14 @@ const ArticleManagement = () => {
                 <Label>Published</Label>
               </div>
               <div className="flex gap-2 pt-4">
-                <Button type="submit" className="flex-1 bg-cyan-600 hover:bg-cyan-700" data-testid="save-article-button">{editingArticle ? 'Update' : 'Create'} Article</Button>
+                <Button 
+                  type="submit" 
+                  className="flex-1 bg-cyan-600 hover:bg-cyan-700" 
+                  data-testid="save-article-button"
+                  disabled={uploadingImage}
+                >
+                  {uploadingImage ? 'Uploading...' : editingArticle ? 'Update' : 'Create'} Article
+                </Button>
                 <Button type="button" variant="outline" onClick={() => { setIsDialogOpen(false); resetForm(); }} data-testid="cancel-article-button">Cancel</Button>
               </div>
             </form>
