@@ -158,8 +158,28 @@ const ClientManagement = () => {
               <div><Label>Position (Optional)</Label><Input value={formData.position} onChange={(e) => setFormData({ ...formData, position: e.target.value })} data-testid="client-position-input" placeholder="CEO, Brand Manager, etc." /></div>
               <div><Label>Rating</Label><Input type="number" min="1" max="5" value={formData.rating} onChange={(e) => setFormData({ ...formData, rating: parseInt(e.target.value) })} data-testid="client-rating-input" /></div>
               <div className="flex gap-2 pt-4">
-                <Button type="submit" className="flex-1 bg-cyan-600 hover:bg-cyan-700" data-testid="save-client-button">Add Client</Button>
-                <Button type="button" variant="outline" onClick={() => { setIsDialogOpen(false); setFormData({ name: '', logo_url: '', testimonial: '', position: '', rating: 5 }); }} data-testid="cancel-client-button">Cancel</Button>
+                <Button 
+                  type="submit" 
+                  className="flex-1 bg-cyan-600 hover:bg-cyan-700" 
+                  data-testid="save-client-button"
+                  disabled={uploadingImage}
+                >
+                  {uploadingImage ? 'Uploading...' : 'Add Client'}
+                </Button>
+                <Button 
+                  type="button" 
+                  variant="outline" 
+                  onClick={() => { 
+                    setIsDialogOpen(false); 
+                    setFormData({ name: '', logo_url: '', testimonial: '', position: '', rating: 5 }); 
+                    setImageMethod('url');
+                    setImageFile(null);
+                    setImagePreview(null);
+                  }} 
+                  data-testid="cancel-client-button"
+                >
+                  Cancel
+                </Button>
               </div>
             </form>
           </DialogContent>
