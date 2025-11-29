@@ -9,6 +9,8 @@ import { initScrollReveal } from '../utils/scrollReveal';
 const LandingPage = () => {
   const [clients, setClients] = useState([]);
   const [products, setProducts] = useState([]);
+  const [sections, setSections] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchData();
@@ -16,24 +18,34 @@ const LandingPage = () => {
 
   useEffect(() => {
     // Initialize scroll reveal after content is loaded
-    const timer = setTimeout(() => {
-      const observer = initScrollReveal();
-      return () => observer.disconnect();
-    }, 500);
-    return () => clearTimeout(timer);
-  }, [products, clients]);
+    if (!loading) {
+      const timer = setTimeout(() => {
+        const observer = initScrollReveal();
+        return () => observer.disconnect();
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [products, clients, loading]);
 
   const fetchData = async () => {
     try {
-      const [clientsRes, productsRes] = await Promise.all([
+      const [clientsRes, productsRes, sectionsRes] = await Promise.all([
         api.getClients(),
-        api.getProducts({ featured: true })
+        api.getProducts({ featured: true }),
+        api.getPageSections('home')
       ]);
       setClients(clientsRes.data.slice(0, 6));
       setProducts(productsRes.data.slice(0, 3));
+      setSections(sectionsRes.data.filter(s => s.visible).sort((a, b) => a.order - b.order));
     } catch (error) {
       console.error('Failed to fetch data:', error);
+    } finally {
+      setLoading(false);
     }
+  };
+
+  const getSection = (sectionType) => {
+    return sections.find(s => s.section_type === sectionType);
   };
 
   return (
