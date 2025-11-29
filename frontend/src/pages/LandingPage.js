@@ -1,0 +1,285 @@
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowRight, CheckCircle, Star, Sparkles } from 'lucide-react';
+import { Button } from '../components/ui/button';
+import { Card } from '../components/ui/card';
+import { api } from '../utils/api';
+import { initScrollReveal } from '../utils/scrollReveal';
+
+const LandingPage = () => {
+  const [clients, setClients] = useState([]);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetchData();
+    const observer = initScrollReveal();
+    return () => observer.disconnect();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const [clientsRes, productsRes] = await Promise.all([
+        api.getClients(),
+        api.getProducts({ featured: true })
+      ]);
+      setClients(clientsRes.data.slice(0, 6));
+      setProducts(productsRes.data.slice(0, 3));
+    } catch (error) {
+      console.error('Failed to fetch data:', error);
+    }
+  };
+
+  return (
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-cyan-50 via-white to-cyan-50" data-testid="hero-section">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1596704017254-9b121068 ec31?w=1920')] bg-cover bg-center opacity-5"></div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="inline-flex items-center space-x-2 bg-cyan-100 text-cyan-800 px-4 py-2 rounded-full mb-6 float-animation">
+              <Sparkles size={16} />
+              <span className="text-sm font-medium">Premium Cosmetic Manufacturing</span>
+            </div>
+            
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight" data-testid="hero-title">
+              Transform Your Beauty Brand with
+              <span className="block text-gradient mt-2">Ellavera Beauty</span>
+            </h1>
+            
+            <p className="text-base sm:text-lg text-slate-600 mb-8 max-w-2xl mx-auto" data-testid="hero-description">
+              We manufacture premium cosmetic products tailored to your brand vision.
+              From formulation to packaging, we bring your beauty products to life.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link to="/products" data-testid="cta-explore-products">
+                <Button size="lg" className="bg-cyan-600 hover:bg-cyan-700 text-white px-8 py-6 text-lg rounded-full">
+                  Explore Products
+                  <ArrowRight className="ml-2" size={20} />
+                </Button>
+              </Link>
+              <Link to="/contact" data-testid="cta-get-quote">
+                <Button size="lg" variant="outline" className="border-2 border-cyan-600 text-cyan-600 hover:bg-cyan-50 px-8 py-6 text-lg rounded-full">
+                  Get a Quote
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <div className="w-6 h-10 border-2 border-cyan-600 rounded-full flex items-start justify-center p-1">
+            <div className="w-1 h-3 bg-cyan-600 rounded-full"></div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us Section */}
+      <section className="py-20 bg-white" data-testid="why-choose-section">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16 scroll-reveal">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+              Why Choose <span className="text-gradient">Ellavera Beauty</span>
+            </h2>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              We combine expertise, quality, and innovation to create exceptional cosmetic products
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                title: 'Certified Quality',
+                description: 'BPOM & Halal certified manufacturing with international quality standards',
+                icon: CheckCircle
+              },
+              {
+                title: 'Custom Formulations',
+                description: 'Tailored formulas designed specifically for your brand and target market',
+                icon: Sparkles
+              },
+              {
+                title: 'End-to-End Service',
+                description: 'Complete support from formulation to packaging and distribution',
+                icon: Star
+              }
+            ].map((feature, index) => (
+              <Card key={index} className="p-8 hover:shadow-xl transition-shadow scroll-reveal border-none shadow-md" style={{ animationDelay: `${index * 0.1}s` }}>
+                <div className="bg-cyan-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                  <feature.icon className="text-cyan-600" size={28} />
+                </div>
+                <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
+                <p className="text-slate-600">{feature.description}</p>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section className="py-20 bg-gradient-to-b from-cyan-50 to-white" data-testid="services-section">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16 scroll-reveal">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+              Our Cosmetic Manufacturing <span className="text-gradient">Services</span>
+            </h2>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              Comprehensive solutions for all your cosmetic manufacturing needs
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {['Skincare', 'Body Care', 'Hair Care', 'Fragrance'].map((service, index) => (
+              <div key={index} className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow scroll-reveal" style={{ animationDelay: `${index * 0.1}s` }}>
+                <h3 className="text-lg font-semibold text-cyan-600 mb-2">{service}</h3>
+                <p className="text-sm text-slate-600">Premium {service.toLowerCase()} products manufactured to perfection</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Process Timeline */}
+      <section className="py-20 bg-white" data-testid="process-section">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16 scroll-reveal">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+              Our <span className="text-gradient">Process</span>
+            </h2>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              A streamlined approach from concept to final product
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            {[
+              { step: '01', title: 'Consultation', description: 'Understanding your brand vision and requirements' },
+              { step: '02', title: 'Formulation', description: 'Creating custom formulas tailored to your needs' },
+              { step: '03', title: 'Testing', description: 'Rigorous quality control and safety testing' },
+              { step: '04', title: 'Production', description: 'Manufacturing with state-of-the-art equipment' },
+              { step: '05', title: 'Packaging', description: 'Premium packaging design and execution' },
+              { step: '06', title: 'Delivery', description: 'Efficient distribution and logistics support' }
+            ].map((item, index) => (
+              <div key={index} className="flex gap-6 mb-8 scroll-reveal" style={{ animationDelay: `${index * 0.1}s` }}>
+                <div className="flex-shrink-0">
+                  <div className="w-16 h-16 bg-cyan-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                    {item.step}
+                  </div>
+                </div>
+                <div className="flex-grow pt-2">
+                  <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                  <p className="text-slate-600">{item.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Products */}
+      {products.length > 0 && (
+        <section className="py-20 bg-gradient-to-b from-cyan-50 to-white" data-testid="featured-products-section">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16 scroll-reveal">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+                Featured <span className="text-gradient">Products</span>
+              </h2>
+              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+                Discover our premium cosmetic product range
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {products.map((product, index) => (
+                <Card key={product.id} className="product-card overflow-hidden scroll-reveal border-none shadow-lg" style={{ animationDelay: `${index * 0.1}s` }}>
+                  <div className="aspect-square bg-gradient-to-br from-cyan-100 to-cyan-50 image-overlay">
+                    {product.images && product.images[0] ? (
+                      <img src={product.images[0]} alt={product.name} className="w-full h-full object-cover" />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-cyan-600">
+                        <Sparkles size={48} />
+                      </div>
+                    )}
+                  </div>
+                  <div className="p-6">
+                    <p className="text-sm text-cyan-600 font-medium mb-2">{product.category_name}</p>
+                    <h3 className="text-xl font-bold mb-2">{product.name}</h3>
+                    <p className="text-slate-600 text-sm mb-4 line-clamp-2">{product.description}</p>
+                    <Link to={`/products/${product.id}`}>
+                      <Button variant="outline" className="w-full border-cyan-600 text-cyan-600 hover:bg-cyan-50">
+                        View Details
+                      </Button>
+                    </Link>
+                  </div>
+                </Card>
+              ))}
+            </div>
+
+            <div className="text-center mt-12">
+              <Link to="/products">
+                <Button size="lg" className="bg-cyan-600 hover:bg-cyan-700 text-white px-8 rounded-full">
+                  View All Products
+                  <ArrowRight className="ml-2" size={20} />
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Clients Section */}
+      {clients.length > 0 && (
+        <section className="py-20 bg-white" data-testid="clients-section">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16 scroll-reveal">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+                Trusted by <span className="text-gradient">Leading Brands</span>
+              </h2>
+              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+                Join the brands that trust us for their cosmetic manufacturing
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-8 items-center">
+              {clients.map((client, index) => (
+                <div key={client.id} className="flex items-center justify-center p-4 grayscale hover:grayscale-0 transition-all scroll-reveal" style={{ animationDelay: `${index * 0.05}s` }}>
+                  <img src={client.logo_url} alt={client.name} className="max-h-16 w-auto" />
+                </div>
+              ))}
+            </div>
+
+            <div className="text-center mt-12">
+              <Link to="/clients">
+                <Button variant="outline" className="border-cyan-600 text-cyan-600 hover:bg-cyan-50">
+                  View All Clients
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-br from-cyan-600 to-cyan-700 text-white" data-testid="cta-section">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
+            Ready to Launch Your Beauty Brand?
+          </h2>
+          <p className="text-lg mb-8 max-w-2xl mx-auto opacity-90">
+            Let's discuss how we can bring your cosmetic product vision to life
+          </p>
+          <Link to="/contact" data-testid="cta-contact-button">
+            <Button size="lg" className="bg-white text-cyan-600 hover:bg-slate-100 px-8 py-6 text-lg rounded-full">
+              Contact Us Today
+              <ArrowRight className="ml-2" size={20} />
+            </Button>
+          </Link>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+export default LandingPage;
