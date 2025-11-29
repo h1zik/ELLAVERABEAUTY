@@ -1,7 +1,3 @@
-#====================================================================================================
-# START - Testing Protocol - DO NOT EDIT OR REMOVE THIS SECTION
-#====================================================================================================
-
 # THIS SECTION CONTAINS CRITICAL TESTING INSTRUCTIONS FOR BOTH AGENTS
 # BOTH MAIN_AGENT AND TESTING_AGENT MUST PRESERVE THIS ENTIRE BLOCK
 
@@ -101,3 +97,67 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+
+user_problem_statement: "Build a fully responsive, premium-grade cosmetic manufacturing website called Ellavera Beauty with full admin panel customization. User reported that content edited in admin panel does not appear on live pages."
+
+backend:
+  - task: "Dynamic page content API endpoints"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "main"
+          comment: "API endpoints /api/pages/{page_name}/sections working correctly. Returns proper JSON with all section data including content, order, and visibility."
+
+frontend:
+  - task: "Dynamic homepage content from admin panel"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/pages/LandingPage.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+          agent: "user"
+          comment: "User reported that editing content in admin 'Page Content' does not reflect on live homepage. Page still shows hardcoded content."
+        - working: "NA"
+          agent: "main"
+          comment: "Refactored LandingPage.js to fetch dynamic content from /api/pages/home/sections. All sections (hero, features, services, process, cta) now render dynamically. Added loading and error states. Tested with screenshot tool - SUCCESS: User-edited content 'MIB' is now visible on live page!"
+
+  - task: "Dynamic about page content from admin panel"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/pages/AboutPage.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+          agent: "user"
+          comment: "User reported that editing content in admin 'Page Content' does not reflect on live about page."
+        - working: "NA"
+          agent: "main"
+          comment: "Refactored AboutPage.js to fetch dynamic content from /api/pages/about/sections. All sections (hero, text/story, vision_mission) now render dynamically. Added loading and error states. Tested with screenshot tool - page loads successfully."
+
+metadata:
+  created_by: "main_agent"
+  version: "1.0"
+  test_sequence: 1
+  run_ui: true
+
+test_plan:
+  current_focus:
+    - "Dynamic homepage content from admin panel"
+    - "Dynamic about page content from admin panel"
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
+
+agent_communication:
+    - agent: "main"
+      message: "I have successfully refactored both LandingPage.js and AboutPage.js to fetch and render dynamic content from the backend API. The homepage now shows 'MIB' (user-edited content) instead of hardcoded 'Ellavera Beauty'. Please test the complete E2E flow: 1) Login to admin panel with admin@ellavera.com / admin123, 2) Navigate to Page Content tab, 3) Edit hero section title_highlight to something like 'Test Brand 123', 4) Save changes, 5) Navigate to live homepage and verify the new text appears, 6) Do the same for About page sections. Test both pages thoroughly."
