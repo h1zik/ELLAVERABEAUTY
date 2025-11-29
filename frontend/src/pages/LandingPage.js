@@ -121,7 +121,7 @@ const LandingPage = () => {
       {/* Services Section */}
       <section className="py-20 bg-gradient-to-b from-cyan-50 to-white" data-testid="services-section">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 scroll-reveal">
+          <div className="text-center mb-16 scroll-fade-up">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
               Our Cosmetic Manufacturing <span className="text-gradient">Services</span>
             </h2>
@@ -132,7 +132,7 @@ const LandingPage = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {['Skincare', 'Body Care', 'Hair Care', 'Fragrance'].map((service, index) => (
-              <div key={index} className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow scroll-reveal" style={{ animationDelay: `${index * 0.1}s` }}>
+              <div key={index} className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow scroll-fade-up">
                 <h3 className="text-lg font-semibold text-cyan-600 mb-2">{service}</h3>
                 <p className="text-sm text-slate-600">Premium {service.toLowerCase()} products manufactured to perfection</p>
               </div>
