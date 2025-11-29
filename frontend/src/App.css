@@ -121,3 +121,31 @@ button:active {
     background-position: -200% 0;
   }
 }
+
+/* Dialog/Modal forms - Force light background */
+[role="dialog"] {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+[role="dialog"] input,
+[role="dialog"] textarea,
+[role="dialog"] select {
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+[role="dialog"] label {
+  color: #0f172a !important;
+  font-weight: 500;
+}
+
+[role="dialog"] input:focus,
+[role="dialog"] textarea:focus,
+[role="dialog"] select:focus {
+  border-color: #06b6d4 !important;
+  outline: none;
+  ring: 2px;
+  ring-color: #06b6d4;
+}
