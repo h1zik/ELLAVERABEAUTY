@@ -133,6 +133,62 @@ const ProductManagement = () => {
     }
   };
 
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // Check file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error('File size must be less than 5MB');
+      return;
+    }
+
+    setDocFormData({ ...docFormData, file, name: docFormData.name || file.name });
+  };
+
+  const handleDocumentSubmit = async (e) => {
+    e.preventDefault();
+    if (!docFormData.file) {
+      toast.error('Please select a file');
+      return;
+    }
+
+    setUploading(true);
+    try {
+      // Upload file first
+      const uploadResponse = await api.uploadFile(docFormData.file);
+      
+      // Add document to product
+      await api.addProductDocument(
+        selectedProductForDoc.id,
+        docFormData.name,
+        uploadResponse.data.data_url,
+        docFormData.type
+      );
+
+      toast.success('Document uploaded successfully!');
+      setIsDocDialogOpen(false);
+      setDocFormData({ name: '', type: 'MSDS', file: null });
+      fetchData();
+    } catch (error) {
+      toast.error('Failed to upload document');
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleDeleteDocument = async (productId, docId) => {
+    if (window.confirm('Are you sure you want to delete this document?')) {
+      try {
+        await api.deleteProductDocument(productId, docId);
+        toast.success('Document deleted successfully');
+        fetchData();
+      } catch (error) {
+        toast.error('Failed to delete document');
+      }
+    }
+  };
+
   if (loading) return <LoadingSpinner />;
 
   return (
