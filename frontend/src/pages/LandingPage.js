@@ -129,46 +129,46 @@ const LandingPage = () => {
       )}
 
       {/* Why Choose Us Section */}
-      <section className="py-20 bg-white" data-testid="why-choose-section">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 scroll-fade-up">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-              Why Choose <span className="text-gradient">Ellavera Beauty</span>
-            </h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              We combine expertise, quality, and innovation to create exceptional cosmetic products
-            </p>
-          </div>
+      {featuresSection && (
+        <section className="py-20 bg-white" data-testid="why-choose-section">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16 scroll-fade-up">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+                {featuresSection.content.heading && (
+                  <>
+                    {featuresSection.content.heading.split(' ').slice(0, -2).join(' ')}{' '}
+                    <span className="text-gradient">{featuresSection.content.heading.split(' ').slice(-2).join(' ')}</span>
+                  </>
+                )}
+              </h2>
+              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+                {featuresSection.content.subheading || 'We combine expertise, quality, and innovation to create exceptional cosmetic products'}
+              </p>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                title: 'Certified Quality',
-                description: 'BPOM & Halal certified manufacturing with international quality standards',
-                icon: CheckCircle
-              },
-              {
-                title: 'Custom Formulations',
-                description: 'Tailored formulas designed specifically for your brand and target market',
-                icon: Sparkles
-              },
-              {
-                title: 'End-to-End Service',
-                description: 'Complete support from formulation to packaging and distribution',
-                icon: Star
-              }
-            ].map((feature, index) => (
-              <Card key={index} className="p-8 hover:shadow-xl transition-shadow scroll-scale border-none shadow-md">
-                <div className="bg-cyan-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                  <feature.icon className="text-cyan-600" size={28} />
-                </div>
-                <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
-                <p className="text-slate-600">{feature.description}</p>
-              </Card>
-            ))}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {featuresSection.content.features?.map((feature, index) => {
+                const iconMap = {
+                  CheckCircle: CheckCircle,
+                  Sparkles: Sparkles,
+                  Star: Star
+                };
+                const IconComponent = iconMap[feature.icon] || CheckCircle;
+                
+                return (
+                  <Card key={index} className="p-8 hover:shadow-xl transition-shadow scroll-scale border-none shadow-md">
+                    <div className="bg-cyan-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                      <IconComponent className="text-cyan-600" size={28} />
+                    </div>
+                    <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
+                    <p className="text-slate-600">{feature.description}</p>
+                  </Card>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Services Section */}
       <section className="py-20 bg-gradient-to-b from-cyan-50 to-white" data-testid="services-section">
