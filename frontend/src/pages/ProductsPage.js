@@ -16,9 +16,18 @@ const ProductsPage = () => {
 
   useEffect(() => {
     fetchData();
-    const observer = initScrollReveal();
-    return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    // Initialize scroll reveal after products are loaded
+    if (products.length > 0) {
+      const timer = setTimeout(() => {
+        const observer = initScrollReveal();
+        return () => observer.disconnect();
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [products]);
 
   useEffect(() => {
     fetchProducts();
