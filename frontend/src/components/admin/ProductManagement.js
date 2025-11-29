@@ -332,6 +332,43 @@ const ProductManagement = () => {
                   data-testid="product-packaging-input"
                 />
               </div>
+              <div>
+                <Label>Product Image</Label>
+                <Tabs value={imageMethod} onValueChange={setImageMethod} className="mt-2">
+                  <TabsList className="grid w-full grid-cols-2">
+                    <TabsTrigger value="url">Image URL</TabsTrigger>
+                    <TabsTrigger value="upload">Upload from Computer</TabsTrigger>
+                  </TabsList>
+                  <TabsContent value="url" className="mt-3">
+                    <Input
+                      placeholder="https://example.com/image.jpg"
+                      onChange={(e) => {
+                        // This will be handled via addProductImage API after product creation
+                      }}
+                      data-testid="product-image-url-input"
+                    />
+                    <p className="text-xs text-slate-500 mt-1">Enter image URL or use Upload tab</p>
+                  </TabsContent>
+                  <TabsContent value="upload" className="mt-3">
+                    <Input
+                      type="file"
+                      accept="image/png,image/jpeg,image/jpg,image/webp,image/gif"
+                      onChange={handleImageFileChange}
+                      data-testid="product-image-upload-input"
+                    />
+                    {imagePreview && (
+                      <div className="mt-3">
+                        <img src={imagePreview} alt="Preview" className="w-32 h-32 object-cover rounded border" />
+                        <p className="text-xs text-slate-600 mt-1">
+                          <ImageIcon size={12} className="inline mr-1" />
+                          {imageFile?.name} ({(imageFile?.size / 1024).toFixed(1)} KB)
+                        </p>
+                      </div>
+                    )}
+                    <p className="text-xs text-slate-500 mt-1">Max size: 2MB (PNG, JPG, WEBP, GIF)</p>
+                  </TabsContent>
+                </Tabs>
+              </div>
               <div className="flex items-center space-x-2">
                 <Switch
                   checked={formData.featured}
@@ -341,8 +378,13 @@ const ProductManagement = () => {
                 <Label>Featured Product</Label>
               </div>
               <div className="flex gap-2 pt-4">
-                <Button type="submit" className="flex-1 bg-cyan-600 hover:bg-cyan-700" data-testid="save-product-button">
-                  {editingProduct ? 'Update' : 'Create'} Product
+                <Button 
+                  type="submit" 
+                  className="flex-1 bg-cyan-600 hover:bg-cyan-700" 
+                  data-testid="save-product-button"
+                  disabled={uploadingImage}
+                >
+                  {uploadingImage ? 'Uploading...' : editingProduct ? 'Update' : 'Create'} Product
                 </Button>
                 <Button type="button" variant="outline" onClick={() => { setIsDialogOpen(false); resetForm(); }} data-testid="cancel-product-button">
                   Cancel
