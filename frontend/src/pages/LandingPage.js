@@ -316,22 +316,24 @@ const LandingPage = () => {
       )}
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-cyan-600 to-cyan-700 text-white" data-testid="cta-section">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
-            Ready to Launch Your Beauty Brand?
-          </h2>
-          <p className="text-lg mb-8 max-w-2xl mx-auto opacity-90">
-            Let's discuss how we can bring your cosmetic product vision to life
-          </p>
-          <Link to="/contact" data-testid="cta-contact-button">
-            <Button size="lg" className="bg-white text-cyan-600 hover:bg-slate-100 px-8 py-6 text-lg rounded-full">
-              Contact Us Today
-              <ArrowRight className="ml-2" size={20} />
-            </Button>
-          </Link>
-        </div>
-      </section>
+      {ctaSection && (
+        <section className="py-20 bg-gradient-to-br from-cyan-600 to-cyan-700 text-white" data-testid="cta-section">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
+              {ctaSection.content.heading || 'Ready to Launch Your Beauty Brand?'}
+            </h2>
+            <p className="text-lg mb-8 max-w-2xl mx-auto opacity-90">
+              {ctaSection.content.description || "Let's discuss how we can bring your cosmetic product vision to life"}
+            </p>
+            <Link to={ctaSection.content.button_link || '/contact'} data-testid="cta-contact-button">
+              <Button size="lg" className="bg-white text-cyan-600 hover:bg-slate-100 px-8 py-6 text-lg rounded-full">
+                {ctaSection.content.button_text || 'Contact Us Today'}
+                <ArrowRight className="ml-2" size={20} />
+              </Button>
+            </Link>
+          </div>
+        </section>
+      )}
     </div>
   );
 };
