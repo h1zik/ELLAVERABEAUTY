@@ -15,6 +15,10 @@ const ClientManagement = () => {
   const [clients, setClients] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const [imageMethod, setImageMethod] = useState('url');
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
   const [formData, setFormData] = useState({ name: '', logo_url: '', testimonial: '', position: '', rating: 5 });
 
   useEffect(() => {
