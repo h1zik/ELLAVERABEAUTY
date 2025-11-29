@@ -64,13 +64,32 @@ const ProductManagement = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      let productId;
+      
       if (editingProduct) {
         await api.updateProduct(editingProduct.id, formData);
+        productId = editingProduct.id;
         toast.success('Product updated successfully');
       } else {
-        await api.createProduct(formData);
+        const response = await api.createProduct(formData);
+        productId = response.data.id;
         toast.success('Product created successfully');
       }
+
+      // Upload image if user chose to upload from computer
+      if (imageMethod === 'upload' && imageFile) {
+        setUploadingImage(true);
+        try {
+          const uploadResponse = await api.uploadImage(imageFile);
+          await api.addProductImage(productId, uploadResponse.data.data_url);
+          toast.success('Product image uploaded successfully');
+        } catch (error) {
+          toast.error('Product saved but image upload failed');
+        } finally {
+          setUploadingImage(false);
+        }
+      }
+      
       setIsDialogOpen(false);
       resetForm();
       fetchData();
