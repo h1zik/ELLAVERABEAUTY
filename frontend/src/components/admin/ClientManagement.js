@@ -36,13 +36,57 @@ const ClientManagement = () => {
     }
   };
 
+  const handleImageFileChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error('Image size must be less than 2MB');
+      return;
+    }
+
+    if (!file.type.startsWith('image/')) {
+      toast.error('Please select an image file');
+      return;
+    }
+
+    setImageFile(file);
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreview(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    let logoUrl = formData.logo_url;
+
+    // Upload image if user chose to upload from computer
+    if (imageMethod === 'upload' && imageFile) {
+      setUploadingImage(true);
+      try {
+        const uploadResponse = await api.uploadImage(imageFile);
+        logoUrl = uploadResponse.data.data_url;
+      } catch (error) {
+        toast.error('Logo upload failed');
+        setUploadingImage(false);
+        return;
+      }
+      setUploadingImage(false);
+    }
+
     try {
-      await api.createClient(formData);
+      const clientData = { ...formData, logo_url: logoUrl };
+      await api.createClient(clientData);
       toast.success('Client added successfully');
       setIsDialogOpen(false);
       setFormData({ name: '', logo_url: '', testimonial: '', position: '', rating: 5 });
+      setImageMethod('url');
+      setImageFile(null);
+      setImagePreview(null);
       fetchClients();
     } catch (error) {
       toast.error('Failed to add client');
