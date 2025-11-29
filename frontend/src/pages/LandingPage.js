@@ -12,9 +12,16 @@ const LandingPage = () => {
 
   useEffect(() => {
     fetchData();
-    const observer = initScrollReveal();
-    return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    // Initialize scroll reveal after content is loaded
+    const timer = setTimeout(() => {
+      const observer = initScrollReveal();
+      return () => observer.disconnect();
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [products, clients]);
 
   const fetchData = async () => {
     try {
