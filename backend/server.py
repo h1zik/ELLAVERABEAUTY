@@ -497,10 +497,71 @@ async def add_product_document(
         raise HTTPException(status_code=404, detail="Product not found")
     
     documents = product.get('documents', [])
-    documents.append({"name": name, "url": url, "type": doc_type})
+    doc_id = str(uuid.uuid4())
+    documents.append({
+        "id": doc_id,
+        "name": name,
+        "url": url,
+        "type": doc_type,
+        "uploaded_at": datetime.now(timezone.utc).isoformat()
+    })
     
     await db.products.update_one({"id": product_id}, {"$set": {"documents": documents}})
     return {"message": "Document added successfully", "documents": documents}
+
+@api_router.delete("/products/{product_id}/documents/{doc_id}")
+async def delete_product_document(
+    product_id: str,
+    doc_id: str,
+    admin: User = Depends(require_admin)
+):
+    product = await db.products.find_one({"id": product_id})
+    if not product:
+        raise HTTPException(status_code=404, detail="Product not found")
+    
+    documents = product.get('documents', [])
+    documents = [doc for doc in documents if doc.get('id') != doc_id]
+    
+    await db.products.update_one({"id": product_id}, {"$set": {"documents": documents}})
+    return {"message": "Document deleted successfully", "documents": documents}
+
+@api_router.post("/upload-file")
+async def upload_file(file: UploadFile = File(...), admin: User = Depends(require_admin)):
+    """Upload file and return base64 data URL"""
+    try:
+        # Read file content
+        contents = await file.read()
+        
+        # Convert to base64
+        file_base64 = base64.b64encode(contents).decode('utf-8')
+        
+        # Get file extension
+        file_ext = file.filename.split('.')[-1].lower() if '.' in file.filename else 'pdf'
+        
+        # Create data URL based on file type
+        mime_types = {
+            'pdf': 'application/pdf',
+            'doc': 'application/msword',
+            'docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'xls': 'application/vnd.ms-excel',
+            'xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'txt': 'text/plain',
+            'png': 'image/png',
+            'jpg': 'image/jpeg',
+            'jpeg': 'image/jpeg'
+        }
+        
+        mime_type = mime_types.get(file_ext, 'application/octet-stream')
+        data_url = f"data:{mime_type};base64,{file_base64}"
+        
+        return {
+            "success": True,
+            "filename": file.filename,
+            "data_url": data_url,
+            "size": len(contents)
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"File upload failed: {str(e)}")
 
 # ============= ARTICLE ROUTES =============
 @api_router.get("/articles", response_model=List[Article])
