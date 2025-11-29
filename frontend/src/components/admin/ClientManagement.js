@@ -119,7 +119,41 @@ const ClientManagement = () => {
             <DialogHeader><DialogTitle>Add New Client</DialogTitle></DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4" data-testid="client-form">
               <div><Label>Client Name</Label><Input value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} required data-testid="client-name-input" /></div>
-              <div><Label>Logo URL</Label><Input value={formData.logo_url} onChange={(e) => setFormData({ ...formData, logo_url: e.target.value })} required data-testid="client-logo-input" placeholder="https://..." /></div>
+              <div>
+                <Label>Client Logo</Label>
+                <Tabs value={imageMethod} onValueChange={setImageMethod} className="mt-2">
+                  <TabsList className="grid w-full grid-cols-2">
+                    <TabsTrigger value="url">Logo URL</TabsTrigger>
+                    <TabsTrigger value="upload">Upload from Computer</TabsTrigger>
+                  </TabsList>
+                  <TabsContent value="url" className="mt-3">
+                    <Input 
+                      value={formData.logo_url} 
+                      onChange={(e) => setFormData({ ...formData, logo_url: e.target.value })} 
+                      data-testid="client-logo-input" 
+                      placeholder="https://..." 
+                    />
+                  </TabsContent>
+                  <TabsContent value="upload" className="mt-3">
+                    <Input
+                      type="file"
+                      accept="image/png,image/jpeg,image/jpg,image/webp,image/gif,image/svg+xml"
+                      onChange={handleImageFileChange}
+                      data-testid="client-logo-upload-input"
+                    />
+                    {imagePreview && (
+                      <div className="mt-3">
+                        <img src={imagePreview} alt="Preview" className="h-20 object-contain rounded border" />
+                        <p className="text-xs text-slate-600 mt-1">
+                          <ImageIcon size={12} className="inline mr-1" />
+                          {imageFile?.name} ({(imageFile?.size / 1024).toFixed(1)} KB)
+                        </p>
+                      </div>
+                    )}
+                    <p className="text-xs text-slate-500 mt-1">Max size: 2MB (PNG, JPG, WEBP, GIF, SVG)</p>
+                  </TabsContent>
+                </Tabs>
+              </div>
               <div><Label>Testimonial (Optional)</Label><Textarea value={formData.testimonial} onChange={(e) => setFormData({ ...formData, testimonial: e.target.value })} rows={3} data-testid="client-testimonial-input" /></div>
               <div><Label>Position (Optional)</Label><Input value={formData.position} onChange={(e) => setFormData({ ...formData, position: e.target.value })} data-testid="client-position-input" placeholder="CEO, Brand Manager, etc." /></div>
               <div><Label>Rating</Label><Input type="number" min="1" max="5" value={formData.rating} onChange={(e) => setFormData({ ...formData, rating: parseInt(e.target.value) })} data-testid="client-rating-input" /></div>
