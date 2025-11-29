@@ -172,6 +172,38 @@ class ThemeSettingsUpdate(BaseModel):
     body_font: Optional[str] = None
     theme_mode: Optional[str] = None
 
+# ============= SITE SETTINGS MODELS =============
+class SiteSettings(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    site_name: str = "Ellavera Beauty"
+    site_tagline: str = "Premium Cosmetic Manufacturing"
+    logo_text: str = "Ellavera Beauty"
+    footer_text: str = "Premium cosmetic manufacturing solutions for your brand."
+    contact_email: str = "info@ellavera.com"
+    contact_phone: str = "+62 123 456 7890"
+    contact_address: str = "Jakarta, Indonesia"
+    whatsapp_number: str = "6281234567890"
+    whatsapp_message: str = "Hello Ellavera Beauty! I'm interested in your cosmetic manufacturing services."
+    google_maps_url: str = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d253840.65833061103!2d106.68942995!3d-6.229386599999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e945e34b9d%3A0x5371bf0fdad786a2!2sJakarta%2C%20Indonesia!5e0!3m2!1sen!2s!4v1620000000000!5m2!1sen!2s"
+    facebook_url: str = "#"
+    instagram_url: str = "#"
+    twitter_url: str = "#"
+    updated_at: datetime
+
+class SiteSettingsUpdate(BaseModel):
+    site_name: Optional[str] = None
+    site_tagline: Optional[str] = None
+    logo_text: Optional[str] = None
+    footer_text: Optional[str] = None
+    contact_email: Optional[str] = None
+    contact_phone: Optional[str] = None
+    contact_address: Optional[str] = None
+    whatsapp_number: Optional[str] = None
+    whatsapp_message: Optional[str] = None
+    google_maps_url: Optional[str] = None
+    facebook_url: Optional[str] = None
+    instagram_url: Optional[str] = None
+
 # ============= CONTACT MODELS =============
 class ContactLead(BaseModel):
     model_config = ConfigDict(extra="ignore")
