@@ -1,21 +1,81 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Award, Target, Eye, Users } from 'lucide-react';
 import { Card } from '../components/ui/card';
+import { api } from '../utils/api';
 
 const AboutPage = () => {
+  const [sections, setSections] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const sectionsRes = await api.getPageSections('about');
+      setSections(sectionsRes.data.filter(s => s.visible).sort((a, b) => a.order - b.order));
+    } catch (error) {
+      console.error('Failed to fetch about page data:', error);
+      setError('Failed to load page content');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getSection = (sectionType) => {
+    return sections.find(s => s.section_type === sectionType);
+  };
+
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-600 mx-auto mb-4"></div>
+          <p className="text-slate-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show error state
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-red-600">{error}</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Get section data
+  const heroSection = getSection('hero');
+  const textSection = getSection('text');
+  const visionMissionSection = getSection('vision_mission');
+
   return (
     <div className="min-h-screen pt-24 pb-16" data-testid="about-page">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-cyan-50 to-white py-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-4" data-testid="about-title">
-            About <span className="text-gradient">Ellavera Beauty</span>
-          </h1>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Your trusted partner in cosmetic manufacturing excellence
-          </p>
-        </div>
-      </section>
+      {heroSection && (
+        <section className="bg-gradient-to-br from-cyan-50 to-white py-16">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 className="text-4xl sm:text-5xl font-bold mb-4" data-testid="about-title">
+              {heroSection.content.title && (
+                <>
+                  {heroSection.content.title.split(' ').slice(0, -2).join(' ')}{' '}
+                  <span className="text-gradient">{heroSection.content.title.split(' ').slice(-2).join(' ')}</span>
+                </>
+              )}
+            </h1>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              {heroSection.content.description || 'Your trusted partner in cosmetic manufacturing excellence'}
+            </p>
+          </div>
+        </section>
+      )}
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 mt-12">
         {/* Company Story */}
