@@ -1,0 +1,102 @@
+import React, { useState, useEffect } from 'react';
+import { Plus, Trash2 } from 'lucide-react';
+import { Button } from '../ui/button';
+import { Card } from '../ui/card';
+import { Input } from '../ui/input';
+import { Label } from '../ui/label';
+import { Textarea } from '../ui/textarea';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
+import { api } from '../../utils/api';
+import { toast } from 'sonner';
+import LoadingSpinner from '../layout/LoadingSpinner';
+
+const ClientManagement = () => {
+  const [clients, setClients] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [formData, setFormData] = useState({ name: '', logo_url: '', testimonial: '', position: '', rating: 5 });
+
+  useEffect(() => {
+    fetchClients();
+  }, []);
+
+  const fetchClients = async () => {
+    try {
+      const response = await api.getClients();
+      setClients(response.data);
+    } catch (error) {
+      toast.error('Failed to fetch clients');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await api.createClient(formData);
+      toast.success('Client added successfully');
+      setIsDialogOpen(false);
+      setFormData({ name: '', logo_url: '', testimonial: '', position: '', rating: 5 });
+      fetchClients();
+    } catch (error) {
+      toast.error('Failed to add client');
+    }
+  };
+
+  const handleDelete = async (id) => {
+    if (window.confirm('Are you sure you want to delete this client?')) {
+      try {
+        await api.deleteClient(id);
+        toast.success('Client deleted successfully');
+        fetchClients();
+      } catch (error) {
+        toast.error('Failed to delete client');
+      }
+    }
+  };
+
+  if (loading) return <LoadingSpinner />;
+
+  return (
+    <div data-testid="client-management">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-2xl font-bold">Clients</h2>
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogTrigger asChild>
+            <Button className="bg-cyan-600 hover:bg-cyan-700" data-testid="add-client-button"><Plus size={20} className="mr-2" />Add Client</Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader><DialogTitle>Add New Client</DialogTitle></DialogHeader>
+            <form onSubmit={handleSubmit} className="space-y-4" data-testid="client-form">
+              <div><Label>Client Name</Label><Input value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} required data-testid="client-name-input" /></div>
+              <div><Label>Logo URL</Label><Input value={formData.logo_url} onChange={(e) => setFormData({ ...formData, logo_url: e.target.value })} required data-testid="client-logo-input" placeholder="https://..." /></div>
+              <div><Label>Testimonial (Optional)</Label><Textarea value={formData.testimonial} onChange={(e) => setFormData({ ...formData, testimonial: e.target.value })} rows={3} data-testid="client-testimonial-input" /></div>
+              <div><Label>Position (Optional)</Label><Input value={formData.position} onChange={(e) => setFormData({ ...formData, position: e.target.value })} data-testid="client-position-input" placeholder="CEO, Brand Manager, etc." /></div>
+              <div><Label>Rating</Label><Input type="number" min="1" max="5" value={formData.rating} onChange={(e) => setFormData({ ...formData, rating: parseInt(e.target.value) })} data-testid="client-rating-input" /></div>
+              <div className="flex gap-2 pt-4">
+                <Button type="submit" className="flex-1 bg-cyan-600 hover:bg-cyan-700" data-testid="save-client-button">Add Client</Button>
+                <Button type="button" variant="outline" onClick={() => { setIsDialogOpen(false); setFormData({ name: '', logo_url: '', testimonial: '', position: '', rating: 5 }); }} data-testid="cancel-client-button">Cancel</Button>
+              </div>
+            </form>
+          </DialogContent>
+        </Dialog>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {clients.map((client) => (
+          <Card key={client.id} className="p-6" data-testid={`client-item-${client.id}`}>
+            <div className="flex justify-between items-start mb-3">
+              <img src={client.logo_url} alt={client.name} className="h-12 object-contain" />
+              <Button size="sm" variant="outline" className="text-red-600 hover:text-red-700" onClick={() => handleDelete(client.id)} data-testid={`delete-client-${client.id}`}><Trash2 size={16} /></Button>
+            </div>
+            <h3 className="font-bold mb-1">{client.name}</h3>
+            {client.testimonial && <p className="text-sm text-slate-600 line-clamp-2">{client.testimonial}</p>}
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default ClientManagement;
