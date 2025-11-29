@@ -17,8 +17,11 @@ const ProductManagement = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isDocDialogOpen, setIsDocDialogOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
+  const [selectedProductForDoc, setSelectedProductForDoc] = useState(null);
   const [generating, setGenerating] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     category_id: '',
@@ -27,6 +30,11 @@ const ProductManagement = () => {
     key_ingredients: '',
     packaging_options: '',
     featured: false
+  });
+  const [docFormData, setDocFormData] = useState({
+    name: '',
+    type: 'MSDS',
+    file: null
   });
 
   useEffect(() => {
