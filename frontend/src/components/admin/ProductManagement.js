@@ -124,6 +124,32 @@ const ProductManagement = () => {
     setIsDialogOpen(true);
   };
 
+  const handleImageFileChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // Check file size (max 2MB)
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error('Image size must be less than 2MB');
+      return;
+    }
+
+    // Check file type
+    if (!file.type.startsWith('image/')) {
+      toast.error('Please select an image file');
+      return;
+    }
+
+    setImageFile(file);
+
+    // Create preview
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreview(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
   const resetForm = () => {
     setFormData({
       name: '',
@@ -135,6 +161,9 @@ const ProductManagement = () => {
       featured: false
     });
     setEditingProduct(null);
+    setImageMethod('url');
+    setImageFile(null);
+    setImagePreview(null);
   };
 
   const generateDescription = async () => {
