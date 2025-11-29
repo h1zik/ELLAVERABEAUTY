@@ -11,9 +11,18 @@ const ClientsPage = () => {
 
   useEffect(() => {
     fetchClients();
-    const observer = initScrollReveal();
-    return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    // Initialize scroll reveal after clients are loaded
+    if (clients.length > 0) {
+      const timer = setTimeout(() => {
+        const observer = initScrollReveal();
+        return () => observer.disconnect();
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [clients]);
 
   const fetchClients = async () => {
     try {
