@@ -150,6 +150,9 @@ const ArticleManagement = () => {
       published: false
     });
     setEditingArticle(null);
+    setImageMethod('url');
+    setImageFile(null);
+    setImagePreview(null);
   };
 
   const generateContent = async () => {
