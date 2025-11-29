@@ -548,7 +548,10 @@ async def upload_file(file: UploadFile = File(...), admin: User = Depends(requir
             'txt': 'text/plain',
             'png': 'image/png',
             'jpg': 'image/jpeg',
-            'jpeg': 'image/jpeg'
+            'jpeg': 'image/jpeg',
+            'gif': 'image/gif',
+            'webp': 'image/webp',
+            'svg': 'image/svg+xml'
         }
         
         mime_type = mime_types.get(file_ext, 'application/octet-stream')
@@ -558,10 +561,55 @@ async def upload_file(file: UploadFile = File(...), admin: User = Depends(requir
             "success": True,
             "filename": file.filename,
             "data_url": data_url,
-            "size": len(contents)
+            "size": len(contents),
+            "type": "image" if file_ext in ['png', 'jpg', 'jpeg', 'gif', 'webp'] else "document"
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"File upload failed: {str(e)}")
+
+@api_router.post("/upload-image")
+async def upload_image(file: UploadFile = File(...), admin: User = Depends(require_admin)):
+    """Upload image specifically and return base64 data URL"""
+    try:
+        # Validate file type
+        file_ext = file.filename.split('.')[-1].lower() if '.' in file.filename else ''
+        allowed_extensions = ['png', 'jpg', 'jpeg', 'gif', 'webp']
+        
+        if file_ext not in allowed_extensions:
+            raise HTTPException(status_code=400, detail=f"Invalid file type. Allowed: {', '.join(allowed_extensions)}")
+        
+        # Read file content
+        contents = await file.read()
+        
+        # Check file size (max 2MB for images)
+        if len(contents) > 2 * 1024 * 1024:
+            raise HTTPException(status_code=400, detail="Image size must be less than 2MB")
+        
+        # Convert to base64
+        file_base64 = base64.b64encode(contents).decode('utf-8')
+        
+        # Create data URL
+        mime_types = {
+            'png': 'image/png',
+            'jpg': 'image/jpeg',
+            'jpeg': 'image/jpeg',
+            'gif': 'image/gif',
+            'webp': 'image/webp'
+        }
+        
+        mime_type = mime_types.get(file_ext, 'image/jpeg')
+        data_url = f"data:{mime_type};base64,{file_base64}"
+        
+        return {
+            "success": True,
+            "filename": file.filename,
+            "data_url": data_url,
+            "size": len(contents)
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Image upload failed: {str(e)}")
 
 # ============= ARTICLE ROUTES =============
 @api_router.get("/articles", response_model=List[Article])
