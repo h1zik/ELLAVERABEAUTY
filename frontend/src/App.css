@@ -60,8 +60,8 @@ button:active {
 
 /* Scroll animations - Base */
 .scroll-reveal {
-  opacity: 0;
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  opacity: 1;
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
 .scroll-reveal.revealed {
@@ -71,8 +71,8 @@ button:active {
 /* Fade In Up Animation */
 .scroll-fade-up {
   opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
 .scroll-fade-up.revealed {
@@ -83,8 +83,8 @@ button:active {
 /* Fade In Left Animation */
 .scroll-fade-left {
   opacity: 0;
-  transform: translateX(-50px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform: translateX(-30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
 .scroll-fade-left.revealed {
@@ -95,8 +95,8 @@ button:active {
 /* Fade In Right Animation */
 .scroll-fade-right {
   opacity: 0;
-  transform: translateX(50px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform: translateX(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
 .scroll-fade-right.revealed {
@@ -107,8 +107,8 @@ button:active {
 /* Scale Up Animation */
 .scroll-scale {
   opacity: 0;
-  transform: scale(0.9);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform: scale(0.95);
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
 .scroll-scale.revealed {
@@ -117,19 +117,19 @@ button:active {
 }
 
 /* Stagger Animation Delays */
-.scroll-reveal:nth-child(1) { transition-delay: 0s; }
-.scroll-reveal:nth-child(2) { transition-delay: 0.1s; }
-.scroll-reveal:nth-child(3) { transition-delay: 0.2s; }
-.scroll-reveal:nth-child(4) { transition-delay: 0.3s; }
-.scroll-reveal:nth-child(5) { transition-delay: 0.4s; }
-.scroll-reveal:nth-child(6) { transition-delay: 0.5s; }
-
 .scroll-fade-up:nth-child(1) { transition-delay: 0s; }
 .scroll-fade-up:nth-child(2) { transition-delay: 0.1s; }
 .scroll-fade-up:nth-child(3) { transition-delay: 0.2s; }
 .scroll-fade-up:nth-child(4) { transition-delay: 0.3s; }
 .scroll-fade-up:nth-child(5) { transition-delay: 0.4s; }
 .scroll-fade-up:nth-child(6) { transition-delay: 0.5s; }
+
+.scroll-scale:nth-child(1) { transition-delay: 0s; }
+.scroll-scale:nth-child(2) { transition-delay: 0.1s; }
+.scroll-scale:nth-child(3) { transition-delay: 0.2s; }
+.scroll-scale:nth-child(4) { transition-delay: 0.3s; }
+.scroll-scale:nth-child(5) { transition-delay: 0.4s; }
+.scroll-scale:nth-child(6) { transition-delay: 0.5s; }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
