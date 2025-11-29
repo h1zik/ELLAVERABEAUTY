@@ -182,7 +182,7 @@ const LandingPage = () => {
       {products.length > 0 && (
         <section className="py-20 bg-gradient-to-b from-cyan-50 to-white" data-testid="featured-products-section">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16 scroll-reveal">
+            <div className="text-center mb-16 scroll-fade-up">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
                 Featured <span className="text-gradient">Products</span>
               </h2>
@@ -193,7 +193,7 @@ const LandingPage = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {products.map((product, index) => (
-                <Card key={product.id} className="product-card overflow-hidden scroll-reveal border-none shadow-lg" style={{ animationDelay: `${index * 0.1}s` }}>
+                <Card key={product.id} className="product-card overflow-hidden scroll-scale border-none shadow-lg">
                   <div className="aspect-square bg-gradient-to-br from-cyan-100 to-cyan-50 image-overlay">
                     {product.images && product.images[0] ? (
                       <img src={product.images[0]} alt={product.name} className="w-full h-full object-cover" />
