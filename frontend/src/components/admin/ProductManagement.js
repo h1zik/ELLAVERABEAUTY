@@ -310,7 +310,33 @@ const ProductManagement = () => {
               </div>
               {product.featured && <span className="text-xs bg-cyan-100 text-cyan-700 px-2 py-1 rounded">Featured</span>}
             </div>
-            <p className="text-sm text-slate-600 mb-4 line-clamp-2">{product.description}</p>
+            <p className="text-sm text-slate-600 mb-3 line-clamp-2">{product.description}</p>
+            
+            {/* Documents Section */}
+            {product.documents && product.documents.length > 0 && (
+              <div className="mb-3 p-2 bg-slate-50 rounded">
+                <p className="text-xs font-semibold text-slate-700 mb-1">Documents: {product.documents.length}</p>
+                <div className="space-y-1">
+                  {product.documents.slice(0, 2).map((doc) => (
+                    <div key={doc.id} className="flex items-center justify-between text-xs">
+                      <span className="text-slate-600 truncate">{doc.name}</span>
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        className="h-5 w-5 p-0 text-red-500 hover:text-red-700"
+                        onClick={() => handleDeleteDocument(product.id, doc.id)}
+                      >
+                        <X size={12} />
+                      </Button>
+                    </div>
+                  ))}
+                  {product.documents.length > 2 && (
+                    <p className="text-xs text-slate-500">+{product.documents.length - 2} more</p>
+                  )}
+                </div>
+              </div>
+            )}
+
             <div className="flex gap-2">
               <Button
                 size="sm"
@@ -319,6 +345,18 @@ const ProductManagement = () => {
                 data-testid={`edit-product-${product.id}`}
               >
                 <Edit size={16} />
+              </Button>
+              <Button
+                size="sm"
+                variant="outline"
+                className="text-cyan-600 hover:text-cyan-700"
+                onClick={() => {
+                  setSelectedProductForDoc(product);
+                  setIsDocDialogOpen(true);
+                }}
+                data-testid={`add-doc-${product.id}`}
+              >
+                <Upload size={16} />
               </Button>
               <Button
                 size="sm"
@@ -333,6 +371,79 @@ const ProductManagement = () => {
           </Card>
         ))}
       </div>
+
+      {/* Document Upload Dialog */}
+      <Dialog open={isDocDialogOpen} onOpenChange={setIsDocDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Upload Document for {selectedProductForDoc?.name}</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handleDocumentSubmit} className="space-y-4">
+            <div>
+              <Label>Document Name</Label>
+              <Input
+                value={docFormData.name}
+                onChange={(e) => setDocFormData({ ...docFormData, name: e.target.value })}
+                required
+                placeholder="e.g., Product MSDS"
+                data-testid="doc-name-input"
+              />
+            </div>
+            <div>
+              <Label>Document Type</Label>
+              <Select value={docFormData.type} onValueChange={(value) => setDocFormData({ ...docFormData, type: value })}>
+                <SelectTrigger data-testid="doc-type-select">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="MSDS">MSDS (Material Safety Data Sheet)</SelectItem>
+                  <SelectItem value="COA">COA (Certificate of Analysis)</SelectItem>
+                  <SelectItem value="PIF">PIF (Product Information File)</SelectItem>
+                  <SelectItem value="Specification">Specification Sheet</SelectItem>
+                  <SelectItem value="Other">Other</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label>Upload File (PDF, DOC, DOCX, XLS, XLSX - Max 5MB)</Label>
+              <Input
+                type="file"
+                accept=".pdf,.doc,.docx,.xls,.xlsx,.txt"
+                onChange={handleFileUpload}
+                required
+                className="mt-1"
+                data-testid="doc-file-input"
+              />
+              {docFormData.file && (
+                <p className="text-sm text-slate-600 mt-2">
+                  <File size={14} className="inline mr-1" />
+                  {docFormData.file.name} ({(docFormData.file.size / 1024).toFixed(2)} KB)
+                </p>
+              )}
+            </div>
+            <div className="flex gap-2 pt-4">
+              <Button
+                type="submit"
+                className="flex-1 bg-cyan-600 hover:bg-cyan-700"
+                disabled={uploading}
+                data-testid="upload-doc-button"
+              >
+                {uploading ? 'Uploading...' : 'Upload Document'}
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => {
+                  setIsDocDialogOpen(false);
+                  setDocFormData({ name: '', type: 'MSDS', file: null });
+                }}
+              >
+                Cancel
+              </Button>
+            </div>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
