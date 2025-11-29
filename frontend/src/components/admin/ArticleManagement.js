@@ -216,8 +216,39 @@ const ArticleManagement = () => {
                 <Textarea value={formData.content} onChange={(e) => setFormData({ ...formData, content: e.target.value })} required rows={8} data-testid="article-content-input" />
               </div>
               <div>
-                <Label>Cover Image URL</Label>
-                <Input value={formData.cover_image} onChange={(e) => setFormData({ ...formData, cover_image: e.target.value })} data-testid="article-cover-input" placeholder="https://..." />
+                <Label>Cover Image</Label>
+                <Tabs value={imageMethod} onValueChange={setImageMethod} className="mt-2">
+                  <TabsList className="grid w-full grid-cols-2">
+                    <TabsTrigger value="url">Image URL</TabsTrigger>
+                    <TabsTrigger value="upload">Upload from Computer</TabsTrigger>
+                  </TabsList>
+                  <TabsContent value="url" className="mt-3">
+                    <Input 
+                      value={formData.cover_image} 
+                      onChange={(e) => setFormData({ ...formData, cover_image: e.target.value })} 
+                      data-testid="article-cover-input" 
+                      placeholder="https://..." 
+                    />
+                  </TabsContent>
+                  <TabsContent value="upload" className="mt-3">
+                    <Input
+                      type="file"
+                      accept="image/png,image/jpeg,image/jpg,image/webp,image/gif"
+                      onChange={handleImageFileChange}
+                      data-testid="article-image-upload-input"
+                    />
+                    {imagePreview && (
+                      <div className="mt-3">
+                        <img src={imagePreview} alt="Preview" className="w-full h-32 object-cover rounded border" />
+                        <p className="text-xs text-slate-600 mt-1">
+                          <ImageIcon size={12} className="inline mr-1" />
+                          {imageFile?.name} ({(imageFile?.size / 1024).toFixed(1)} KB)
+                        </p>
+                      </div>
+                    )}
+                    <p className="text-xs text-slate-500 mt-1">Max size: 2MB (PNG, JPG, WEBP, GIF)</p>
+                  </TabsContent>
+                </Tabs>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
