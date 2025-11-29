@@ -7,6 +7,8 @@ import ArticleManagement from '../components/admin/ArticleManagement';
 import ClientManagement from '../components/admin/ClientManagement';
 import ThemeManagement from '../components/admin/ThemeManagement';
 import LeadsManagement from '../components/admin/LeadsManagement';
+import SiteSettingsManagement from '../components/admin/SiteSettingsManagement';
+import PageBuilderManagement from '../components/admin/PageBuilderManagement';
 import LoadingSpinner from '../components/layout/LoadingSpinner';
 
 const AdminDashboard = () => {
