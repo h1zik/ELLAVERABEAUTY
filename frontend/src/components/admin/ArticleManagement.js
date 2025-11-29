@@ -49,14 +49,56 @@ const ArticleManagement = () => {
     }
   };
 
+  const handleImageFileChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error('Image size must be less than 2MB');
+      return;
+    }
+
+    if (!file.type.startsWith('image/')) {
+      toast.error('Please select an image file');
+      return;
+    }
+
+    setImageFile(file);
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreview(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    let coverImageUrl = formData.cover_image;
+
+    // Upload image if user chose to upload from computer
+    if (imageMethod === 'upload' && imageFile) {
+      setUploadingImage(true);
+      try {
+        const uploadResponse = await api.uploadImage(imageFile);
+        coverImageUrl = uploadResponse.data.data_url;
+      } catch (error) {
+        toast.error('Image upload failed');
+        setUploadingImage(false);
+        return;
+      }
+      setUploadingImage(false);
+    }
+
     try {
+      const articleData = { ...formData, cover_image: coverImageUrl };
+      
       if (editingArticle) {
-        await api.updateArticle(editingArticle.id, formData);
+        await api.updateArticle(editingArticle.id, articleData);
         toast.success('Article updated successfully');
       } else {
-        await api.createArticle(formData);
+        await api.createArticle(articleData);
         toast.success('Article created successfully');
       }
       setIsDialogOpen(false);
