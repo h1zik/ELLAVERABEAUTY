@@ -7,6 +7,7 @@ import { Label } from '../ui/label';
 import { Textarea } from '../ui/textarea';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog';
 import { Switch } from '../ui/switch';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 import { api } from '../../utils/api';
 import { toast } from 'sonner';
 import LoadingSpinner from '../layout/LoadingSpinner';
