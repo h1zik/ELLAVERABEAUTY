@@ -60,14 +60,27 @@ button:active {
 
 /* Scroll animations */
 .scroll-reveal {
-  opacity: 0.3;
-  transform: translateY(20px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .scroll-reveal.revealed {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Optional: Add animation on first load only */
+@media (prefers-reduced-motion: no-preference) {
+  .scroll-reveal:not(.revealed) {
+    opacity: 0.95;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  .scroll-reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Custom scrollbar */
