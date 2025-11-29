@@ -45,6 +45,16 @@ export const api = {
       } 
     });
   },
+  uploadImage: (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    return axios.post(`${API}/upload-image`, formData, { 
+      headers: { 
+        ...getAuthHeaders(),
+        'Content-Type': 'multipart/form-data'
+      } 
+    });
+  },
 
   // Articles
   getArticles: (params) => axios.get(`${API}/articles`, { params }),
