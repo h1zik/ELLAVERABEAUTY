@@ -122,7 +122,7 @@ async def seed_data():
         {
             "id": str(uuid.uuid4()),
             "name": "Luminara Beauty",
-            "logo_url": "https://via.placeholder.com/200x80/06b6d4/ffffff?text=Luminara",
+            "logo_url": "https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?w=200&h=80&fit=crop",
             "testimonial": "Ellavera Beauty transformed our product line. Their expertise in formulation and commitment to quality exceeded our expectations.",
             "position": "CEO, Luminara Beauty",
             "rating": 5,
@@ -131,7 +131,7 @@ async def seed_data():
         {
             "id": str(uuid.uuid4()),
             "name": "Serene Skin Co",
-            "logo_url": "https://via.placeholder.com/200x80/0891b2/ffffff?text=Serene+Skin",
+            "logo_url": "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=200&h=80&fit=crop",
             "testimonial": "Professional, reliable, and innovative. Working with Ellavera has been a game-changer for our brand.",
             "position": "Founder, Serene Skin Co",
             "rating": 5,
@@ -140,7 +140,7 @@ async def seed_data():
         {
             "id": str(uuid.uuid4()),
             "name": "Pure Essence",
-            "logo_url": "https://via.placeholder.com/200x80/06b6d4/ffffff?text=Pure+Essence",
+            "logo_url": "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=200&h=80&fit=crop",
             "testimonial": "Their attention to detail and customer service is unmatched. Highly recommended!",
             "position": "Brand Manager",
             "rating": 5,
