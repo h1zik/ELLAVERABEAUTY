@@ -83,49 +83,50 @@ const LandingPage = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-cyan-50 via-white to-cyan-50" data-testid="hero-section">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1596704017254-9b121068 ec31?w=1920')] bg-cover bg-center opacity-5"></div>
-        
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center space-x-2 bg-cyan-100 text-cyan-800 px-4 py-2 rounded-full mb-6 float-animation">
-              <Sparkles size={16} />
-              <span className="text-sm font-medium">Premium Cosmetic Manufacturing</span>
-            </div>
-            
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight" data-testid="hero-title">
-              Transform Your Beauty Brand with
-              <span className="block text-gradient mt-2">Ellavera Beauty</span>
-            </h1>
-            
-            <p className="text-base sm:text-lg text-slate-600 mb-8 max-w-2xl mx-auto" data-testid="hero-description">
-              We manufacture premium cosmetic products tailored to your brand vision.
-              From formulation to packaging, we bring your beauty products to life.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/products" data-testid="cta-explore-products">
-                <Button size="lg" className="bg-cyan-600 hover:bg-cyan-700 text-white px-8 py-6 text-lg rounded-full">
-                  Explore Products
-                  <ArrowRight className="ml-2" size={20} />
-                </Button>
-              </Link>
-              <Link to="/contact" data-testid="cta-get-quote">
-                <Button size="lg" variant="outline" className="border-2 border-cyan-600 text-cyan-600 hover:bg-cyan-50 px-8 py-6 text-lg rounded-full">
-                  Get a Quote
-                </Button>
-              </Link>
+      {heroSection && (
+        <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-cyan-50 via-white to-cyan-50" data-testid="hero-section">
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1596704017254-9b121068ec31?w=1920')] bg-cover bg-center opacity-5"></div>
+          
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="max-w-4xl mx-auto text-center">
+              <div className="inline-flex items-center space-x-2 bg-cyan-100 text-cyan-800 px-4 py-2 rounded-full mb-6 float-animation">
+                <Sparkles size={16} />
+                <span className="text-sm font-medium">{heroSection.content.badge_text || 'Premium Cosmetic Manufacturing'}</span>
+              </div>
+              
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight" data-testid="hero-title">
+                {heroSection.content.title || 'Transform Your Beauty Brand with'}
+                <span className="block text-gradient mt-2">{heroSection.content.title_highlight || 'Ellavera Beauty'}</span>
+              </h1>
+              
+              <p className="text-base sm:text-lg text-slate-600 mb-8 max-w-2xl mx-auto" data-testid="hero-description">
+                {heroSection.content.description || 'We manufacture premium cosmetic products tailored to your brand vision. From formulation to packaging, we bring your beauty products to life.'}
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link to={heroSection.content.cta_primary_link || '/products'} data-testid="cta-explore-products">
+                  <Button size="lg" className="bg-cyan-600 hover:bg-cyan-700 text-white px-8 py-6 text-lg rounded-full">
+                    {heroSection.content.cta_primary_text || 'Explore Products'}
+                    <ArrowRight className="ml-2" size={20} />
+                  </Button>
+                </Link>
+                <Link to={heroSection.content.cta_secondary_link || '/contact'} data-testid="cta-get-quote">
+                  <Button size="lg" variant="outline" className="border-2 border-cyan-600 text-cyan-600 hover:bg-cyan-50 px-8 py-6 text-lg rounded-full">
+                    {heroSection.content.cta_secondary_text || 'Get a Quote'}
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 border-2 border-cyan-600 rounded-full flex items-start justify-center p-1">
-            <div className="w-1 h-3 bg-cyan-600 rounded-full"></div>
+          {/* Scroll Indicator */}
+          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <div className="w-6 h-10 border-2 border-cyan-600 rounded-full flex items-start justify-center p-1">
+              <div className="w-1 h-3 bg-cyan-600 rounded-full"></div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Why Choose Us Section */}
       <section className="py-20 bg-white" data-testid="why-choose-section">
