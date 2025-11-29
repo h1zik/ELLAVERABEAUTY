@@ -23,6 +23,10 @@ const ProductManagement = () => {
   const [selectedProductForDoc, setSelectedProductForDoc] = useState(null);
   const [generating, setGenerating] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const [imageMethod, setImageMethod] = useState('url'); // 'url' or 'upload'
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
     category_id: '',
