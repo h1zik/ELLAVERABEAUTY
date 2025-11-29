@@ -79,7 +79,7 @@ const LandingPage = () => {
       {/* Why Choose Us Section */}
       <section className="py-20 bg-white" data-testid="why-choose-section">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 scroll-reveal">
+          <div className="text-center mb-16 scroll-fade-up">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
               Why Choose <span className="text-gradient">Ellavera Beauty</span>
             </h2>
@@ -106,7 +106,7 @@ const LandingPage = () => {
                 icon: Star
               }
             ].map((feature, index) => (
-              <Card key={index} className="p-8 hover:shadow-xl transition-shadow scroll-reveal border-none shadow-md" style={{ animationDelay: `${index * 0.1}s` }}>
+              <Card key={index} className="p-8 hover:shadow-xl transition-shadow scroll-scale border-none shadow-md">
                 <div className="bg-cyan-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
                   <feature.icon className="text-cyan-600" size={28} />
                 </div>
