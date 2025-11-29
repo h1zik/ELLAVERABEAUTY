@@ -79,20 +79,18 @@ const AboutPage = () => {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 mt-12">
         {/* Company Story */}
-        <section className="mb-20">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold mb-6 text-center">Our Story</h2>
-            <p className="text-lg text-slate-600 mb-4 leading-relaxed">
-              Ellavera Beauty was founded with a singular vision: to empower beauty brands with world-class cosmetic manufacturing services. With years of expertise in the cosmetics industry, we understand the unique challenges brands face in bringing their products to market.
-            </p>
-            <p className="text-lg text-slate-600 mb-4 leading-relaxed">
-              We specialize in custom formulation, private label manufacturing, and complete turnkey solutions. Our state-of-the-art facilities are equipped with the latest technology, allowing us to create products that meet the highest quality standards while maintaining competitive pricing.
-            </p>
-            <p className="text-lg text-slate-600 leading-relaxed">
-              From skincare to haircare, body care to fragrances, we have the capability and expertise to manufacture a wide range of cosmetic products. Our commitment to quality, innovation, and customer satisfaction has made us a preferred partner for brands across the globe.
-            </p>
-          </div>
-        </section>
+        {textSection && (
+          <section className="mb-20">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl font-bold mb-6 text-center">{textSection.content.heading || 'Our Story'}</h2>
+              {textSection.content.paragraphs?.map((paragraph, index) => (
+                <p key={index} className="text-lg text-slate-600 mb-4 leading-relaxed">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Vision & Mission */}
         <section className="mb-20">
