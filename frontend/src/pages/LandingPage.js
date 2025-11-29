@@ -201,41 +201,36 @@ const LandingPage = () => {
       )}
 
       {/* Process Timeline */}
-      <section className="py-20 bg-white" data-testid="process-section">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 scroll-fade-up">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-              Our <span className="text-gradient">Process</span>
-            </h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              A streamlined approach from concept to final product
-            </p>
-          </div>
+      {processSection && (
+        <section className="py-20 bg-white" data-testid="process-section">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16 scroll-fade-up">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+                Our <span className="text-gradient">{processSection.content.heading?.replace('Our ', '') || 'Process'}</span>
+              </h2>
+              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+                {processSection.content.subheading || 'A streamlined approach from concept to final product'}
+              </p>
+            </div>
 
-          <div className="max-w-4xl mx-auto">
-            {[
-              { step: '01', title: 'Consultation', description: 'Understanding your brand vision and requirements' },
-              { step: '02', title: 'Formulation', description: 'Creating custom formulas tailored to your needs' },
-              { step: '03', title: 'Testing', description: 'Rigorous quality control and safety testing' },
-              { step: '04', title: 'Production', description: 'Manufacturing with state-of-the-art equipment' },
-              { step: '05', title: 'Packaging', description: 'Premium packaging design and execution' },
-              { step: '06', title: 'Delivery', description: 'Efficient distribution and logistics support' }
-            ].map((item, index) => (
-              <div key={index} className={`flex gap-6 mb-8 ${index % 2 === 0 ? 'scroll-fade-left' : 'scroll-fade-right'}`}>
-                <div className="flex-shrink-0">
-                  <div className="w-16 h-16 bg-cyan-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
-                    {item.step}
+            <div className="max-w-4xl mx-auto">
+              {processSection.content.steps?.map((item, index) => (
+                <div key={index} className={`flex gap-6 mb-8 ${index % 2 === 0 ? 'scroll-fade-left' : 'scroll-fade-right'}`}>
+                  <div className="flex-shrink-0">
+                    <div className="w-16 h-16 bg-cyan-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                      {item.step}
+                    </div>
+                  </div>
+                  <div className="flex-grow pt-2">
+                    <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                    <p className="text-slate-600">{item.description}</p>
                   </div>
                 </div>
-                <div className="flex-grow pt-2">
-                  <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                  <p className="text-slate-600">{item.description}</p>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Featured Products */}
       {products.length > 0 && (
