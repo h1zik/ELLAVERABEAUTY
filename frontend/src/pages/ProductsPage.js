@@ -89,7 +89,7 @@ const ProductsPage = () => {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {products.map((product, index) => (
-              <Card key={product.id} className="product-card overflow-hidden scroll-reveal border-none shadow-lg" style={{ animationDelay: `${index * 0.05}s` }} data-testid={`product-card-${product.id}`}>
+              <Card key={product.id} className="product-card overflow-hidden scroll-fade-up border-none shadow-lg" data-testid={`product-card-${product.id}`}>
                 <div className="aspect-square bg-gradient-to-br from-cyan-100 to-cyan-50 image-overlay">
                   {product.images && product.images[0] ? (
                     <img src={product.images[0]} alt={product.name} className="w-full h-full object-cover" />
