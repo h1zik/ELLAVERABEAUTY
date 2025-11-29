@@ -11,6 +11,7 @@ const LandingPage = () => {
   const [products, setProducts] = useState([]);
   const [sections, setSections] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetchData();
@@ -39,6 +40,7 @@ const LandingPage = () => {
       setSections(sectionsRes.data.filter(s => s.visible).sort((a, b) => a.order - b.order));
     } catch (error) {
       console.error('Failed to fetch data:', error);
+      setError('Failed to load page content');
     } finally {
       setLoading(false);
     }
@@ -47,6 +49,36 @@ const LandingPage = () => {
   const getSection = (sectionType) => {
     return sections.find(s => s.section_type === sectionType);
   };
+
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-600 mx-auto mb-4"></div>
+          <p className="text-slate-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show error state
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-red-600">{error}</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Get section data
+  const heroSection = getSection('hero');
+  const featuresSection = getSection('features');
+  const servicesSection = getSection('services');
+  const processSection = getSection('process');
+  const ctaSection = getSection('cta');
 
   return (
     <div className="min-h-screen">
