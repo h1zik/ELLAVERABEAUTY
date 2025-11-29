@@ -18,6 +18,10 @@ const ArticleManagement = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingArticle, setEditingArticle] = useState(null);
   const [generating, setGenerating] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const [imageMethod, setImageMethod] = useState('url');
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
   const [formData, setFormData] = useState({
     title: '',
     content: '',
