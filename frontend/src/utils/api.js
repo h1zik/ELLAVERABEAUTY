@@ -62,4 +62,8 @@ export const api = {
   // Theme
   getTheme: () => axios.get(`${API}/theme`),
   updateTheme: (data) => axios.put(`${API}/theme`, data, { headers: getAuthHeaders() }),
+
+  // Site Settings
+  getSettings: () => axios.get(`${API}/settings`),
+  updateSettings: (data) => axios.put(`${API}/settings`, data, { headers: getAuthHeaders() }),
 };
