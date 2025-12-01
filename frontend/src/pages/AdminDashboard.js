@@ -48,6 +48,11 @@ const AdminDashboard = () => {
           </TabsList>
 
           <TabsContent value="content">
+
+          <TabsContent value="builder">
+            <PageBuilderManagement />
+          </TabsContent>
+
             <ContentEditor />
           </TabsContent>
 
