@@ -168,7 +168,7 @@ const ClientManagement = () => {
                   variant="outline" 
                   onClick={() => { 
                     setIsDialogOpen(false); 
-                    setFormData({ name: '', logo_url: '', testimonial: '', position: '', rating: 5 }); 
+                    setFormData({ name: '', logo_url: '' }); 
                     setImageMethod('url');
                     setImageFile(null);
                     setImagePreview(null);
