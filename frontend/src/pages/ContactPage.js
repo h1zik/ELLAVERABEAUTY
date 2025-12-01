@@ -10,6 +10,7 @@ import { toast } from 'sonner';
 
 const ContactPage = () => {
   const [sections, setSections] = useState([]);
+  const [settings, setSettings] = useState(null);
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
     name: '',
@@ -21,15 +22,19 @@ const ContactPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    fetchSections();
+    fetchData();
   }, []);
 
-  const fetchSections = async () => {
+  const fetchData = async () => {
     try {
-      const response = await api.getPageSections('contact');
-      setSections(response.data.filter(s => s.visible).sort((a, b) => a.order - b.order));
+      const [sectionsRes, settingsRes] = await Promise.all([
+        api.getPageSections('contact'),
+        api.getSettings()
+      ]);
+      setSections(sectionsRes.data.filter(s => s.visible).sort((a, b) => a.order - b.order));
+      setSettings(settingsRes.data);
     } catch (error) {
-      console.error('Failed to fetch contact page sections:', error);
+      console.error('Failed to fetch contact page data:', error);
     } finally {
       setLoading(false);
     }
