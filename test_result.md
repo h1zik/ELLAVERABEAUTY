@@ -205,9 +205,7 @@ metadata:
   run_ui: true
 
 test_plan:
-  current_focus:
-    - "Related Products feature on product detail pages"
-    - "Related Articles feature on article detail pages"
+  current_focus: []
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
