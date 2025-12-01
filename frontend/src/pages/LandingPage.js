@@ -314,13 +314,17 @@ const LandingPage = () => {
                 disableOnInteraction: false,
                 pauseOnMouseEnter: true,
               }}
-              pagination={{ clickable: true }}
+              pagination={{ 
+                clickable: true,
+                dynamicBullets: true,
+              }}
               breakpoints={{
                 640: { slidesPerView: 3 },
                 768: { slidesPerView: 4 },
                 1024: { slidesPerView: 5 }
               }}
-              className="pb-12"
+              className="pb-16"
+              style={{ paddingBottom: '3rem' }}
             >
               {clients.map((client) => (
                 <SwiperSlide key={client.id}>
