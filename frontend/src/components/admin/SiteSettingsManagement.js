@@ -80,12 +80,60 @@ const SiteSettingsManagement = () => {
               />
             </div>
             <div>
-              <Label>Logo Text</Label>
+              <Label>Logo Image</Label>
+              <div className="mt-2 space-y-3">
+                {settings.logo_url && (
+                  <div className="relative inline-block">
+                    <img
+                      src={settings.logo_url}
+                      alt="Logo"
+                      className="h-20 w-auto object-contain border-2 border-slate-200 rounded-lg p-2 bg-white"
+                    />
+                  </div>
+                )}
+                <div>
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    onChange={async (e) => {
+                      const file = e.target.files[0];
+                      if (!file) return;
+
+                      if (file.size > 2 * 1024 * 1024) {
+                        toast.error('Image size must be less than 2MB');
+                        return;
+                      }
+
+                      setUploadingLogo(true);
+                      try {
+                        const response = await api.uploadImage(file);
+                        setSettings({ ...settings, logo_url: response.data.data_url });
+                        toast.success('Logo uploaded! Click Save to apply.');
+                      } catch (error) {
+                        toast.error('Failed to upload logo');
+                      } finally {
+                        setUploadingLogo(false);
+                      }
+                    }}
+                    data-testid="logo-upload-input"
+                    className="mt-1"
+                    disabled={uploadingLogo}
+                  />
+                  <p className="text-xs text-slate-500 mt-1">
+                    Upload PNG, JPG or SVG (max 2MB). Recommended size: 200x60px
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <Label>Logo Text (Fallback)</Label>
               <Input
                 value={settings.logo_text || ''}
                 onChange={(e) => setSettings({ ...settings, logo_text: e.target.value })}
                 data-testid="logo-text-input"
                 className="mt-1"
+                placeholder="Used when no logo image is set"
               />
             </div>
             <div>
