@@ -1,25 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from 'lucide-react';
-import { api } from '../../utils/api';
+import { useSettings } from '../../context/SettingsContext';
 
 const Footer = () => {
-  const [settings, setSettings] = useState(null);
+  const { settings, loading } = useSettings();
 
-  useEffect(() => {
-    fetchSettings();
-  }, []);
-
-  const fetchSettings = async () => {
-    try {
-      const response = await api.getSettings();
-      setSettings(response.data);
-    } catch (error) {
-      console.error('Failed to fetch settings:', error);
-    }
-  };
-
-  if (!settings) {
+  if (loading || !settings) {
     return null; // or a loading skeleton
   }
 
