@@ -83,7 +83,7 @@ const ClientManagement = () => {
       await api.createClient(clientData);
       toast.success('Client added successfully');
       setIsDialogOpen(false);
-      setFormData({ name: '', logo_url: '', testimonial: '', position: '', rating: 5 });
+      setFormData({ name: '', logo_url: '' });
       setImageMethod('url');
       setImageFile(null);
       setImagePreview(null);
