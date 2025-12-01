@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { api } from '../../utils/api';
 import { toast } from 'sonner';
 import LoadingSpinner from '../layout/LoadingSpinner';
+import ArrayItemEditor from './ArrayItemEditor';
 
 const ContentEditor = () => {
   const [sections, setSections] = useState([]);
