@@ -71,7 +71,6 @@ const ContactPage = () => {
   }
 
   const heroSection = getSection('hero');
-  const contactInfoSection = getSection('contact_info');
   const mapSection = getSection('map');
 
   return (
