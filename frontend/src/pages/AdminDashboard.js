@@ -34,11 +34,12 @@ const AdminDashboard = () => {
         </div>
 
         <Tabs defaultValue="content" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 mb-8 h-auto">
+          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 mb-8 h-auto">
             <TabsTrigger value="content" data-testid="tab-content">Page Content</TabsTrigger>
             <TabsTrigger value="products" data-testid="tab-products">Products</TabsTrigger>
             <TabsTrigger value="articles" data-testid="tab-articles">Articles</TabsTrigger>
             <TabsTrigger value="clients" data-testid="tab-clients">Clients</TabsTrigger>
+            <TabsTrigger value="reviews" data-testid="tab-reviews">Reviews</TabsTrigger>
             <TabsTrigger value="settings" data-testid="tab-settings">Settings</TabsTrigger>
             <TabsTrigger value="theme" data-testid="tab-theme">Theme</TabsTrigger>
             <TabsTrigger value="leads" data-testid="tab-leads">Leads</TabsTrigger>
