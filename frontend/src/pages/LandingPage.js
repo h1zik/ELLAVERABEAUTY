@@ -208,9 +208,9 @@ const LandingPage = () => {
         </section>
       )}
 
-      {/* Process Timeline */}
+      {/* Process Flow Diagram */}
       {processSection && (
-        <section className="py-20 bg-white" data-testid="process-section">
+        <section className="py-20 bg-gradient-to-b from-white to-cyan-50" data-testid="process-section">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16 scroll-fade-up">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
@@ -221,17 +221,67 @@ const LandingPage = () => {
               </p>
             </div>
 
-            <div className="max-w-4xl mx-auto">
-              {processSection.content.steps?.map((item, index) => (
-                <div key={index} className={`flex gap-6 mb-8 ${index % 2 === 0 ? 'scroll-fade-left' : 'scroll-fade-right'}`}>
-                  <div className="flex-shrink-0">
-                    <div className="w-16 h-16 bg-cyan-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
-                      {item.step}
+            {/* Desktop Flow Diagram */}
+            <div className="hidden lg:block max-w-7xl mx-auto">
+              <div className="relative">
+                {/* Connection Lines */}
+                <div className="absolute top-20 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600" style={{ top: '5rem' }}></div>
+                
+                {/* Steps */}
+                <div className="grid grid-cols-3 gap-8">
+                  {processSection.content.steps?.slice(0, 6).map((item, index) => (
+                    <div key={index} className="relative scroll-scale" style={{ animationDelay: `${index * 0.1}s` }}>
+                      {/* Arrow */}
+                      {index < processSection.content.steps.length - 1 && index % 3 !== 2 && (
+                        <div className="absolute -right-4 top-16 z-10">
+                          <ArrowRight className="text-cyan-600" size={32} />
+                        </div>
+                      )}
+                      
+                      {/* Card */}
+                      <Card className="relative overflow-hidden border-2 border-cyan-100 hover:border-cyan-400 hover:shadow-xl transition-all duration-300 bg-white">
+                        {/* Step Number Badge */}
+                        <div className="absolute -top-4 -left-4 w-16 h-16 bg-gradient-to-br from-cyan-600 to-cyan-700 rounded-full flex items-center justify-center shadow-lg">
+                          <span className="text-white text-2xl font-bold">{item.step}</span>
+                        </div>
+                        
+                        <div className="pt-8 pb-6 px-6">
+                          <h3 className="text-xl font-bold mb-3 text-slate-800 mt-4">{item.title}</h3>
+                          <p className="text-slate-600 text-sm leading-relaxed">{item.description}</p>
+                        </div>
+
+                        {/* Accent Line */}
+                        <div className="h-1 bg-gradient-to-r from-cyan-400 to-cyan-600"></div>
+                      </Card>
                     </div>
-                  </div>
-                  <div className="flex-grow pt-2">
-                    <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                    <p className="text-slate-600">{item.description}</p>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Mobile/Tablet Vertical Flow */}
+            <div className="lg:hidden max-w-2xl mx-auto">
+              {processSection.content.steps?.map((item, index) => (
+                <div key={index} className="relative scroll-fade-up" style={{ animationDelay: `${index * 0.1}s` }}>
+                  {/* Connection Line */}
+                  {index < processSection.content.steps.length - 1 && (
+                    <div className="absolute left-8 top-20 bottom-0 w-1 bg-gradient-to-b from-cyan-400 to-cyan-600 -z-10"></div>
+                  )}
+                  
+                  <div className="flex gap-4 mb-6">
+                    {/* Step Number */}
+                    <div className="flex-shrink-0">
+                      <div className="w-16 h-16 bg-gradient-to-br from-cyan-600 to-cyan-700 text-white rounded-full flex items-center justify-center text-2xl font-bold shadow-lg">
+                        {item.step}
+                      </div>
+                    </div>
+                    
+                    {/* Content Card */}
+                    <Card className="flex-1 p-6 border-2 border-cyan-100 hover:border-cyan-400 transition-all bg-white">
+                      <h3 className="text-xl font-bold mb-2 text-slate-800">{item.title}</h3>
+                      <p className="text-slate-600 text-sm">{item.description}</p>
+                      <div className="mt-4 h-1 bg-gradient-to-r from-cyan-400 to-cyan-600 rounded-full"></div>
+                    </Card>
                   </div>
                 </div>
               ))}
