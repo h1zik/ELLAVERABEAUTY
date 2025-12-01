@@ -261,28 +261,36 @@ const ContentEditor = () => {
                 rows={2}
               />
             </div>
-            {content.services && content.services.map((service, index) => (
-              <Card key={index} className="p-4 bg-slate-50">
-                <div className="grid grid-cols-2 gap-2">
-                  <Input
-                    placeholder="Service Name"
-                    value={service.name || ''}
-                    onChange={(e) => {
-                      section.content.services[index].name = e.target.value;
-                      setSections([...sections]);
-                    }}
-                  />
-                  <Input
-                    placeholder="Description"
-                    value={service.description || ''}
-                    onChange={(e) => {
-                      section.content.services[index].description = e.target.value;
-                      setSections([...sections]);
-                    }}
-                  />
+
+            <ArrayItemEditor
+              title="Services"
+              items={content.services || []}
+              onChange={(newServices) => {
+                section.content.services = newServices;
+                setSections([...sections]);
+              }}
+              itemTemplate={{ name: '', description: '' }}
+              renderItem={(service, index, updateItem) => (
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <Label>Service Name</Label>
+                    <Input
+                      value={service.name || ''}
+                      onChange={(e) => updateItem(index, 'name', e.target.value)}
+                      placeholder="e.g., Skincare Manufacturing"
+                    />
+                  </div>
+                  <div>
+                    <Label>Description</Label>
+                    <Input
+                      value={service.description || ''}
+                      onChange={(e) => updateItem(index, 'description', e.target.value)}
+                      placeholder="Brief description"
+                    />
+                  </div>
                 </div>
-              </Card>
-            ))}
+              )}
+            />
           </div>
         );
 
