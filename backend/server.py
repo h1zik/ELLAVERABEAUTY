@@ -737,9 +737,6 @@ async def create_client(client_data: ClientCreate, admin: User = Depends(require
         "id": client_id,
         "name": client_data.name,
         "logo_url": client_data.logo_url,
-        "testimonial": client_data.testimonial,
-        "position": client_data.position,
-        "rating": client_data.rating,
         "created_at": datetime.now(timezone.utc).isoformat()
     }
     
