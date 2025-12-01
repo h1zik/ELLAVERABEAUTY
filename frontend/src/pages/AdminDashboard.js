@@ -61,6 +61,11 @@ const AdminDashboard = () => {
             <ClientManagement />
           </TabsContent>
 
+          <TabsContent value="reviews">
+            <ReviewManagement />
+          </TabsContent>
+
+
           <TabsContent value="settings">
             <SiteSettingsManagement />
           </TabsContent>
