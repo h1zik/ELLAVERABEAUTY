@@ -165,6 +165,30 @@ frontend:
           agent: "testing"
           comment: "✅ COMPREHENSIVE E2E TEST PASSED: Successfully logged into admin panel (admin@ellavera.com/admin123), navigated to Settings tab > Contact Info, updated all contact fields (Email: test-email@ellavera.com, Phone: +62 999 888 7777, Address: Test Address, Jakarta), saved settings, and verified ALL changes appear correctly on live Contact page. Contact Info customization system fully functional - changes from Settings API immediately reflect on Contact page via dynamic fetching from /api/settings endpoint."
 
+  - task: "Related Products feature on product detail pages"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/pages/ProductDetailPage.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "user"
+          comment: "User requested comprehensive testing of Related Products feature. Need to verify: 1) Related Products section appears at bottom of product detail pages, 2) Shows products from same category, 3) Excludes current product, 4) Maximum 3 items shown, 5) Cards have hover effects, 6) Clicking navigates correctly."
+
+  - task: "Related Articles feature on article detail pages"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/pages/ArticleDetailPage.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "user"
+          comment: "User requested comprehensive testing of Related Articles feature. Need to verify: 1) Related Articles section appears at bottom of article detail pages, 2) Shows articles from same category, 3) Excludes current article, 4) Maximum 3 items shown, 5) Cards have hover effects, 6) Clicking navigates correctly."
+
 metadata:
   created_by: "main_agent"
   version: "1.0"
