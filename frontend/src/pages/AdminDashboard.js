@@ -5,6 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs'
 import ProductManagement from '../components/admin/ProductManagement';
 import ArticleManagement from '../components/admin/ArticleManagement';
 import ClientManagement from '../components/admin/ClientManagement';
+import ReviewManagement from '../components/admin/ReviewManagement';
 import ThemeManagement from '../components/admin/ThemeManagement';
 import LeadsManagement from '../components/admin/LeadsManagement';
 import SiteSettingsManagement from '../components/admin/SiteSettingsManagement';
