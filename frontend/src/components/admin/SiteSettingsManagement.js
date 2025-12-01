@@ -9,12 +9,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 import { api } from '../../utils/api';
 import { toast } from 'sonner';
 import LoadingSpinner from '../layout/LoadingSpinner';
+import { useSettings } from '../../context/SettingsContext';
 
 const SiteSettingsManagement = () => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [uploadingLogo, setUploadingLogo] = useState(false);
   const [settings, setSettings] = useState({});
+  const { refreshSettings } = useSettings();
 
   useEffect(() => {
     fetchSettings();
