@@ -10,6 +10,7 @@ import LoadingSpinner from '../components/layout/LoadingSpinner';
 const ProductDetailPage = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
+  const [relatedProducts, setRelatedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(0);
 
@@ -21,6 +22,15 @@ const ProductDetailPage = () => {
     try {
       const response = await api.getProduct(id);
       setProduct(response.data);
+      
+      // Fetch related products from same category
+      if (response.data.category) {
+        const productsRes = await api.getProducts();
+        const related = productsRes.data
+          .filter(p => p.category === response.data.category && p.id !== response.data.id)
+          .slice(0, 3);
+        setRelatedProducts(related);
+      }
     } catch (error) {
       console.error('Failed to fetch product:', error);
     } finally {
