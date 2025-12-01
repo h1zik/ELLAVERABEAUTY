@@ -318,30 +318,47 @@ const ContentEditor = () => {
                 rows={2}
               />
             </div>
-            {content.steps && content.steps.map((step, index) => (
-              <Card key={index} className="p-4 bg-slate-50">
-                <h4 className="font-semibold mb-3">Step {step.step}</h4>
-                <div className="space-y-2">
-                  <Input
-                    placeholder="Title"
-                    value={step.title || ''}
-                    onChange={(e) => {
-                      section.content.steps[index].title = e.target.value;
-                      setSections([...sections]);
-                    }}
-                  />
-                  <Textarea
-                    placeholder="Description"
-                    value={step.description || ''}
-                    onChange={(e) => {
-                      section.content.steps[index].description = e.target.value;
-                      setSections([...sections]);
-                    }}
-                    rows={2}
-                  />
-                </div>
-              </Card>
-            ))}
+
+            <ArrayItemEditor
+              title="Process Steps"
+              items={content.steps || []}
+              onChange={(newSteps) => {
+                // Auto-number steps
+                const numbered = newSteps.map((step, idx) => ({
+                  ...step,
+                  step: String(idx + 1).padStart(2, '0')
+                }));
+                section.content.steps = numbered;
+                setSections([...sections]);
+              }}
+              itemTemplate={{ step: '01', title: '', description: '' }}
+              renderItem={(step, index, updateItem) => (
+                <>
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-cyan-600 text-white rounded-full flex items-center justify-center text-xl font-bold flex-shrink-0">
+                      {String(index + 1).padStart(2, '0')}
+                    </div>
+                    <div className="flex-1">
+                      <Label>Step Title</Label>
+                      <Input
+                        value={step.title || ''}
+                        onChange={(e) => updateItem(index, 'title', e.target.value)}
+                        placeholder="e.g., Consultation"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Label>Description</Label>
+                    <Textarea
+                      value={step.description || ''}
+                      onChange={(e) => updateItem(index, 'description', e.target.value)}
+                      placeholder="Describe this step..."
+                      rows={2}
+                    />
+                  </div>
+                </>
+              )}
+            />
           </div>
         );
 
