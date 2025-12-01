@@ -207,6 +207,7 @@ class SiteSettings(BaseModel):
 class SiteSettingsUpdate(BaseModel):
     site_name: Optional[str] = None
     site_tagline: Optional[str] = None
+    logo_url: Optional[str] = None
     logo_text: Optional[str] = None
     footer_text: Optional[str] = None
     contact_email: Optional[str] = None
