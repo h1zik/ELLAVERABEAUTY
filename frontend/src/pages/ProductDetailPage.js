@@ -24,10 +24,10 @@ const ProductDetailPage = () => {
       setProduct(response.data);
       
       // Fetch related products from same category
-      if (response.data.category) {
+      if (response.data.category_name) {
         const productsRes = await api.getProducts();
         const related = productsRes.data
-          .filter(p => p.category === response.data.category && p.id !== response.data.id)
+          .filter(p => p.category_name === response.data.category_name && p.id !== response.data.id)
           .slice(0, 3);
         setRelatedProducts(related);
       }
