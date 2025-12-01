@@ -234,18 +234,6 @@ const ContentEditor = () => {
                 </>
               )}
             />
-                  <Textarea
-                    placeholder="Description"
-                    value={feature.description || ''}
-                    onChange={(e) => {
-                      section.content.features[index].description = e.target.value;
-                      setSections([...sections]);
-                    }}
-                    rows={2}
-                  />
-                </div>
-              </Card>
-            ))}
           </div>
         );
 
