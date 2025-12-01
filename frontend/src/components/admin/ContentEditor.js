@@ -187,18 +187,53 @@ const ContentEditor = () => {
                 rows={2}
               />
             </div>
-            {content.features && content.features.map((feature, index) => (
-              <Card key={index} className="p-4 bg-slate-50">
-                <h4 className="font-semibold mb-3">Feature {index + 1}</h4>
-                <div className="space-y-2">
-                  <Input
-                    placeholder="Title"
-                    value={feature.title || ''}
-                    onChange={(e) => {
-                      section.content.features[index].title = e.target.value;
-                      setSections([...sections]);
-                    }}
-                  />
+
+            <ArrayItemEditor
+              title="Features"
+              items={content.features || []}
+              onChange={(newFeatures) => {
+                section.content.features = newFeatures;
+                setSections([...sections]);
+              }}
+              itemTemplate={{ title: '', description: '', icon: 'CheckCircle' }}
+              renderItem={(feature, index, updateItem) => (
+                <>
+                  <div>
+                    <Label>Title</Label>
+                    <Input
+                      value={feature.title || ''}
+                      onChange={(e) => updateItem(index, 'title', e.target.value)}
+                      placeholder="Feature title"
+                    />
+                  </div>
+                  <div>
+                    <Label>Description</Label>
+                    <Textarea
+                      value={feature.description || ''}
+                      onChange={(e) => updateItem(index, 'description', e.target.value)}
+                      placeholder="Feature description"
+                      rows={2}
+                    />
+                  </div>
+                  <div>
+                    <Label>Icon</Label>
+                    <Select
+                      value={feature.icon || 'CheckCircle'}
+                      onValueChange={(value) => updateItem(index, 'icon', value)}
+                    >
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="CheckCircle">CheckCircle</SelectItem>
+                        <SelectItem value="Sparkles">Sparkles</SelectItem>
+                        <SelectItem value="Star">Star</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </>
+              )}
+            />
                   <Textarea
                     placeholder="Description"
                     value={feature.description || ''}
