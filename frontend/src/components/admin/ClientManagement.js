@@ -154,9 +154,6 @@ const ClientManagement = () => {
                   </TabsContent>
                 </Tabs>
               </div>
-              <div><Label>Testimonial (Optional)</Label><Textarea value={formData.testimonial} onChange={(e) => setFormData({ ...formData, testimonial: e.target.value })} rows={3} data-testid="client-testimonial-input" /></div>
-              <div><Label>Position (Optional)</Label><Input value={formData.position} onChange={(e) => setFormData({ ...formData, position: e.target.value })} data-testid="client-position-input" placeholder="CEO, Brand Manager, etc." /></div>
-              <div><Label>Rating</Label><Input type="number" min="1" max="5" value={formData.rating} onChange={(e) => setFormData({ ...formData, rating: parseInt(e.target.value) })} data-testid="client-rating-input" /></div>
               <div className="flex gap-2 pt-4">
                 <Button 
                   type="submit" 
