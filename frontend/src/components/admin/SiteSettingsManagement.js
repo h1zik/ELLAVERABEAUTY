@@ -13,6 +13,7 @@ import LoadingSpinner from '../layout/LoadingSpinner';
 const SiteSettingsManagement = () => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [uploadingLogo, setUploadingLogo] = useState(false);
   const [settings, setSettings] = useState({});
 
   useEffect(() => {
