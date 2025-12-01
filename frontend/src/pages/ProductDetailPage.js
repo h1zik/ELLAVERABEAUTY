@@ -132,6 +132,41 @@ const ProductDetailPage = () => {
             </Link>
           </div>
         </div>
+
+        {/* Related Products */}
+        {relatedProducts.length > 0 && (
+          <div className="mt-20">
+            <h2 className="text-3xl font-bold mb-8 text-center">
+              Related <span className="text-gradient">Products</span>
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {relatedProducts.map((relatedProduct) => (
+                <Link key={relatedProduct.id} to={`/products/${relatedProduct.id}`}>
+                  <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 border-none shadow-md group">
+                    <div className="aspect-square bg-gradient-to-br from-cyan-100 to-cyan-50 overflow-hidden">
+                      {relatedProduct.images && relatedProduct.images.length > 0 ? (
+                        <img
+                          src={relatedProduct.images[0]}
+                          alt={relatedProduct.name}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <Sparkles className="text-cyan-600" size={48} />
+                        </div>
+                      )}
+                    </div>
+                    <div className="p-6">
+                      <p className="text-sm text-cyan-600 font-medium mb-2">{relatedProduct.category_name}</p>
+                      <h3 className="text-xl font-bold mb-2 group-hover:text-cyan-600 transition-colors">{relatedProduct.name}</h3>
+                      <p className="text-slate-600 text-sm line-clamp-2">{relatedProduct.description}</p>
+                    </div>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
