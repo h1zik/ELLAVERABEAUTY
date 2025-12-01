@@ -68,6 +68,12 @@ export const api = {
   createClient: (data) => axios.post(`${API}/clients`, data, { headers: getAuthHeaders() }),
   deleteClient: (id) => axios.delete(`${API}/clients/${id}`, { headers: getAuthHeaders() }),
 
+  // Reviews
+  getReviews: () => axios.get(`${API}/reviews`),
+  createReview: (data) => axios.post(`${API}/reviews`, data, { headers: getAuthHeaders() }),
+  updateReview: (id, data) => axios.put(`${API}/reviews/${id}`, data, { headers: getAuthHeaders() }),
+  deleteReview: (id) => axios.delete(`${API}/reviews/${id}`, { headers: getAuthHeaders() }),
+
   // Contact
   submitContact: (data) => axios.post(`${API}/contact`, data),
   getContactLeads: () => axios.get(`${API}/contact/leads`, { headers: getAuthHeaders() }),
