@@ -1,8 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from 'lucide-react';
+import { api } from '../../utils/api';
 
 const Footer = () => {
+  const [settings, setSettings] = useState(null);
+
+  useEffect(() => {
+    fetchSettings();
+  }, []);
+
+  const fetchSettings = async () => {
+    try {
+      const response = await api.getSettings();
+      setSettings(response.data);
+    } catch (error) {
+      console.error('Failed to fetch settings:', error);
+    }
+  };
+
+  if (!settings) {
+    return null; // or a loading skeleton
+  }
+
   return (
     <footer className="bg-slate-900 text-white pt-16 pb-8" data-testid="main-footer">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -10,21 +30,27 @@ const Footer = () => {
           {/* Brand */}
           <div>
             <h3 className="text-2xl font-bold text-gradient mb-4" data-testid="footer-brand">
-              Ellavera Beauty
+              {settings.site_name || 'Ellavera Beauty'}
             </h3>
             <p className="text-slate-400 text-sm mb-4">
-              Premium cosmetic manufacturing solutions for your brand. We create beauty products that inspire confidence.
+              {settings.footer_text || 'Premium cosmetic manufacturing solutions for your brand. We create beauty products that inspire confidence.'}
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-slate-400 hover:text-cyan-400 transition-colors" data-testid="social-facebook">
-                <Facebook size={20} />
-              </a>
-              <a href="#" className="text-slate-400 hover:text-cyan-400 transition-colors" data-testid="social-instagram">
-                <Instagram size={20} />
-              </a>
-              <a href="#" className="text-slate-400 hover:text-cyan-400 transition-colors" data-testid="social-twitter">
-                <Twitter size={20} />
-              </a>
+              {settings.facebook_url && settings.facebook_url !== '#' && (
+                <a href={settings.facebook_url} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-cyan-400 transition-colors" data-testid="social-facebook">
+                  <Facebook size={20} />
+                </a>
+              )}
+              {settings.instagram_url && settings.instagram_url !== '#' && (
+                <a href={settings.instagram_url} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-cyan-400 transition-colors" data-testid="social-instagram">
+                  <Instagram size={20} />
+                </a>
+              )}
+              {settings.twitter_url && settings.twitter_url !== '#' && (
+                <a href={settings.twitter_url} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-cyan-400 transition-colors" data-testid="social-twitter">
+                  <Twitter size={20} />
+                </a>
+              )}
             </div>
           </div>
 
@@ -58,22 +84,22 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-start space-x-2 text-slate-400 text-sm">
                 <MapPin size={16} className="mt-1 flex-shrink-0" />
-                <span>Jakarta, Indonesia</span>
+                <span>{settings.contact_address || 'Jakarta, Indonesia'}</span>
               </li>
               <li className="flex items-center space-x-2 text-slate-400 text-sm">
                 <Phone size={16} className="flex-shrink-0" />
-                <span>+62 123 456 7890</span>
+                <span>{settings.contact_phone || '+62 123 456 7890'}</span>
               </li>
               <li className="flex items-center space-x-2 text-slate-400 text-sm">
                 <Mail size={16} className="flex-shrink-0" />
-                <span>info@ellavera.com</span>
+                <span>{settings.contact_email || 'info@ellavera.com'}</span>
               </li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-slate-800 pt-8 text-center text-slate-400 text-sm">
-          <p>&copy; {new Date().getFullYear()} Ellavera Beauty. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} {settings.site_name || 'Ellavera Beauty'}. All rights reserved.</p>
         </div>
       </div>
     </footer>
