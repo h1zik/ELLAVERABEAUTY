@@ -35,12 +35,14 @@ const LandingPage = () => {
 
   const fetchData = async () => {
     try {
-      const [clientsRes, productsRes, sectionsRes] = await Promise.all([
+      const [clientsRes, reviewsRes, productsRes, sectionsRes] = await Promise.all([
         api.getClients(),
+        api.getReviews(),
         api.getProducts({ featured: true }),
         api.getPageSections('home')
       ]);
-      setClients(clientsRes.data.slice(0, 6));
+      setClients(clientsRes.data);
+      setReviews(reviewsRes.data);
       setProducts(productsRes.data.slice(0, 3));
       setSections(sectionsRes.data.filter(s => s.visible).sort((a, b) => a.order - b.order));
     } catch (error) {
