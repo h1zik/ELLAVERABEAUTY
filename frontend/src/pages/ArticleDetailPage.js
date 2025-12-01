@@ -99,6 +99,45 @@ const ArticleDetailPage = () => {
               {article.content}
             </div>
           </div>
+
+          {/* Related Articles */}
+          {relatedArticles.length > 0 && (
+            <div className="mt-16 pt-16 border-t border-slate-200">
+              <h2 className="text-3xl font-bold mb-8">
+                Related <span className="text-gradient">Articles</span>
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {relatedArticles.map((relatedArticle) => (
+                  <Link key={relatedArticle.id} to={`/articles/${relatedArticle.id}`}>
+                    <div className="group cursor-pointer">
+                      {relatedArticle.cover_image && (
+                        <div className="aspect-video bg-gradient-to-br from-cyan-100 to-cyan-50 rounded-xl overflow-hidden mb-4">
+                          <img
+                            src={relatedArticle.cover_image}
+                            alt={relatedArticle.title}
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                          />
+                        </div>
+                      )}
+                      <div className="flex items-center gap-4 text-sm text-slate-500 mb-2">
+                        <span className="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full text-xs font-medium">
+                          {relatedArticle.category}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Calendar size={14} />
+                          {formatDate(relatedArticle.created_at)}
+                        </span>
+                      </div>
+                      <h3 className="text-xl font-bold mb-2 group-hover:text-cyan-600 transition-colors line-clamp-2">
+                        {relatedArticle.title}
+                      </h3>
+                      <p className="text-slate-600 text-sm line-clamp-2">{relatedArticle.excerpt}</p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
         </article>
       </div>
     </div>
