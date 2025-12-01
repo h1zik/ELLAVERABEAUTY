@@ -139,17 +139,31 @@ class Client(BaseModel):
     id: str
     name: str
     logo_url: str
-    testimonial: Optional[str] = None
-    position: Optional[str] = None
-    rating: Optional[int] = 5
     created_at: datetime
 
 class ClientCreate(BaseModel):
     name: str
     logo_url: str
-    testimonial: Optional[str] = None
+
+# ============= REVIEW MODELS =============
+class Review(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str
+    customer_name: str
+    review_text: str
+    rating: int = 5
     position: Optional[str] = None
-    rating: Optional[int] = 5
+    company: Optional[str] = None
+    photo_url: Optional[str] = None
+    created_at: datetime
+
+class ReviewCreate(BaseModel):
+    customer_name: str
+    review_text: str
+    rating: int = 5
+    position: Optional[str] = None
+    company: Optional[str] = None
+    photo_url: Optional[str] = None
 
 # ============= THEME MODELS =============
 class ThemeSettings(BaseModel):
