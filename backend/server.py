@@ -751,6 +751,65 @@ async def delete_client(client_id: str, admin: User = Depends(require_admin)):
         raise HTTPException(status_code=404, detail="Client not found")
     return {"message": "Client deleted successfully"}
 
+
+# ============= REVIEW ROUTES =============
+@api_router.get("/reviews", response_model=List[Review])
+async def get_reviews():
+    reviews = await db.reviews.find({}, {"_id": 0}).to_list(1000)
+    for review in reviews:
+        if isinstance(review['created_at'], str):
+            review['created_at'] = datetime.fromisoformat(review['created_at'])
+    return reviews
+
+@api_router.post("/reviews", response_model=Review)
+async def create_review(review_data: ReviewCreate, admin: User = Depends(require_admin)):
+    review_id = str(uuid.uuid4())
+    
+    review = {
+        "id": review_id,
+        "customer_name": review_data.customer_name,
+        "review_text": review_data.review_text,
+        "rating": review_data.rating,
+        "position": review_data.position,
+        "company": review_data.company,
+        "photo_url": review_data.photo_url,
+        "created_at": datetime.now(timezone.utc).isoformat()
+    }
+    
+    await db.reviews.insert_one(review)
+    review['created_at'] = datetime.fromisoformat(review['created_at'])
+    return Review(**review)
+
+@api_router.put("/reviews/{review_id}", response_model=Review)
+async def update_review(review_id: str, review_data: ReviewCreate, admin: User = Depends(require_admin)):
+    existing = await db.reviews.find_one({"id": review_id})
+    if not existing:
+        raise HTTPException(status_code=404, detail="Review not found")
+    
+    update_data = {
+        "customer_name": review_data.customer_name,
+        "review_text": review_data.review_text,
+        "rating": review_data.rating,
+        "position": review_data.position,
+        "company": review_data.company,
+        "photo_url": review_data.photo_url
+    }
+    
+    await db.reviews.update_one({"id": review_id}, {"$set": update_data})
+    
+    review = await db.reviews.find_one({"id": review_id}, {"_id": 0})
+    if isinstance(review['created_at'], str):
+        review['created_at'] = datetime.fromisoformat(review['created_at'])
+    
+    return Review(**review)
+
+@api_router.delete("/reviews/{review_id}")
+async def delete_review(review_id: str, admin: User = Depends(require_admin)):
+    result = await db.reviews.delete_one({"id": review_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Review not found")
+    return {"message": "Review deleted successfully"}
+
 # ============= THEME ROUTES =============
 @api_router.get("/theme", response_model=ThemeSettings)
 async def get_theme():
