@@ -291,7 +291,7 @@ const LandingPage = () => {
         </section>
       )}
 
-      {/* Clients Section */}
+      {/* Clients Section with Auto-Slide */}
       {clients.length > 0 && (
         <section className="py-20 bg-white" data-testid="clients-section">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -304,21 +304,108 @@ const LandingPage = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-8 items-center">
-              {clients.map((client, index) => (
-                <div key={client.id} className="flex items-center justify-center p-4 grayscale hover:grayscale-0 transition-all scroll-reveal" style={{ animationDelay: `${index * 0.05}s` }}>
-                  <img src={client.logo_url} alt={client.name} className="max-h-16 w-auto" />
-                </div>
+            <Swiper
+              modules={[Autoplay, Pagination]}
+              spaceBetween={30}
+              slidesPerView={2}
+              loop={true}
+              autoplay={{
+                delay: 3000,
+                disableOnInteraction: false,
+              }}
+              pagination={{ clickable: true }}
+              breakpoints={{
+                640: { slidesPerView: 3 },
+                768: { slidesPerView: 4 },
+                1024: { slidesPerView: 6 }
+              }}
+              className="pb-12"
+            >
+              {clients.map((client) => (
+                <SwiperSlide key={client.id}>
+                  <div className="flex items-center justify-center p-4 grayscale hover:grayscale-0 transition-all h-24">
+                    <img src={client.logo_url} alt={client.name} className="max-h-16 w-auto" />
+                  </div>
+                </SwiperSlide>
               ))}
-            </div>
+            </Swiper>
 
-            <div className="text-center mt-12">
+            <div className="text-center mt-8">
               <Link to="/clients">
                 <Button variant="outline" className="border-cyan-600 text-cyan-600 hover:bg-cyan-50">
                   View All Clients
                 </Button>
               </Link>
             </div>
+          </div>
+        </section>
+      )}
+
+      {/* Reviews/Testimonials Section */}
+      {reviewsSection && reviews.length > 0 && (
+        <section className="py-20 bg-gradient-to-b from-cyan-50 to-white" data-testid="reviews-section">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16 scroll-fade-up">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+                {reviewsSection.content.heading || 'What Our Clients Say'}
+              </h2>
+              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+                {reviewsSection.content.subheading || 'Trusted by leading beauty brands worldwide'}
+              </p>
+            </div>
+
+            <Swiper
+              modules={[Autoplay, Pagination]}
+              spaceBetween={30}
+              slidesPerView={1}
+              loop={true}
+              autoplay={{
+                delay: 5000,
+                disableOnInteraction: false,
+              }}
+              pagination={{ clickable: true }}
+              breakpoints={{
+                768: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 }
+              }}
+              className="pb-12"
+            >
+              {reviews.map((review) => (
+                <SwiperSlide key={review.id}>
+                  <Card className="p-8 h-full border-none shadow-lg hover:shadow-xl transition-shadow">
+                    <Quote className="text-cyan-600 mb-4" size={32} />
+                    <p className="text-slate-700 mb-6 italic line-clamp-4">"{review.review_text}"</p>
+                    
+                    <div className="flex items-center gap-4 mt-auto">
+                      {review.photo_url && (
+                        <img
+                          src={review.photo_url}
+                          alt={review.customer_name}
+                          className="w-12 h-12 rounded-full object-cover"
+                        />
+                      )}
+                      <div>
+                        <p className="font-semibold">{review.customer_name}</p>
+                        {review.position && (
+                          <p className="text-sm text-slate-600">
+                            {review.position}{review.company ? ` - ${review.company}` : ''}
+                          </p>
+                        )}
+                        <div className="flex gap-1 mt-1">
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <Star
+                              key={star}
+                              size={14}
+                              className={star <= review.rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
         </section>
       )}
