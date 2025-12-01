@@ -363,17 +363,22 @@ const LandingPage = () => {
               modules={[Autoplay, Pagination]}
               spaceBetween={30}
               slidesPerView={1}
-              loop={true}
+              loop={reviews.length >= 3}
               autoplay={{
                 delay: 5000,
                 disableOnInteraction: false,
+                pauseOnMouseEnter: true,
               }}
-              pagination={{ clickable: true }}
+              pagination={{ 
+                clickable: true,
+                dynamicBullets: true,
+              }}
               breakpoints={{
                 768: { slidesPerView: 2 },
-                1024: { slidesPerView: 3 }
+                1024: { slidesPerView: 2 }
               }}
-              className="pb-12"
+              className="pb-16"
+              style={{ paddingBottom: '3rem' }}
             >
               {reviews.map((review) => (
                 <SwiperSlide key={review.id}>
