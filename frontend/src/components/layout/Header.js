@@ -53,9 +53,18 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2" data-testid="logo-link">
-            <div className="text-2xl sm:text-3xl font-bold text-gradient">
-              Ellavera Beauty
-            </div>
+            {settings?.logo_url ? (
+              <img
+                src={settings.logo_url}
+                alt={settings.site_name || 'Logo'}
+                className="h-10 sm:h-12 w-auto object-contain"
+                data-testid="logo-image"
+              />
+            ) : (
+              <div className="text-2xl sm:text-3xl font-bold text-gradient">
+                {settings?.logo_text || settings?.site_name || 'Ellavera Beauty'}
+              </div>
+            )}
           </Link>
 
           {/* Desktop Navigation */}
