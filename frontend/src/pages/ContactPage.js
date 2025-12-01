@@ -97,7 +97,7 @@ const ContactPage = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 mt-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Contact Info */}
-          {contactInfoSection && (
+          {settings && (
             <div className="lg:col-span-1 space-y-6">
               <Card className="p-6 border-none shadow-lg">
                 <div className="flex items-start space-x-4">
@@ -106,7 +106,7 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-lg mb-1">Address</h3>
-                    <p className="text-slate-600">{contactInfoSection.content.address || 'Jakarta, Indonesia'}</p>
+                    <p className="text-slate-600">{settings.contact_address || 'Jakarta, Indonesia'}</p>
                   </div>
                 </div>
               </Card>
@@ -118,7 +118,7 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-lg mb-1">Phone</h3>
-                    <p className="text-slate-600">{contactInfoSection.content.phone || '+62 123 456 7890'}</p>
+                    <p className="text-slate-600">{settings.contact_phone || '+62 123 456 7890'}</p>
                   </div>
                 </div>
               </Card>
@@ -130,7 +130,7 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-lg mb-1">Email</h3>
-                    <p className="text-slate-600">{contactInfoSection.content.email || 'info@ellavera.com'}</p>
+                    <p className="text-slate-600">{settings.contact_email || 'info@ellavera.com'}</p>
                   </div>
                 </div>
               </Card>
