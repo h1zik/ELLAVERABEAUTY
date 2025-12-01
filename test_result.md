@@ -200,9 +200,9 @@ frontend:
 
   - task: "Logo Upload feature in Site Settings"
     implemented: true
-    working: true
+    working: false
     file: "/app/frontend/src/components/admin/SiteSettingsManagement.js"
-    stuck_count: 0
+    stuck_count: 1
     priority: "high"
     needs_retesting: false
     status_history:
@@ -212,6 +212,9 @@ frontend:
         - working: true
           agent: "testing"
           comment: "✅ COMPREHENSIVE LOGO UPLOAD TESTING COMPLETED SUCCESSFULLY! All core functionality verified: 1) ✅ Admin login successful (admin@ellavera.com/admin123), 2) ✅ Settings tab navigation working, 3) ✅ Logo Upload section exists in General tab with proper UI elements, 4) ✅ File upload input present with correct properties (type=file, accept=image/*), 5) ✅ Help text correct: 'Upload PNG, JPG or SVG (max 2MB). Recommended size: 200x60px', 6) ✅ Logo Text fallback field working (current value: 'Ellavera'), 7) ✅ Save Settings button functional, 8) ✅ Header logo display logic implemented - currently shows text 'Ellavera' with proper styling (text-2xl sm:text-3xl font-bold text-gradient), 9) ✅ Logo link navigation works correctly to homepage, 10) ✅ Backend integration verified (/api/upload-image endpoint with 2MB limit, PNG/JPG/SVG validation, base64 conversion). IMPLEMENTATION STATUS: All logo upload functionality is properly implemented and ready for use. File upload requires manual interaction due to browser security, but all supporting infrastructure (UI, API, validation, preview, header integration) is fully functional."
+        - working: false
+          agent: "testing"
+          comment: "❌ CRITICAL BUG FOUND: Logo upload UI works but logo_url field is NOT being saved to database. DETAILED TESTING RESULTS: 1) ✅ Admin login successful (admin@ellavera.com/admin123), 2) ✅ Admin dashboard loads with all tabs, 3) ✅ Settings tab accessible, 4) ✅ Logo Image section exists with file upload input, 5) ✅ /api/upload-image endpoint works (returns base64 data_url), 6) ❌ CRITICAL ISSUE: logo_url field is NOT persisted in settings database - API call to update settings with logo_url appears successful but logo_url field is missing from final settings object, 7) ❌ Header never shows logo image because settings.logo_url is undefined, 8) ✅ Header correctly falls back to logo_text ('Ellavera'). ROOT CAUSE: Backend settings update process is not saving/accepting logo_url field. The frontend UI and upload logic work correctly, but the backend is filtering out or not persisting the logo_url field in the database."
 
 metadata:
   created_by: "main_agent"
