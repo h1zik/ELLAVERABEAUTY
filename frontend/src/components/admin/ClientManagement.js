@@ -19,7 +19,7 @@ const ClientManagement = () => {
   const [imageMethod, setImageMethod] = useState('url');
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
-  const [formData, setFormData] = useState({ name: '', logo_url: '', testimonial: '', position: '', rating: 5 });
+  const [formData, setFormData] = useState({ name: '', logo_url: '' });
 
   useEffect(() => {
     fetchClients();
