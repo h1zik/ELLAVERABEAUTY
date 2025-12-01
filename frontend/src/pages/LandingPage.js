@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle, Star, Sparkles } from 'lucide-react';
+import { ArrowRight, CheckCircle, Star, Sparkles, Quote } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
 import { api } from '../utils/api';
 import { initScrollReveal } from '../utils/scrollReveal';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 const LandingPage = () => {
   const [clients, setClients] = useState([]);
+  const [reviews, setReviews] = useState([]);
   const [products, setProducts] = useState([]);
   const [sections, setSections] = useState([]);
   const [loading, setLoading] = useState(true);
