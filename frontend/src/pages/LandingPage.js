@@ -308,17 +308,17 @@ const LandingPage = () => {
               modules={[Autoplay, Pagination]}
               spaceBetween={30}
               slidesPerView={2}
-              loop={clients.length >= 6}
-              loopedSlides={clients.length}
+              loop={true}
               autoplay={{
                 delay: 3000,
                 disableOnInteraction: false,
+                pauseOnMouseEnter: true,
               }}
               pagination={{ clickable: true }}
               breakpoints={{
                 640: { slidesPerView: 3 },
                 768: { slidesPerView: 4 },
-                1024: { slidesPerView: 4 }
+                1024: { slidesPerView: 5 }
               }}
               className="pb-12"
             >
