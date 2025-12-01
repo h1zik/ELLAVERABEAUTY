@@ -150,6 +150,21 @@ frontend:
           agent: "testing"
           comment: "VERIFIED: About page successfully fetches dynamic content from API. Page loads correctly with all 3 sections (hero, text, vision_mission) rendering dynamically. Implementation confirmed working through code review and live page verification."
 
+  - task: "Contact Info customization in Settings"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/admin/SiteSettingsManagement.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "user"
+          comment: "User requested testing of Contact Info kostumisasi di Settings - need to verify that changes in admin Settings > Contact Info tab appear immediately on Contact page."
+        - working: true
+          agent: "testing"
+          comment: "✅ COMPREHENSIVE E2E TEST PASSED: Successfully logged into admin panel (admin@ellavera.com/admin123), navigated to Settings tab > Contact Info, updated all contact fields (Email: test-email@ellavera.com, Phone: +62 999 888 7777, Address: Test Address, Jakarta), saved settings, and verified ALL changes appear correctly on live Contact page. Contact Info customization system fully functional - changes from Settings API immediately reflect on Contact page via dynamic fetching from /api/settings endpoint."
+
 metadata:
   created_by: "main_agent"
   version: "1.0"
