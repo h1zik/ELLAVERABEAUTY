@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
+import { SettingsProvider } from './context/SettingsContext';
 import { Toaster } from './components/ui/sonner';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
@@ -23,8 +24,9 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <ThemeProvider>
-          <div className="App smooth-scroll">
-            <Header />
+          <SettingsProvider>
+            <div className="App smooth-scroll">
+              <Header />
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/products" element={<ProductsPage />} />
