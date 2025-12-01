@@ -42,7 +42,8 @@ function App() {
             <Footer />
             <WhatsAppButton />
             <Toaster position="top-right" />
-          </div>
+            </div>
+          </SettingsProvider>
         </ThemeProvider>
       </AuthProvider>
     </BrowserRouter>
