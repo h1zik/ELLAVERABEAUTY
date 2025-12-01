@@ -9,6 +9,7 @@ import { toast } from 'sonner';
 const ArticleDetailPage = () => {
   const { id } = useParams();
   const [article, setArticle] = useState(null);
+  const [relatedArticles, setRelatedArticles] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -19,6 +20,13 @@ const ArticleDetailPage = () => {
     try {
       const response = await api.getArticle(id);
       setArticle(response.data);
+      
+      // Fetch related articles from same category
+      const articlesRes = await api.getArticles();
+      const related = articlesRes.data
+        .filter(a => a.category === response.data.category && a.id !== response.data.id)
+        .slice(0, 3);
+      setRelatedArticles(related);
     } catch (error) {
       console.error('Failed to fetch article:', error);
     } finally {
