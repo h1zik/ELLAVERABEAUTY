@@ -3,12 +3,27 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, User } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { Button } from '../ui/button';
+import { api } from '../../utils/api';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [settings, setSettings] = useState(null);
   const { user, logout } = useAuth();
   const location = useLocation();
+
+  useEffect(() => {
+    fetchSettings();
+  }, []);
+
+  const fetchSettings = async () => {
+    try {
+      const response = await api.getSettings();
+      setSettings(response.data);
+    } catch (error) {
+      console.error('Failed to fetch settings:', error);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
