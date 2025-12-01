@@ -10,6 +10,7 @@ import ThemeManagement from '../components/admin/ThemeManagement';
 import LeadsManagement from '../components/admin/LeadsManagement';
 import SiteSettingsManagement from '../components/admin/SiteSettingsManagement';
 import ContentEditor from '../components/admin/ContentEditor';
+import PageBuilderManagement from '../components/admin/PageBuilderManagement';
 import LoadingSpinner from '../components/layout/LoadingSpinner';
 
 const AdminDashboard = () => {
