@@ -16,6 +16,7 @@ const ProductsPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    updatePageTitle('Products');
     fetchData();
   }, []);
 
