@@ -6,6 +6,7 @@ import { Label } from '../components/ui/label';
 import { Textarea } from '../components/ui/textarea';
 import { Card } from '../components/ui/card';
 import { api } from '../utils/api';
+import { updatePageTitle } from '../utils/pageTitle';
 import { toast } from 'sonner';
 
 const ContactPage = () => {
@@ -22,6 +23,7 @@ const ContactPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
+    updatePageTitle('Contact Us');
     fetchData();
   }, []);
 
