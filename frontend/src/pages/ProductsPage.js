@@ -5,6 +5,7 @@ import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 import { api } from '../utils/api';
+import { updatePageTitle } from '../utils/pageTitle';
 import LoadingSpinner from '../components/layout/LoadingSpinner';
 import { initScrollReveal } from '../utils/scrollReveal';
 
