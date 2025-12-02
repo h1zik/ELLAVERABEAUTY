@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Award, Target, Eye, Users } from 'lucide-react';
 import { Card } from '../components/ui/card';
 import { api } from '../utils/api';
+import { updatePageTitle } from '../utils/pageTitle';
 
 const AboutPage = () => {
   const [sections, setSections] = useState([]);
@@ -9,6 +10,7 @@ const AboutPage = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    updatePageTitle('About Us');
     fetchData();
   }, []);
 
