@@ -5,6 +5,7 @@ import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
 import { api } from '../utils/api';
 import { initScrollReveal } from '../utils/scrollReveal';
+import { updatePageTitle } from '../utils/pageTitle';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
@@ -19,6 +20,7 @@ const LandingPage = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    updatePageTitle();
     fetchData();
   }, []);
 
