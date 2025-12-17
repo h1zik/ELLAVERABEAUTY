@@ -184,19 +184,58 @@ const ContentEditor = () => {
                   </div>
 
                   {content.background_type === 'image' && (
-                    <div className="mt-4">
-                      <Label>Background Image URL</Label>
-                      <Input
-                        value={content.background_image || ''}
-                        onChange={(e) => {
-                          section.content.background_image = e.target.value;
-                          setSections([...sections]);
-                        }}
-                        placeholder="https://example.com/image.jpg"
-                      />
+                    <div className="mt-4 space-y-3">
+                      <div>
+                        <Label>Upload Background Image</Label>
+                        <Input
+                          type="file"
+                          accept="image/*"
+                          onChange={async (e) => {
+                            const file = e.target.files[0];
+                            if (!file) return;
+
+                            if (file.size > 5 * 1024 * 1024) {
+                              toast.error('Image size must be less than 5MB');
+                              return;
+                            }
+
+                            try {
+                              toast.info('Uploading image...');
+                              const response = await api.uploadImage(file);
+                              section.content.background_image = response.data.data_url;
+                              setSections([...sections]);
+                              toast.success('Image uploaded successfully!');
+                            } catch (error) {
+                              toast.error('Failed to upload image');
+                            }
+                          }}
+                          className="mt-1"
+                        />
+                        <p className="text-xs text-slate-500 mt-1">
+                          Max 5MB. Recommended: 1920x1080px for best quality
+                        </p>
+                      </div>
+
+                      <div>
+                        <Label>Or Paste Image URL</Label>
+                        <Input
+                          value={content.background_image || ''}
+                          onChange={(e) => {
+                            section.content.background_image = e.target.value;
+                            setSections([...sections]);
+                          }}
+                          placeholder="https://example.com/image.jpg"
+                        />
+                      </div>
+
                       {content.background_image && (
-                        <div className="mt-2">
-                          <img src={content.background_image} alt="Preview" className="w-full h-32 object-cover rounded" />
+                        <div>
+                          <Label>Preview</Label>
+                          <img 
+                            src={content.background_image} 
+                            alt="Background Preview" 
+                            className="w-full h-48 object-cover rounded border-2 border-slate-200 mt-1" 
+                          />
                         </div>
                       )}
                     </div>
