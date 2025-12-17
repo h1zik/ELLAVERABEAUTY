@@ -159,6 +159,133 @@ const ContentEditor = () => {
                   </div>
                 </div>
 
+                {/* Hero Text Color Customization */}
+                <div className="mt-6 pt-6 border-t border-slate-200">
+                  <h4 className="font-semibold mb-4 text-lg">Text Color Settings</h4>
+                  
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label>Badge Background Color</Label>
+                      <div className="flex gap-2">
+                        <Input
+                          type="color"
+                          value={content.badge_bg_color || '#cffafe'}
+                          onChange={(e) => {
+                            section.content.badge_bg_color = e.target.value;
+                            setSections([...sections]);
+                          }}
+                          className="w-12 h-10 p-1 cursor-pointer"
+                        />
+                        <Input
+                          value={content.badge_bg_color || '#cffafe'}
+                          onChange={(e) => {
+                            section.content.badge_bg_color = e.target.value;
+                            setSections([...sections]);
+                          }}
+                          placeholder="#cffafe"
+                          className="flex-1"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <Label>Badge Text Color</Label>
+                      <div className="flex gap-2">
+                        <Input
+                          type="color"
+                          value={content.badge_text_color || '#155e75'}
+                          onChange={(e) => {
+                            section.content.badge_text_color = e.target.value;
+                            setSections([...sections]);
+                          }}
+                          className="w-12 h-10 p-1 cursor-pointer"
+                        />
+                        <Input
+                          value={content.badge_text_color || '#155e75'}
+                          onChange={(e) => {
+                            section.content.badge_text_color = e.target.value;
+                            setSections([...sections]);
+                          }}
+                          placeholder="#155e75"
+                          className="flex-1"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4 mt-4">
+                    <div>
+                      <Label>Title Color</Label>
+                      <div className="flex gap-2">
+                        <Input
+                          type="color"
+                          value={content.title_color || '#ffffff'}
+                          onChange={(e) => {
+                            section.content.title_color = e.target.value;
+                            setSections([...sections]);
+                          }}
+                          className="w-12 h-10 p-1 cursor-pointer"
+                        />
+                        <Input
+                          value={content.title_color || '#ffffff'}
+                          onChange={(e) => {
+                            section.content.title_color = e.target.value;
+                            setSections([...sections]);
+                          }}
+                          placeholder="#ffffff"
+                          className="flex-1"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <Label>Title Highlight Color</Label>
+                      <div className="flex gap-2">
+                        <Input
+                          type="color"
+                          value={content.title_highlight_color || '#06b6d4'}
+                          onChange={(e) => {
+                            section.content.title_highlight_color = e.target.value;
+                            setSections([...sections]);
+                          }}
+                          className="w-12 h-10 p-1 cursor-pointer"
+                        />
+                        <Input
+                          value={content.title_highlight_color || '#06b6d4'}
+                          onChange={(e) => {
+                            section.content.title_highlight_color = e.target.value;
+                            setSections([...sections]);
+                          }}
+                          placeholder="#06b6d4"
+                          className="flex-1"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-4">
+                    <Label>Description Color</Label>
+                    <div className="flex gap-2">
+                      <Input
+                        type="color"
+                        value={content.description_color || '#e2e8f0'}
+                        onChange={(e) => {
+                          section.content.description_color = e.target.value;
+                          setSections([...sections]);
+                        }}
+                        className="w-12 h-10 p-1 cursor-pointer"
+                      />
+                      <Input
+                        value={content.description_color || '#e2e8f0'}
+                        onChange={(e) => {
+                          section.content.description_color = e.target.value;
+                          setSections([...sections]);
+                        }}
+                        placeholder="#e2e8f0"
+                        className="flex-1"
+                      />
+                    </div>
+                  </div>
+                </div>
+
                 {/* Hero Background Configuration */}
                 <div className="mt-6 pt-6 border-t border-slate-200">
                   <h4 className="font-semibold mb-4 text-lg">Background Settings</h4>
