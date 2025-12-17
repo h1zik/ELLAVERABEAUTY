@@ -60,7 +60,7 @@ const ProductsPage = () => {
   return (
     <div className="min-h-screen pt-24 pb-16" data-testid="products-page">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-cyan-50 to-white py-16">
+      <section className="bg-gradient-to-br from-primary-light to-white py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl sm:text-5xl font-bold mb-4" data-testid="products-title">
             Our <span className="text-gradient">Products</span>
@@ -75,7 +75,7 @@ const ProductsPage = () => {
         {/* Filter */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
           <div className="flex items-center gap-2">
-            <Filter size={20} className="text-cyan-600" />
+            <Filter size={20} className="text-primary" />
             <span className="font-medium">Filter by Category</span>
           </div>
           <Select value={selectedCategory} onValueChange={setSelectedCategory}>
@@ -101,21 +101,21 @@ const ProductsPage = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {products.map((product, index) => (
               <Card key={product.id} className="product-card overflow-hidden scroll-fade-up border-none shadow-lg" data-testid={`product-card-${product.id}`}>
-                <div className="aspect-square bg-gradient-to-br from-cyan-100 to-cyan-50 image-overlay">
+                <div className="aspect-square bg-gradient-to-br from-primary-light to-primary-light image-overlay">
                   {product.images && product.images[0] ? (
                     <img src={product.images[0]} alt={product.name} className="w-full h-full object-cover" />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-cyan-600">
+                    <div className="w-full h-full flex items-center justify-center text-primary">
                       <Sparkles size={48} />
                     </div>
                   )}
                 </div>
                 <div className="p-6">
-                  <p className="text-sm text-cyan-600 font-medium mb-2">{product.category_name}</p>
+                  <p className="text-sm text-primary font-medium mb-2">{product.category_name}</p>
                   <h3 className="text-xl font-bold mb-2">{product.name}</h3>
                   <p className="text-slate-600 text-sm mb-4 line-clamp-3">{product.description}</p>
                   <Link to={`/products/${product.id}`}>
-                    <Button variant="outline" className="w-full border-cyan-600 text-cyan-600 hover:bg-cyan-50" data-testid={`view-product-${product.id}`}>
+                    <Button variant="outline" className="w-full border-primary text-primary hover:bg-primary-light" data-testid={`view-product-${product.id}`}>
                       View Details
                     </Button>
                   </Link>

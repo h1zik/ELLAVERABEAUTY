@@ -51,7 +51,7 @@ const ServiceDetailPage = () => {
         <div className="text-center">
           <h1 className="text-2xl font-bold text-slate-800 mb-4">Service Not Found</h1>
           <Link to="/services">
-            <Button className="bg-cyan-600 hover:bg-cyan-700">
+            <Button className="bg-primary hover:bg-primary-dark">
               <ArrowLeft size={16} className="mr-2" />
               Back to Services
             </Button>
@@ -66,7 +66,7 @@ const ServiceDetailPage = () => {
   return (
     <div className="min-h-screen pt-24 pb-16" data-testid="service-detail-page">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-cyan-600 to-cyan-700 text-white py-20">
+      <section className="bg-gradient-to-br from-primary to-primary-dark text-white py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <Link to="/services" className="inline-flex items-center gap-2 text-cyan-100 hover:text-white mb-6 transition-colors">
             <ArrowLeft size={16} />
@@ -126,12 +126,12 @@ const ServiceDetailPage = () => {
             <div className="space-y-6">
               {/* Features Card */}
               {service.features && service.features.length > 0 && (
-                <Card className="p-6 border-2 border-cyan-100">
+                <Card className="p-6 border-2 border-primary-light">
                   <h3 className="text-lg font-bold text-slate-800 mb-4">Key Features</h3>
                   <ul className="space-y-3">
                     {service.features.map((feature, index) => (
                       <li key={index} className="flex items-start gap-3">
-                        <CheckCircle size={20} className="text-cyan-600 flex-shrink-0 mt-0.5" />
+                        <CheckCircle size={20} className="text-primary flex-shrink-0 mt-0.5" />
                         <span className="text-slate-600">{feature}</span>
                       </li>
                     ))}
@@ -140,11 +140,11 @@ const ServiceDetailPage = () => {
               )}
 
               {/* CTA Card */}
-              <Card className="p-6 bg-gradient-to-br from-cyan-600 to-cyan-700 text-white">
+              <Card className="p-6 bg-gradient-to-br from-primary to-primary-dark text-white">
                 <h3 className="text-lg font-bold mb-2">Interested in this service?</h3>
                 <p className="text-cyan-100 mb-4 text-sm">Let's discuss how we can help your brand grow</p>
                 <Link to="/contact">
-                  <Button className="w-full bg-white text-cyan-600 hover:bg-cyan-50">
+                  <Button className="w-full bg-white text-primary hover:bg-primary-light">
                     Contact Us
                     <ArrowRight size={16} className="ml-2" />
                   </Button>
@@ -165,9 +165,9 @@ const ServiceDetailPage = () => {
                 const RelatedIcon = iconMap[relatedService.icon] || Sparkles;
                 return (
                   <Link to={`/services/${relatedService.id}`} key={relatedService.id}>
-                    <Card className="p-6 hover:shadow-lg transition-all hover:border-cyan-200 border-2 border-transparent h-full">
-                      <div className="w-12 h-12 bg-cyan-100 rounded-xl flex items-center justify-center mb-4">
-                        <RelatedIcon size={24} className="text-cyan-600" />
+                    <Card className="p-6 hover:shadow-lg transition-all hover:border-primary-light border-2 border-transparent h-full">
+                      <div className="w-12 h-12 bg-primary-light rounded-xl flex items-center justify-center mb-4">
+                        <RelatedIcon size={24} className="text-primary" />
                       </div>
                       <h3 className="font-bold text-slate-800 mb-2">{relatedService.name}</h3>
                       <p className="text-slate-600 text-sm line-clamp-2">{relatedService.short_description}</p>

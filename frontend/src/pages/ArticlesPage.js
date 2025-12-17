@@ -36,7 +36,7 @@ const ArticlesPage = () => {
   return (
     <div className="min-h-screen pt-24 pb-16" data-testid="articles-page">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-cyan-50 to-white py-16">
+      <section className="bg-gradient-to-br from-primary-light to-white py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl sm:text-5xl font-bold mb-4" data-testid="articles-title">
             <span className="text-gradient">Articles & Insights</span>
@@ -59,7 +59,7 @@ const ArticlesPage = () => {
             {articles.map((article, index) => (
               <Card key={article.id} className="overflow-hidden hover:shadow-xl transition-shadow scroll-reveal border-none shadow-lg" style={{ animationDelay: `${index * 0.05}s` }} data-testid={`article-card-${article.id}`}>
                 {article.cover_image && (
-                  <div className="aspect-video bg-gradient-to-br from-cyan-100 to-cyan-50 overflow-hidden">
+                  <div className="aspect-video bg-gradient-to-br from-primary-light to-primary-light overflow-hidden">
                     <img src={article.cover_image} alt={article.title} className="w-full h-full object-cover image-overlay" />
                   </div>
                 )}
@@ -74,13 +74,13 @@ const ArticlesPage = () => {
                       {article.read_time} min read
                     </span>
                   </div>
-                  <span className="inline-block px-3 py-1 text-xs font-medium bg-cyan-100 text-cyan-700 rounded-full mb-3">
+                  <span className="inline-block px-3 py-1 text-xs font-medium bg-primary-light text-primary-dark rounded-full mb-3">
                     {article.category}
                   </span>
                   <h3 className="text-xl font-bold mb-3 line-clamp-2">{article.title}</h3>
                   <p className="text-slate-600 text-sm mb-4 line-clamp-3">{article.excerpt}</p>
                   <Link to={`/articles/${article.id}`}>
-                    <Button variant="ghost" className="text-cyan-600 hover:text-cyan-700 hover:bg-cyan-50 p-0" data-testid={`read-article-${article.id}`}>
+                    <Button variant="ghost" className="text-primary hover:text-primary-dark hover:bg-primary-light p-0" data-testid={`read-article-${article.id}`}>
                       Read More
                       <ArrowRight size={16} className="ml-2" />
                     </Button>

@@ -65,7 +65,7 @@ const ContactPage = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
           <p className="text-slate-600">Loading...</p>
         </div>
       </div>
@@ -79,7 +79,7 @@ const ContactPage = () => {
     <div className="min-h-screen pt-24 pb-16" data-testid="contact-page">
       {/* Hero */}
       {heroSection && (
-        <section className="bg-gradient-to-br from-cyan-50 to-white py-16">
+        <section className="bg-gradient-to-br from-primary-light to-white py-16">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-4xl sm:text-5xl font-bold mb-4" data-testid="contact-title">
               {heroSection.content.title && (
@@ -103,8 +103,8 @@ const ContactPage = () => {
             <div className="lg:col-span-1 space-y-6">
               <Card className="p-6 border-none shadow-lg">
                 <div className="flex items-start space-x-4">
-                  <div className="bg-cyan-100 p-3 rounded-lg">
-                    <MapPin className="text-cyan-600" size={24} />
+                  <div className="bg-primary-light p-3 rounded-lg">
+                    <MapPin className="text-primary" size={24} />
                   </div>
                   <div>
                     <h3 className="font-semibold text-lg mb-1">Address</h3>
@@ -115,8 +115,8 @@ const ContactPage = () => {
 
               <Card className="p-6 border-none shadow-lg">
                 <div className="flex items-start space-x-4">
-                  <div className="bg-cyan-100 p-3 rounded-lg">
-                    <Phone className="text-cyan-600" size={24} />
+                  <div className="bg-primary-light p-3 rounded-lg">
+                    <Phone className="text-primary" size={24} />
                   </div>
                   <div>
                     <h3 className="font-semibold text-lg mb-1">Phone</h3>
@@ -127,8 +127,8 @@ const ContactPage = () => {
 
               <Card className="p-6 border-none shadow-lg">
                 <div className="flex items-start space-x-4">
-                  <div className="bg-cyan-100 p-3 rounded-lg">
-                    <Mail className="text-cyan-600" size={24} />
+                  <div className="bg-primary-light p-3 rounded-lg">
+                    <Mail className="text-primary" size={24} />
                   </div>
                   <div>
                     <h3 className="font-semibold text-lg mb-1">Email</h3>
@@ -203,7 +203,7 @@ const ContactPage = () => {
 
                 <Button
                   type="submit"
-                  className="w-full bg-cyan-600 hover:bg-cyan-700"
+                  className="w-full bg-primary hover:bg-primary-dark"
                   disabled={isSubmitting}
                   data-testid="contact-submit-button"
                 >

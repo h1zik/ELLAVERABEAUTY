@@ -44,7 +44,7 @@ const AuthPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-cyan-50 via-white to-cyan-50 py-12 px-4 sm:px-6 lg:px-8" data-testid="auth-page">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-light via-white to-primary-light py-12 px-4 sm:px-6 lg:px-8" data-testid="auth-page">
       <Card className="w-full max-w-md p-8 shadow-xl border-none">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gradient mb-2">Ellavera Beauty</h1>
@@ -88,7 +88,7 @@ const AuthPage = () => {
               <Button
                 type="submit"
                 data-testid="login-submit-button"
-                className="w-full bg-cyan-600 hover:bg-cyan-700 text-white"
+                className="w-full bg-primary hover:bg-primary-dark text-white"
                 disabled={isLoading}
               >
                 {isLoading ? 'Logging in...' : 'Login'}
@@ -140,7 +140,7 @@ const AuthPage = () => {
               <Button
                 type="submit"
                 data-testid="register-submit-button"
-                className="w-full bg-cyan-600 hover:bg-cyan-700 text-white"
+                className="w-full bg-primary hover:bg-primary-dark text-white"
                 disabled={isLoading}
               >
                 {isLoading ? 'Creating account...' : 'Register'}

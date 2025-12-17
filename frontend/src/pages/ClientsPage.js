@@ -38,7 +38,7 @@ const ClientsPage = () => {
   return (
     <div className="min-h-screen pt-24 pb-16" data-testid="clients-page">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-cyan-50 to-white py-16">
+      <section className="bg-gradient-to-br from-primary-light to-white py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl sm:text-5xl font-bold mb-4" data-testid="clients-title">
             Our <span className="text-gradient">Clients</span>

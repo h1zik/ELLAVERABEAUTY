@@ -35,7 +35,7 @@ const AboutPage = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
           <p className="text-slate-600">Loading...</p>
         </div>
       </div>
@@ -74,7 +74,7 @@ const AboutPage = () => {
     <div className="min-h-screen pt-24 pb-16" data-testid="about-page">
       {/* Hero */}
       {heroSection && (
-        <section className="bg-gradient-to-br from-cyan-50 to-white py-16">
+        <section className="bg-gradient-to-br from-primary-light to-white py-16">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-4xl sm:text-5xl font-bold mb-4" data-testid="about-title">
               {heroSection.content.title && (
@@ -112,8 +112,8 @@ const AboutPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
               {visionMissionSection.content.vision && (
                 <Card className="p-8 border-none shadow-lg">
-                  <div className="bg-cyan-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                    <Eye className="text-cyan-600" size={32} />
+                  <div className="bg-primary-light w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                    <Eye className="text-primary" size={32} />
                   </div>
                   <h3 className="text-2xl font-bold mb-4">{visionMissionSection.content.vision.title || 'Our Vision'}</h3>
                   <p className="text-slate-600 leading-relaxed">
@@ -124,8 +124,8 @@ const AboutPage = () => {
 
               {visionMissionSection.content.mission && (
                 <Card className="p-8 border-none shadow-lg">
-                  <div className="bg-cyan-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                    <Target className="text-cyan-600" size={32} />
+                  <div className="bg-primary-light w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                    <Target className="text-primary" size={32} />
                   </div>
                   <h3 className="text-2xl font-bold mb-4">{visionMissionSection.content.mission.title || 'Our Mission'}</h3>
                   <p className="text-slate-600 leading-relaxed">
@@ -153,8 +153,8 @@ const AboutPage = () => {
           }`}>
             {certifications.map((cert, index) => (
               <Card key={index} className="p-6 text-center border-none shadow-md hover:shadow-lg transition-shadow">
-                <div className="bg-cyan-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Award className="text-cyan-600" size={28} />
+                <div className="bg-primary-light w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Award className="text-primary" size={28} />
                 </div>
                 <h4 className="font-semibold mb-1">{cert.name}</h4>
                 {cert.description && (
@@ -176,9 +176,9 @@ const AboutPage = () => {
             </p>
           </div>
 
-          <div className="bg-gradient-to-br from-cyan-50 to-white rounded-2xl p-8 md:p-12 text-center max-w-4xl mx-auto">
-            <div className="bg-cyan-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Users className="text-cyan-600" size={36} />
+          <div className="bg-gradient-to-br from-primary-light to-white rounded-2xl p-8 md:p-12 text-center max-w-4xl mx-auto">
+            <div className="bg-primary-light w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Users className="text-primary" size={36} />
             </div>
             <p className="text-lg text-slate-600 leading-relaxed">
               {teamSection?.content?.description || 'Our team consists of skilled chemists, quality control specialists, production managers, and customer service professionals who are dedicated to delivering excellence in every project. With decades of combined experience, we bring deep industry knowledge and innovative thinking to every formulation.'}
@@ -190,17 +190,17 @@ const AboutPage = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-5xl mx-auto mt-12">
               {teamSection.content.members.map((member, index) => (
                 <Card key={index} className="p-6 text-center border-none shadow-md">
-                  <div className="w-24 h-24 rounded-full bg-cyan-100 mx-auto mb-4 overflow-hidden">
+                  <div className="w-24 h-24 rounded-full bg-primary-light mx-auto mb-4 overflow-hidden">
                     {member.photo ? (
                       <img src={member.photo} alt={member.name} className="w-full h-full object-cover" />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">
-                        <Users className="text-cyan-400" size={32} />
+                        <Users className="text-primary" size={32} />
                       </div>
                     )}
                   </div>
                   <h4 className="font-semibold">{member.name}</h4>
-                  <p className="text-sm text-cyan-600">{member.position}</p>
+                  <p className="text-sm text-primary">{member.position}</p>
                   {member.bio && (
                     <p className="text-sm text-slate-500 mt-2">{member.bio}</p>
                   )}

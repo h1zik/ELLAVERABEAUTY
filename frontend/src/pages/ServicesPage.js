@@ -49,7 +49,7 @@ const ServicesPage = () => {
   return (
     <div className="min-h-screen pt-24 pb-16" data-testid="services-page">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-cyan-50 to-white py-16">
+      <section className="bg-gradient-to-br from-primary-light to-white py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl sm:text-5xl font-bold mb-4" data-testid="services-title">
             Our <span className="text-gradient">Services</span>
@@ -76,13 +76,13 @@ const ServicesPage = () => {
                 return (
                   <Link to={`/services/${service.id}`} key={service.id}>
                     <Card 
-                      className="p-8 hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-cyan-200 scroll-fade-up h-full group"
+                      className="p-8 hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-primary-light scroll-fade-up h-full group"
                       style={{ animationDelay: `${index * 0.1}s` }}
                     >
-                      <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                      <div className="w-16 h-16 bg-gradient-to-br from-primary-light0 to-primary rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                         <IconComponent className="text-white" size={28} />
                       </div>
-                      <h3 className="text-xl font-bold mb-3 text-slate-800 group-hover:text-cyan-600 transition-colors">
+                      <h3 className="text-xl font-bold mb-3 text-slate-800 group-hover:text-primary transition-colors">
                         {service.name}
                       </h3>
                       <p className="text-slate-600 mb-6">{service.short_description}</p>
@@ -90,13 +90,13 @@ const ServicesPage = () => {
                         <ul className="space-y-2 mb-6">
                           {service.features.slice(0, 4).map((feature, fIndex) => (
                             <li key={fIndex} className="flex items-center gap-2 text-sm text-slate-600">
-                              <CheckCircle size={16} className="text-cyan-600 flex-shrink-0" />
+                              <CheckCircle size={16} className="text-primary flex-shrink-0" />
                               {feature}
                             </li>
                           ))}
                         </ul>
                       )}
-                      <div className="flex items-center text-cyan-600 font-medium group-hover:gap-2 transition-all">
+                      <div className="flex items-center text-primary font-medium group-hover:gap-2 transition-all">
                         Learn More 
                         <ArrowRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
                       </div>
@@ -110,7 +110,7 @@ const ServicesPage = () => {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-16 bg-gradient-to-br from-cyan-600 to-cyan-700 text-white">
+      <section className="py-16 bg-gradient-to-br from-primary to-primary-dark text-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">Why Choose Ellavera Beauty?</h2>
@@ -145,7 +145,7 @@ const ServicesPage = () => {
             Let's discuss how our services can help bring your cosmetic product ideas to life
           </p>
           <Link to="/contact">
-            <Button size="lg" className="bg-cyan-600 hover:bg-cyan-700 text-white px-8 rounded-full">
+            <Button size="lg" className="bg-primary hover:bg-primary-dark text-white px-8 rounded-full">
               Get in Touch
               <ArrowRight className="ml-2" size={20} />
             </Button>

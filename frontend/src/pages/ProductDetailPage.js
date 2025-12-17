@@ -44,7 +44,7 @@ const ProductDetailPage = () => {
   return (
     <div className="min-h-screen pt-24 pb-16" data-testid="product-detail-page">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <Link to="/products" className="inline-flex items-center text-cyan-600 hover:text-cyan-700 mb-8" data-testid="back-to-products">
+        <Link to="/products" className="inline-flex items-center text-primary hover:text-primary-dark mb-8" data-testid="back-to-products">
           <ArrowLeft size={20} className="mr-2" />
           Back to Products
         </Link>
@@ -52,11 +52,11 @@ const ProductDetailPage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Images */}
           <div>
-            <div className="aspect-square bg-gradient-to-br from-cyan-100 to-cyan-50 rounded-xl overflow-hidden mb-4">
+            <div className="aspect-square bg-gradient-to-br from-primary-light to-primary-light rounded-xl overflow-hidden mb-4">
               {product.images && product.images.length > 0 ? (
                 <img src={product.images[selectedImage]} alt={product.name} className="w-full h-full object-cover" data-testid="product-main-image" />
               ) : (
-                <div className="w-full h-full flex items-center justify-center text-cyan-600">
+                <div className="w-full h-full flex items-center justify-center text-primary">
                   <Sparkles size={64} />
                 </div>
               )}
@@ -68,7 +68,7 @@ const ProductDetailPage = () => {
                     key={index}
                     onClick={() => setSelectedImage(index)}
                     className={`aspect-square rounded-lg overflow-hidden border-2 transition-all ${
-                      selectedImage === index ? 'border-cyan-600' : 'border-transparent'
+                      selectedImage === index ? 'border-primary' : 'border-transparent'
                     }`}
                     data-testid={`product-thumbnail-${index}`}
                   >
@@ -81,7 +81,7 @@ const ProductDetailPage = () => {
 
           {/* Details */}
           <div>
-            <p className="text-sm text-cyan-600 font-medium mb-2">{product.category_name}</p>
+            <p className="text-sm text-primary font-medium mb-2">{product.category_name}</p>
             <h1 className="text-3xl sm:text-4xl font-bold mb-4" data-testid="product-name">{product.name}</h1>
             <p className="text-lg text-slate-600 mb-8">{product.description}</p>
 
@@ -114,7 +114,7 @@ const ProductDetailPage = () => {
                         <p className="text-sm text-slate-600">{doc.type}</p>
                       </div>
                       <a href={doc.url} download target="_blank" rel="noopener noreferrer">
-                        <Button size="sm" variant="outline" className="border-cyan-600 text-cyan-600" data-testid={`download-document-${index}`}>
+                        <Button size="sm" variant="outline" className="border-primary text-primary" data-testid={`download-document-${index}`}>
                           <Download size={16} className="mr-2" />
                           Download
                         </Button>
@@ -126,7 +126,7 @@ const ProductDetailPage = () => {
             )}
 
             <Link to="/contact">
-              <Button size="lg" className="w-full bg-cyan-600 hover:bg-cyan-700 text-white" data-testid="inquire-button">
+              <Button size="lg" className="w-full bg-primary hover:bg-primary-dark text-white" data-testid="inquire-button">
                 Inquire About This Product
               </Button>
             </Link>
@@ -143,7 +143,7 @@ const ProductDetailPage = () => {
               {relatedProducts.map((relatedProduct) => (
                 <Link key={relatedProduct.id} to={`/products/${relatedProduct.id}`}>
                   <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 border-none shadow-md group">
-                    <div className="aspect-square bg-gradient-to-br from-cyan-100 to-cyan-50 overflow-hidden">
+                    <div className="aspect-square bg-gradient-to-br from-primary-light to-primary-light overflow-hidden">
                       {relatedProduct.images && relatedProduct.images.length > 0 ? (
                         <img
                           src={relatedProduct.images[0]}
@@ -152,13 +152,13 @@ const ProductDetailPage = () => {
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center">
-                          <Sparkles className="text-cyan-600" size={48} />
+                          <Sparkles className="text-primary" size={48} />
                         </div>
                       )}
                     </div>
                     <div className="p-6">
-                      <p className="text-sm text-cyan-600 font-medium mb-2">{relatedProduct.category_name}</p>
-                      <h3 className="text-xl font-bold mb-2 group-hover:text-cyan-600 transition-colors">{relatedProduct.name}</h3>
+                      <p className="text-sm text-primary font-medium mb-2">{relatedProduct.category_name}</p>
+                      <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">{relatedProduct.name}</h3>
                       <p className="text-slate-600 text-sm line-clamp-2">{relatedProduct.description}</p>
                     </div>
                   </Card>

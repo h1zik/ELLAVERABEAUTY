@@ -58,7 +58,7 @@ const ArticleDetailPage = () => {
   return (
     <div className="min-h-screen pt-24 pb-16" data-testid="article-detail-page">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <Link to="/articles" className="inline-flex items-center text-cyan-600 hover:text-cyan-700 mb-8" data-testid="back-to-articles">
+        <Link to="/articles" className="inline-flex items-center text-primary hover:text-primary-dark mb-8" data-testid="back-to-articles">
           <ArrowLeft size={20} className="mr-2" />
           Back to Articles
         </Link>
@@ -66,14 +66,14 @@ const ArticleDetailPage = () => {
         <article className="max-w-4xl mx-auto">
           {/* Cover Image */}
           {article.cover_image && (
-            <div className="aspect-video bg-gradient-to-br from-cyan-100 to-cyan-50 rounded-xl overflow-hidden mb-8">
+            <div className="aspect-video bg-gradient-to-br from-primary-light to-primary-light rounded-xl overflow-hidden mb-8">
               <img src={article.cover_image} alt={article.title} className="w-full h-full object-cover" data-testid="article-cover-image" />
             </div>
           )}
 
           {/* Meta Info */}
           <div className="flex flex-wrap items-center gap-4 text-sm text-slate-600 mb-4">
-            <span className="inline-block px-3 py-1 text-xs font-medium bg-cyan-100 text-cyan-700 rounded-full">
+            <span className="inline-block px-3 py-1 text-xs font-medium bg-primary-light text-primary-dark rounded-full">
               {article.category}
             </span>
             <span className="inline-flex items-center gap-1">
@@ -84,7 +84,7 @@ const ArticleDetailPage = () => {
               <Clock size={14} />
               {article.read_time} min read
             </span>
-            <Button variant="ghost" size="sm" onClick={handleShare} className="ml-auto text-cyan-600 hover:text-cyan-700" data-testid="share-button">
+            <Button variant="ghost" size="sm" onClick={handleShare} className="ml-auto text-primary hover:text-primary-dark" data-testid="share-button">
               <Share2 size={16} className="mr-2" />
               Share
             </Button>
@@ -111,7 +111,7 @@ const ArticleDetailPage = () => {
                   <Link key={relatedArticle.id} to={`/articles/${relatedArticle.id}`}>
                     <div className="group cursor-pointer">
                       {relatedArticle.cover_image && (
-                        <div className="aspect-video bg-gradient-to-br from-cyan-100 to-cyan-50 rounded-xl overflow-hidden mb-4">
+                        <div className="aspect-video bg-gradient-to-br from-primary-light to-primary-light rounded-xl overflow-hidden mb-4">
                           <img
                             src={relatedArticle.cover_image}
                             alt={relatedArticle.title}
@@ -120,7 +120,7 @@ const ArticleDetailPage = () => {
                         </div>
                       )}
                       <div className="flex items-center gap-4 text-sm text-slate-500 mb-2">
-                        <span className="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full text-xs font-medium">
+                        <span className="px-3 py-1 bg-primary-light text-primary-dark rounded-full text-xs font-medium">
                           {relatedArticle.category}
                         </span>
                         <span className="flex items-center gap-1">
@@ -128,7 +128,7 @@ const ArticleDetailPage = () => {
                           {formatDate(relatedArticle.created_at)}
                         </span>
                       </div>
-                      <h3 className="text-xl font-bold mb-2 group-hover:text-cyan-600 transition-colors line-clamp-2">
+                      <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors line-clamp-2">
                         {relatedArticle.title}
                       </h3>
                       <p className="text-slate-600 text-sm line-clamp-2">{relatedArticle.excerpt}</p>

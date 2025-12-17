@@ -44,7 +44,7 @@ const GalleryPage = () => {
   return (
     <div className="min-h-screen pt-24 pb-16" data-testid="gallery-page">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-cyan-50 to-white py-16">
+      <section className="bg-gradient-to-br from-primary-light to-white py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl sm:text-5xl font-bold mb-4" data-testid="gallery-title">
             Our <span className="text-gradient">Gallery</span>
@@ -66,7 +66,7 @@ const GalleryPage = () => {
                 variant={selectedCategory === 'all' ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => setSelectedCategory('all')}
-                className={selectedCategory === 'all' ? 'bg-cyan-600 hover:bg-cyan-700' : ''}
+                className={selectedCategory === 'all' ? 'bg-primary hover:bg-primary-dark' : ''}
               >
                 All
               </Button>
@@ -76,7 +76,7 @@ const GalleryPage = () => {
                   variant={selectedCategory === category ? 'default' : 'outline'}
                   size="sm"
                   onClick={() => setSelectedCategory(category)}
-                  className={selectedCategory === category ? 'bg-cyan-600 hover:bg-cyan-700' : ''}
+                  className={selectedCategory === category ? 'bg-primary hover:bg-primary-dark' : ''}
                 >
                   {category}
                 </Button>
@@ -89,7 +89,7 @@ const GalleryPage = () => {
                 variant={viewMode === 'grid' ? 'default' : 'outline'}
                 size="icon"
                 onClick={() => setViewMode('grid')}
-                className={viewMode === 'grid' ? 'bg-cyan-600 hover:bg-cyan-700' : ''}
+                className={viewMode === 'grid' ? 'bg-primary hover:bg-primary-dark' : ''}
               >
                 <Grid3X3 size={18} />
               </Button>
@@ -97,7 +97,7 @@ const GalleryPage = () => {
                 variant={viewMode === 'masonry' ? 'default' : 'outline'}
                 size="icon"
                 onClick={() => setViewMode('masonry')}
-                className={viewMode === 'masonry' ? 'bg-cyan-600 hover:bg-cyan-700' : ''}
+                className={viewMode === 'masonry' ? 'bg-primary hover:bg-primary-dark' : ''}
               >
                 <LayoutGrid size={18} />
               </Button>
@@ -131,7 +131,7 @@ const GalleryPage = () => {
                   <div className="p-4">
                     <h3 className="font-semibold text-slate-800 truncate">{item.title}</h3>
                     {item.category && (
-                      <span className="text-xs text-cyan-600 bg-cyan-50 px-2 py-1 rounded-full mt-2 inline-block">
+                      <span className="text-xs text-primary bg-primary-light px-2 py-1 rounded-full mt-2 inline-block">
                         {item.category}
                       </span>
                     )}
@@ -155,7 +155,7 @@ const GalleryPage = () => {
                   <div className="p-4">
                     <h3 className="font-semibold text-slate-800 truncate">{item.title}</h3>
                     {item.category && (
-                      <span className="text-xs text-cyan-600 bg-cyan-50 px-2 py-1 rounded-full mt-2 inline-block">
+                      <span className="text-xs text-primary bg-primary-light px-2 py-1 rounded-full mt-2 inline-block">
                         {item.category}
                       </span>
                     )}
@@ -174,7 +174,7 @@ const GalleryPage = () => {
             <div className="relative">
               <button
                 onClick={() => setSelectedImage(null)}
-                className="absolute top-4 right-4 z-10 text-white hover:text-cyan-400 transition-colors"
+                className="absolute top-4 right-4 z-10 text-white hover:text-primary transition-colors"
               >
                 <X size={28} />
               </button>
@@ -189,7 +189,7 @@ const GalleryPage = () => {
                   <p className="text-slate-300">{selectedImage.description}</p>
                 )}
                 {selectedImage.category && (
-                  <span className="text-xs bg-cyan-600 px-2 py-1 rounded-full mt-2 inline-block">
+                  <span className="text-xs bg-primary px-2 py-1 rounded-full mt-2 inline-block">
                     {selectedImage.category}
                   </span>
                 )}
