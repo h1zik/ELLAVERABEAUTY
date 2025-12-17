@@ -45,6 +45,7 @@ function App() {
             <AppLayout>
               <Routes>
                 <Route path="/" element={<LandingPage />} />
+                <Route path="/services" element={<ServicesPage />} />
                 <Route path="/products" element={<ProductsPage />} />
                 <Route path="/products/:id" element={<ProductDetailPage />} />
                 <Route path="/clients" element={<ClientsPage />} />
