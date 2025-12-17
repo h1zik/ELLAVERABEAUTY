@@ -16,6 +16,7 @@ const LandingPage = () => {
   const [clients, setClients] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [products, setProducts] = useState([]);
+  const [articles, setArticles] = useState([]);
   const [sections, setSections] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
