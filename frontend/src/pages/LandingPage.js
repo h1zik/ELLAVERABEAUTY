@@ -89,21 +89,37 @@ const LandingPage = () => {
     );
   }
 
-  // Get section data
-  const heroSection = getSection('hero');
-  const featuresSection = getSection('features');
-  const servicesSection = getSection('services');
-  const processSection = getSection('process');
-  const productsSection = getSection('products');
-  const clientsSection = getSection('clients');
-  const reviewsSection = getSection('reviews');
-  const articlesSection = getSection('articles');
-  const ctaSection = getSection('cta');
+  // Render section based on type
+  const renderSection = (section, index) => {
+    const isEven = index % 2 === 0;
+    const bgClass = isEven ? 'bg-slate-50' : 'bg-white';
+    
+    switch (section.section_type) {
+      case 'hero':
+        return renderHeroSection(section);
+      case 'features':
+        return renderFeaturesSection(section, bgClass);
+      case 'services':
+        return renderServicesSection(section, bgClass);
+      case 'process':
+        return renderProcessSection(section, bgClass);
+      case 'products':
+        return renderProductsSection(section, bgClass);
+      case 'clients':
+        return renderClientsSection(section, bgClass);
+      case 'reviews':
+        return renderReviewsSection(section, bgClass);
+      case 'articles':
+        return renderArticlesSection(section, bgClass);
+      case 'cta':
+        return renderCtaSection(section);
+      default:
+        return null;
+    }
+  };
 
-  return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      {heroSection && (
+  // Hero Section Renderer
+  const renderHeroSection = (section) => (
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden" data-testid="hero-section">
           {/* Background Layer */}
           {heroSection.content.background_type === 'video' && heroSection.content.background_video ? (
