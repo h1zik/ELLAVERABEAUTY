@@ -51,27 +51,27 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               {settings.facebook_url && settings.facebook_url !== '#' && (
-                <a href={settings.facebook_url} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-cyan-400 transition-colors" data-testid="social-facebook">
+                <a href={settings.facebook_url} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-primary transition-colors" data-testid="social-facebook">
                   <Facebook size={20} />
                 </a>
               )}
               {settings.instagram_url && settings.instagram_url !== '#' && (
-                <a href={settings.instagram_url} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-cyan-400 transition-colors" data-testid="social-instagram">
+                <a href={settings.instagram_url} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-primary transition-colors" data-testid="social-instagram">
                   <Instagram size={20} />
                 </a>
               )}
               {settings.twitter_url && settings.twitter_url !== '#' && (
-                <a href={settings.twitter_url} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-cyan-400 transition-colors" data-testid="social-twitter">
+                <a href={settings.twitter_url} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-primary transition-colors" data-testid="social-twitter">
                   <Twitter size={20} />
                 </a>
               )}
               {settings.linkedin_url && settings.linkedin_url !== '#' && (
-                <a href={settings.linkedin_url} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-cyan-400 transition-colors">
+                <a href={settings.linkedin_url} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-primary transition-colors">
                   <Linkedin size={20} />
                 </a>
               )}
               {settings.youtube_url && settings.youtube_url !== '#' && (
-                <a href={settings.youtube_url} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-cyan-400 transition-colors">
+                <a href={settings.youtube_url} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-primary transition-colors">
                   <Youtube size={20} />
                 </a>
               )}
@@ -86,7 +86,7 @@ const Footer = () => {
                 <li key={index}>
                   <Link 
                     to={link.path} 
-                    className="text-slate-400 hover:text-cyan-400 transition-colors text-sm"
+                    className="text-slate-400 hover:text-primary transition-colors text-sm"
                   >
                     {link.name}
                   </Link>
