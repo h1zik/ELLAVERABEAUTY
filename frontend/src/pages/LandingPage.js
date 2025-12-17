@@ -331,21 +331,22 @@ const LandingPage = () => {
                         </div>
                       )}
                       
-                      {/* Card */}
-                      <Card className="relative overflow-hidden border-2 border-cyan-100 hover:border-cyan-400 hover:shadow-xl transition-all duration-300 bg-white">
-                        {/* Step Number Badge */}
-                        <div className="absolute -top-4 -left-4 w-16 h-16 bg-gradient-to-br from-cyan-600 to-cyan-700 rounded-full flex items-center justify-center shadow-lg">
-                          <span className="text-white text-2xl font-bold">{item.step}</span>
+                      {/* Card with Badge */}
+                      <div className="relative pt-6 pl-6">
+                        {/* Step Number Badge - outside card for visibility */}
+                        <div className="absolute top-0 left-0 w-14 h-14 bg-gradient-to-br from-cyan-600 to-cyan-700 rounded-full flex items-center justify-center shadow-lg z-10">
+                          <span className="text-white text-xl font-bold">{item.step}</span>
                         </div>
                         
-                        <div className="pt-8 pb-6 px-6">
-                          <h3 className="text-xl font-bold mb-3 text-slate-800 mt-4">{item.title}</h3>
-                          <p className="text-slate-600 text-sm leading-relaxed">{item.description}</p>
-                        </div>
-
-                        {/* Accent Line */}
-                        <div className="h-1 bg-gradient-to-r from-cyan-400 to-cyan-600"></div>
-                      </Card>
+                        <Card className="border-2 border-cyan-100 hover:border-cyan-400 hover:shadow-xl transition-all duration-300 bg-white overflow-hidden">
+                          <div className="pt-6 pb-6 px-6">
+                            <h3 className="text-xl font-bold mb-3 text-slate-800">{item.title}</h3>
+                            <p className="text-slate-600 text-sm leading-relaxed">{item.description}</p>
+                          </div>
+                          {/* Accent Line */}
+                          <div className="h-1 bg-gradient-to-r from-cyan-400 to-cyan-600"></div>
+                        </Card>
+                      </div>
                     </div>
                   ))}
                 </div>
