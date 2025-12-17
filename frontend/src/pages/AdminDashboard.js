@@ -257,6 +257,8 @@ const AdminDashboard = () => {
         return <ProductManagement />;
       case 'articles':
         return <ArticleManagement />;
+      case 'gallery':
+        return <GalleryManagement />;
       case 'clients':
         return <ClientManagement />;
       case 'reviews':
