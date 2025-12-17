@@ -271,16 +271,18 @@ const LandingPage = () => {
       )}
 
       {/* Services Section */}
-      {servicesSection && (
+      {services.length > 0 && servicesSection && (
         <section className="py-20 bg-gradient-to-b from-cyan-50 to-white" data-testid="services-section">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16 scroll-fade-up">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-                {servicesSection.content.heading && (
+                {servicesSection.content.heading ? (
                   <>
                     {servicesSection.content.heading.split(' ').slice(0, -1).join(' ')}{' '}
                     <span className="text-gradient">{servicesSection.content.heading.split(' ').slice(-1)}</span>
                   </>
+                ) : (
+                  <>Our <span className="text-gradient">Services</span></>
                 )}
               </h2>
               <p className="text-lg text-slate-600 max-w-2xl mx-auto">
@@ -290,18 +292,32 @@ const LandingPage = () => {
 
             <div 
               className={`grid grid-cols-1 sm:grid-cols-2 gap-6 ${
-                servicesSection.content.services?.length === 1 ? 'lg:grid-cols-1 max-w-md mx-auto' :
-                servicesSection.content.services?.length === 2 ? 'lg:grid-cols-2 max-w-2xl mx-auto' :
-                servicesSection.content.services?.length === 3 ? 'lg:grid-cols-3 max-w-4xl mx-auto' :
+                services.length === 1 ? 'lg:grid-cols-1 max-w-md mx-auto' :
+                services.length === 2 ? 'lg:grid-cols-2 max-w-2xl mx-auto' :
+                services.length === 3 ? 'lg:grid-cols-3 max-w-4xl mx-auto' :
                 'lg:grid-cols-4'
               }`}
             >
-              {servicesSection.content.services?.map((service, index) => (
-                <div key={index} className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow scroll-fade-up">
-                  <h3 className="text-lg font-semibold text-cyan-600 mb-2">{service.name}</h3>
-                  <p className="text-sm text-slate-600">{service.description}</p>
-                </div>
+              {services.map((service, index) => (
+                <Link to={`/services/${service.id}`} key={service.id}>
+                  <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all scroll-fade-up group hover:border-cyan-200 border-2 border-transparent h-full">
+                    <h3 className="text-lg font-semibold text-cyan-600 mb-2 group-hover:text-cyan-700">{service.name}</h3>
+                    <p className="text-sm text-slate-600 mb-3">{service.short_description}</p>
+                    <span className="text-cyan-600 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
+                      Learn More <ArrowRight size={14} />
+                    </span>
+                  </div>
+                </Link>
               ))}
+            </div>
+
+            <div className="text-center mt-12">
+              <Link to="/services">
+                <Button size="lg" variant="outline" className="border-cyan-600 text-cyan-600 hover:bg-cyan-50 px-8 rounded-full">
+                  View All Services
+                  <ArrowRight className="ml-2" size={20} />
+                </Button>
+              </Link>
             </div>
           </div>
         </section>
