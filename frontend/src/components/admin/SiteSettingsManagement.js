@@ -249,6 +249,115 @@ const SiteSettingsManagement = () => {
                 className="mt-1"
               />
             </div>
+            <div>
+              <Label>LinkedIn URL</Label>
+              <Input
+                value={settings.linkedin_url || ''}
+                onChange={(e) => setSettings({ ...settings, linkedin_url: e.target.value })}
+                placeholder="https://linkedin.com/company/yourpage"
+                className="mt-1"
+              />
+            </div>
+            <div>
+              <Label>YouTube URL</Label>
+              <Input
+                value={settings.youtube_url || ''}
+                onChange={(e) => setSettings({ ...settings, youtube_url: e.target.value })}
+                placeholder="https://youtube.com/yourpage"
+                className="mt-1"
+              />
+            </div>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="footer">
+          <Card className="p-6 space-y-6">
+            <div>
+              <Label>Footer Copyright Text</Label>
+              <Input
+                value={settings.footer_copyright || ''}
+                onChange={(e) => setSettings({ ...settings, footer_copyright: e.target.value })}
+                placeholder={`© ${new Date().getFullYear()} ${settings.site_name || 'Your Company'}. All rights reserved.`}
+                className="mt-1"
+              />
+            </div>
+
+            <div>
+              <Label>Quick Links Title</Label>
+              <Input
+                value={settings.footer_links_title || ''}
+                onChange={(e) => setSettings({ ...settings, footer_links_title: e.target.value })}
+                placeholder="Quick Links"
+                className="mt-1"
+              />
+            </div>
+
+            <div>
+              <Label>Services Title</Label>
+              <Input
+                value={settings.footer_services_title || ''}
+                onChange={(e) => setSettings({ ...settings, footer_services_title: e.target.value })}
+                placeholder="Our Services"
+                className="mt-1"
+              />
+            </div>
+
+            <div>
+              <Label>Contact Title</Label>
+              <Input
+                value={settings.footer_contact_title || ''}
+                onChange={(e) => setSettings({ ...settings, footer_contact_title: e.target.value })}
+                placeholder="Contact Us"
+                className="mt-1"
+              />
+            </div>
+
+            {/* Footer Services List */}
+            <div>
+              <Label>Footer Services List</Label>
+              <p className="text-xs text-slate-500 mb-2">Services displayed in the footer (one per line)</p>
+              <div className="space-y-2">
+                {(settings.footer_services || []).map((service, index) => (
+                  <div key={index} className="flex gap-2">
+                    <Input
+                      value={service}
+                      onChange={(e) => {
+                        const newServices = [...(settings.footer_services || [])];
+                        newServices[index] = e.target.value;
+                        setSettings({ ...settings, footer_services: newServices });
+                      }}
+                      placeholder="Service name"
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="icon"
+                      onClick={() => {
+                        const newServices = (settings.footer_services || []).filter((_, i) => i !== index);
+                        setSettings({ ...settings, footer_services: newServices });
+                      }}
+                      className="text-red-600 hover:bg-red-50"
+                    >
+                      <X size={16} />
+                    </Button>
+                  </div>
+                ))}
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => {
+                    setSettings({
+                      ...settings,
+                      footer_services: [...(settings.footer_services || []), '']
+                    });
+                  }}
+                  className="w-full"
+                >
+                  <Plus size={16} className="mr-2" />
+                  Add Service
+                </Button>
+              </div>
+            </div>
           </Card>
         </TabsContent>
       </Tabs>
