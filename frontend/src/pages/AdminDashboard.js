@@ -62,7 +62,7 @@ const AdminDashboard = () => {
         api.getProducts({}),
         api.getArticles({}),
         api.getClients(),
-        api.getLeads()
+        api.getContactLeads().catch(() => ({ data: [] }))
       ]);
       setStats({
         products: productsRes.data?.length || 0,
