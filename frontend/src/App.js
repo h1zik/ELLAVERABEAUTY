@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { SettingsProvider } from './context/SettingsContext';
@@ -19,30 +19,42 @@ import AuthPage from './pages/AuthPage';
 import AdminDashboard from './pages/AdminDashboard';
 import '@/App.css';
 
+// Layout wrapper that conditionally shows header/footer
+const AppLayout = ({ children }) => {
+  const location = useLocation();
+  const isAdminPage = location.pathname.startsWith('/admin');
+
+  return (
+    <div className="App smooth-scroll">
+      {!isAdminPage && <Header />}
+      {children}
+      {!isAdminPage && <Footer />}
+      {!isAdminPage && <WhatsAppButton />}
+      <Toaster position="top-right" />
+    </div>
+  );
+};
+
 function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
         <ThemeProvider>
           <SettingsProvider>
-            <div className="App smooth-scroll">
-              <Header />
-            <Routes>
-              <Route path="/" element={<LandingPage />} />
-              <Route path="/products" element={<ProductsPage />} />
-              <Route path="/products/:id" element={<ProductDetailPage />} />
-              <Route path="/clients" element={<ClientsPage />} />
-              <Route path="/articles" element={<ArticlesPage />} />
-              <Route path="/articles/:id" element={<ArticleDetailPage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="/auth" element={<AuthPage />} />
-              <Route path="/admin" element={<AdminDashboard />} />
-            </Routes>
-            <Footer />
-            <WhatsAppButton />
-            <Toaster position="top-right" />
-            </div>
+            <AppLayout>
+              <Routes>
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/products" element={<ProductsPage />} />
+                <Route path="/products/:id" element={<ProductDetailPage />} />
+                <Route path="/clients" element={<ClientsPage />} />
+                <Route path="/articles" element={<ArticlesPage />} />
+                <Route path="/articles/:id" element={<ArticleDetailPage />} />
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="/contact" element={<ContactPage />} />
+                <Route path="/auth" element={<AuthPage />} />
+                <Route path="/admin" element={<AdminDashboard />} />
+              </Routes>
+            </AppLayout>
           </SettingsProvider>
         </ThemeProvider>
       </AuthProvider>
