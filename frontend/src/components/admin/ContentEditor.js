@@ -259,20 +259,88 @@ const ContentEditor = () => {
                   )}
 
                   {content.background_type === 'carousel' && (
-                    <div className="mt-4">
-                      <Label>Carousel Images (comma-separated URLs)</Label>
-                      <Textarea
-                        value={content.background_carousel?.join(',\n') || ''}
-                        onChange={(e) => {
-                          section.content.background_carousel = e.target.value.split(',').map(url => url.trim()).filter(Boolean);
-                          setSections([...sections]);
-                        }}
-                        placeholder="https://example.com/image1.jpg,&#10;https://example.com/image2.jpg,&#10;https://example.com/image3.jpg"
-                        rows={4}
-                      />
-                      <p className="text-xs text-slate-500 mt-1">
-                        Add multiple image URLs (one per line or comma-separated)
-                      </p>
+                    <div className="mt-4 space-y-3">
+                      <div>
+                        <Label>Upload Carousel Images (Multiple)</Label>
+                        <Input
+                          type="file"
+                          accept="image/*"
+                          multiple
+                          onChange={async (e) => {
+                            const files = Array.from(e.target.files);
+                            if (files.length === 0) return;
+
+                            if (files.some(f => f.size > 5 * 1024 * 1024)) {
+                              toast.error('Each image must be less than 5MB');
+                              return;
+                            }
+
+                            try {
+                              toast.info(`Uploading ${files.length} images...`);
+                              const uploadPromises = files.map(file => api.uploadImage(file));
+                              const responses = await Promise.all(uploadPromises);
+                              const imageUrls = responses.map(r => r.data.data_url);
+                              
+                              section.content.background_carousel = [
+                                ...(section.content.background_carousel || []),
+                                ...imageUrls
+                              ];
+                              setSections([...sections]);
+                              toast.success(`${files.length} images uploaded!`);
+                            } catch (error) {
+                              toast.error('Failed to upload images');
+                            }
+                          }}
+                          className="mt-1"
+                        />
+                        <p className="text-xs text-slate-500 mt-1">
+                          Select multiple images (Ctrl/Cmd + Click). Max 5MB each.
+                        </p>
+                      </div>
+
+                      <div>
+                        <Label>Or Paste Image URLs (one per line)</Label>
+                        <Textarea
+                          value={content.background_carousel?.join('\n') || ''}
+                          onChange={(e) => {
+                            section.content.background_carousel = e.target.value
+                              .split('\n')
+                              .map(url => url.trim())
+                              .filter(Boolean);
+                            setSections([...sections]);
+                          }}
+                          placeholder="https://example.com/image1.jpg&#10;https://example.com/image2.jpg&#10;https://example.com/image3.jpg"
+                          rows={4}
+                        />
+                      </div>
+
+                      {content.background_carousel?.length > 0 && (
+                        <div>
+                          <Label>Preview ({content.background_carousel.length} images)</Label>
+                          <div className="grid grid-cols-3 gap-2 mt-2">
+                            {content.background_carousel.map((url, idx) => (
+                              <div key={idx} className="relative group">
+                                <img 
+                                  src={url} 
+                                  alt={`Carousel ${idx + 1}`}
+                                  className="w-full h-24 object-cover rounded border-2 border-slate-200"
+                                />
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    section.content.background_carousel = section.content.background_carousel.filter((_, i) => i !== idx);
+                                    setSections([...sections]);
+                                    toast.success('Image removed');
+                                  }}
+                                  className="absolute top-1 right-1 bg-red-600 text-white p-1 rounded opacity-0 group-hover:opacity-100 transition-opacity"
+                                >
+                                  <Trash2 size={14} />
+                                </button>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   )}
 
