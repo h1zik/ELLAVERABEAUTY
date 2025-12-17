@@ -417,15 +417,22 @@ const LandingPage = () => {
       )}
 
       {/* Featured Products */}
-      {products.length > 0 && (
+      {productsSection && products.length > 0 && (
         <section className="py-20 bg-white border-t border-slate-200" data-testid="featured-products-section">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16 scroll-fade-up">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-                Featured <span className="text-gradient">Products</span>
+                {productsSection.content.heading ? (
+                  <>
+                    {productsSection.content.heading.split(' ').slice(0, -1).join(' ')}{' '}
+                    <span className="text-gradient">{productsSection.content.heading.split(' ').slice(-1)}</span>
+                  </>
+                ) : (
+                  <>Featured <span className="text-gradient">Products</span></>
+                )}
               </h2>
               <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                Discover our premium cosmetic product range
+                {productsSection.content.subheading || 'Discover our premium cosmetic product range'}
               </p>
             </div>
 
