@@ -88,6 +88,7 @@ const AdminDashboard = () => {
     { id: 'services', label: 'Services', icon: Briefcase },
     { id: 'products', label: 'Products', icon: Package },
     { id: 'articles', label: 'Articles', icon: Newspaper },
+    { id: 'categories', label: 'Categories', icon: Tag },
     { id: 'gallery', label: 'Gallery', icon: Image },
     { id: 'clients', label: 'Clients', icon: Users },
     { id: 'reviews', label: 'Reviews', icon: Star },
