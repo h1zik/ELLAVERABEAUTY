@@ -94,7 +94,10 @@ const LandingPage = () => {
   const featuresSection = getSection('features');
   const servicesSection = getSection('services');
   const processSection = getSection('process');
+  const productsSection = getSection('products');
+  const clientsSection = getSection('clients');
   const reviewsSection = getSection('reviews');
+  const articlesSection = getSection('articles');
   const ctaSection = getSection('cta');
 
   return (
