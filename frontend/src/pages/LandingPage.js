@@ -94,8 +94,75 @@ const LandingPage = () => {
     <div className="min-h-screen">
       {/* Hero Section */}
       {heroSection && (
-        <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-cyan-50 via-white to-cyan-50" data-testid="hero-section">
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1596704017254-9b121068ec31?w=1920')] bg-cover bg-center opacity-5"></div>
+        <section className="relative min-h-screen flex items-center justify-center overflow-hidden" data-testid="hero-section">
+          {/* Background Layer */}
+          {heroSection.content.background_type === 'video' && heroSection.content.background_video ? (
+            <>
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover"
+                style={{ zIndex: 0 }}
+              >
+                <source src={heroSection.content.background_video} type="video/mp4" />
+              </video>
+              <div 
+                className="absolute inset-0 bg-black"
+                style={{ 
+                  zIndex: 1,
+                  opacity: heroSection.content.background_overlay || 0.3 
+                }}
+              ></div>
+            </>
+          ) : heroSection.content.background_type === 'carousel' && heroSection.content.background_carousel?.length > 0 ? (
+            <>
+              <Swiper
+                modules={[Autoplay]}
+                autoplay={{
+                  delay: 5000,
+                  disableOnInteraction: false,
+                }}
+                loop={true}
+                className="absolute inset-0 w-full h-full"
+                style={{ zIndex: 0 }}
+              >
+                {heroSection.content.background_carousel.map((image, index) => (
+                  <SwiperSlide key={index}>
+                    <div 
+                      className="w-full h-full bg-cover bg-center"
+                      style={{ backgroundImage: `url(${image})` }}
+                    ></div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+              <div 
+                className="absolute inset-0 bg-black"
+                style={{ 
+                  zIndex: 1,
+                  opacity: heroSection.content.background_overlay || 0.3 
+                }}
+              ></div>
+            </>
+          ) : (
+            <>
+              <div 
+                className="absolute inset-0 bg-cover bg-center"
+                style={{ 
+                  backgroundImage: `url(${heroSection.content.background_image || 'https://images.unsplash.com/photo-1596704017254-9b121068ec31?w=1920&q=80'})`,
+                  zIndex: 0
+                }}
+              ></div>
+              <div 
+                className="absolute inset-0 bg-black"
+                style={{ 
+                  zIndex: 1,
+                  opacity: heroSection.content.background_overlay || 0.3 
+                }}
+              ></div>
+            </>
+          )}
           
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
