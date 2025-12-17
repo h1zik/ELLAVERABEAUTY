@@ -135,6 +135,9 @@ h1, h2, h3, h4, h5, h6 {
   .ring-primary {
     --tw-ring-color: var(--primary) !important;
   }
+  .border-t-primary {
+    border-top-color: var(--primary) !important;
+  }
   .from-primary {
     --tw-gradient-from: var(--primary) !important;
   }
