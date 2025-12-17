@@ -81,6 +81,7 @@ const AdminDashboard = () => {
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'content', label: 'Page Content', icon: FileText },
     { id: 'builder', label: 'Page Builder', icon: Layers },
+    { id: 'services', label: 'Services', icon: Briefcase },
     { id: 'products', label: 'Products', icon: Package },
     { id: 'articles', label: 'Articles', icon: Newspaper },
     { id: 'clients', label: 'Clients', icon: Users },
