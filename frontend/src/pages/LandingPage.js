@@ -124,16 +124,18 @@ const LandingPage = () => {
                   delay: 5000,
                   disableOnInteraction: false,
                 }}
-                loop={true}
+                loop={heroSection.content.background_carousel.length > 1}
                 className="absolute inset-0 w-full h-full"
-                style={{ zIndex: 0 }}
+                style={{ zIndex: 0, height: '100%', width: '100%' }}
               >
                 {heroSection.content.background_carousel.map((image, index) => (
-                  <SwiperSlide key={index}>
-                    <div 
-                      className="w-full h-full bg-cover bg-center"
-                      style={{ backgroundImage: `url(${image})` }}
-                    ></div>
+                  <SwiperSlide key={index} style={{ height: '100%', width: '100%' }}>
+                    <img 
+                      src={image}
+                      alt={`Hero background ${index + 1}`}
+                      className="w-full h-full object-cover"
+                      style={{ height: '100vh', width: '100%', objectFit: 'cover' }}
+                    />
                   </SwiperSlide>
                 ))}
               </Swiper>
