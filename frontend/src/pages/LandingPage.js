@@ -291,7 +291,7 @@ const LandingPage = () => {
 
       {/* Services Section */}
       {services.length > 0 && servicesSection && (
-        <section className="py-20 bg-gradient-to-b from-cyan-50 to-white" data-testid="services-section">
+        <section className="py-20 bg-gradient-to-b from-primary-light to-white" data-testid="services-section">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16 scroll-fade-up">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
@@ -344,7 +344,7 @@ const LandingPage = () => {
 
       {/* Process Flow Diagram */}
       {processSection && (
-        <section className="py-20 bg-gradient-to-b from-white to-cyan-50" data-testid="process-section">
+        <section className="py-20 bg-gradient-to-b from-white to-primary-light" data-testid="process-section">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16 scroll-fade-up">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
@@ -415,7 +415,7 @@ const LandingPage = () => {
 
       {/* Featured Products */}
       {products.length > 0 && (
-        <section className="py-20 bg-gradient-to-b from-cyan-50 to-white" data-testid="featured-products-section">
+        <section className="py-20 bg-gradient-to-b from-primary-light to-white" data-testid="featured-products-section">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16 scroll-fade-up">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
@@ -429,7 +429,7 @@ const LandingPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {products.map((product, index) => (
                 <Card key={product.id} className="product-card overflow-hidden scroll-scale border-none shadow-lg">
-                  <div className="aspect-square bg-gradient-to-br from-cyan-100 to-cyan-50 image-overlay">
+                  <div className="aspect-square bg-gradient-to-br from-primary-light to-primary-light image-overlay">
                     {product.images && product.images[0] ? (
                       <img src={product.images[0]} alt={product.name} className="w-full h-full object-cover" />
                     ) : (
@@ -521,7 +521,7 @@ const LandingPage = () => {
 
       {/* Reviews/Testimonials Section */}
       {reviewsSection && reviews.length > 0 && (
-        <section className="py-20 bg-gradient-to-b from-cyan-50 to-white" data-testid="reviews-section">
+        <section className="py-20 bg-gradient-to-b from-primary-light to-white" data-testid="reviews-section">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16 scroll-fade-up">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
@@ -617,7 +617,7 @@ const LandingPage = () => {
                   className="overflow-hidden hover:shadow-xl transition-all duration-300 scroll-scale border-none shadow-lg"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <div className="aspect-video bg-gradient-to-br from-cyan-100 to-cyan-50">
+                  <div className="aspect-video bg-gradient-to-br from-primary-light to-primary-light">
                     {article.cover_image ? (
                       <img 
                         src={article.cover_image} 
