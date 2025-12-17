@@ -882,21 +882,31 @@ async def delete_review(review_id: str, admin: User = Depends(require_admin)):
     return {"message": "Review deleted successfully"}
 
 # ============= CATEGORY ROUTES =============
-@api_router.get("/categories", response_model=List[Category])
+@api_router.get("/categories")
 async def get_categories(category_type: Optional[str] = None):
     query = {}
     if category_type:
         query["type"] = category_type
     
-    print(f"Categories query: {query}")
     categories = await db.categories.find(query, {"_id": 0}).sort("order", 1).to_list(1000)
-    print(f"Found {len(categories)} categories")
+    
+    result = []
     for cat in categories:
         if isinstance(cat.get('created_at'), str):
             cat['created_at'] = datetime.fromisoformat(cat['created_at'])
         if isinstance(cat.get('updated_at'), str):
             cat['updated_at'] = datetime.fromisoformat(cat['updated_at'])
-    return categories
+        result.append({
+            "id": cat["id"],
+            "name": cat["name"],
+            "slug": cat["slug"],
+            "type": cat.get("type", ""),
+            "description": cat.get("description"),
+            "order": cat.get("order", 0),
+            "created_at": cat["created_at"],
+            "updated_at": cat.get("updated_at", cat["created_at"])
+        })
+    return result
 
 @api_router.get("/categories/{category_id}", response_model=Category)
 async def get_category(category_id: str):
