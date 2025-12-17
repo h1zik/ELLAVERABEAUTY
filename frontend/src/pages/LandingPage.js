@@ -567,6 +567,74 @@ const LandingPage = () => {
         </section>
       )}
 
+      {/* Articles Section */}
+      {articles.length > 0 && (
+        <section className="py-20 bg-white" data-testid="articles-section">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16 scroll-fade-up">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+                Latest <span className="text-gradient">Articles</span>
+              </h2>
+              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+                Insights and tips from our beauty industry experts
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {articles.map((article, index) => (
+                <Card 
+                  key={article.id} 
+                  className="overflow-hidden hover:shadow-xl transition-all duration-300 scroll-scale border-none shadow-lg"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div className="aspect-video bg-gradient-to-br from-cyan-100 to-cyan-50">
+                    {article.image_url ? (
+                      <img 
+                        src={article.image_url} 
+                        alt={article.title} 
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <Sparkles size={48} className="text-cyan-400" />
+                      </div>
+                    )}
+                  </div>
+                  <div className="p-6">
+                    <div className="flex items-center gap-2 text-sm text-slate-500 mb-3">
+                      <Calendar size={14} />
+                      {new Date(article.created_at).toLocaleDateString('id-ID', { 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric' 
+                      })}
+                    </div>
+                    <p className="text-sm text-cyan-600 font-medium mb-2">{article.category_name}</p>
+                    <h3 className="text-lg font-bold mb-2 line-clamp-2">{article.title}</h3>
+                    <p className="text-slate-600 text-sm mb-4 line-clamp-2">{article.excerpt || article.content?.substring(0, 100)}</p>
+                    <Link to={`/articles/${article.id}`}>
+                      <Button variant="outline" size="sm" className="border-cyan-600 text-cyan-600 hover:bg-cyan-50">
+                        Read More
+                        <ArrowRight size={14} className="ml-1" />
+                      </Button>
+                    </Link>
+                  </div>
+                </Card>
+              ))}
+            </div>
+
+            <div className="text-center mt-12">
+              <Link to="/articles">
+                <Button size="lg" className="bg-cyan-600 hover:bg-cyan-700 text-white px-8 rounded-full">
+                  View All Articles
+                  <ArrowRight className="ml-2" size={20} />
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* CTA Section */}
       {ctaSection && (
         <section className="py-20 bg-gradient-to-br from-cyan-600 to-cyan-700 text-white" data-testid="cta-section">
