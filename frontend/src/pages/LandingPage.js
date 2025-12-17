@@ -40,17 +40,19 @@ const LandingPage = () => {
 
   const fetchData = async () => {
     try {
-      const [clientsRes, reviewsRes, productsRes, articlesRes, sectionsRes] = await Promise.all([
+      const [clientsRes, reviewsRes, productsRes, articlesRes, servicesRes, sectionsRes] = await Promise.all([
         api.getClients(),
         api.getReviews(),
         api.getProducts({ featured: true }),
         api.getArticles({}),
+        api.getServices({ featured: true }),
         api.getPageSections('home')
       ]);
       setClients(clientsRes.data);
       setReviews(reviewsRes.data);
       setProducts(productsRes.data.slice(0, 3));
       setArticles(articlesRes.data.slice(0, 3));
+      setServices(servicesRes.data.slice(0, 4));
       setSections(sectionsRes.data.filter(s => s.visible).sort((a, b) => a.order - b.order));
     } catch (error) {
       console.error('Failed to fetch data:', error);
