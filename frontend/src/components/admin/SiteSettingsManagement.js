@@ -57,10 +57,11 @@ const SiteSettingsManagement = () => {
       </div>
 
       <Tabs defaultValue="general" className="w-full">
-        <TabsList className="grid w-full grid-cols-3 mb-6">
+        <TabsList className="grid w-full grid-cols-4 mb-6">
           <TabsTrigger value="general">General</TabsTrigger>
           <TabsTrigger value="contact">Contact Info</TabsTrigger>
           <TabsTrigger value="social">Social Media</TabsTrigger>
+          <TabsTrigger value="footer">Footer</TabsTrigger>
         </TabsList>
 
         <TabsContent value="general">
