@@ -18,6 +18,7 @@ import ContactPage from './pages/ContactPage';
 import AuthPage from './pages/AuthPage';
 import AdminDashboard from './pages/AdminDashboard';
 import ServicesPage from './pages/ServicesPage';
+import ServiceDetailPage from './pages/ServiceDetailPage';
 import '@/App.css';
 
 // Layout wrapper that conditionally shows header/footer
