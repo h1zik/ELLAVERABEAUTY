@@ -165,6 +165,27 @@ class ReviewCreate(BaseModel):
     company: Optional[str] = None
     photo_url: Optional[str] = None
 
+# ============= GALLERY MODELS =============
+class GalleryItem(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str
+    title: str
+    description: Optional[str] = None
+    image_url: str
+    category: Optional[str] = None
+    featured: bool = False
+    order: int = 0
+    created_at: datetime
+    updated_at: datetime
+
+class GalleryItemCreate(BaseModel):
+    title: str
+    description: Optional[str] = None
+    image_url: str
+    category: Optional[str] = None
+    featured: bool = False
+    order: int = 0
+
 # ============= SERVICE MODELS =============
 class Service(BaseModel):
     model_config = ConfigDict(extra="ignore")
