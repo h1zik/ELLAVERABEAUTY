@@ -158,6 +158,103 @@ const ContentEditor = () => {
                     />
                   </div>
                 </div>
+
+                {/* Hero Background Configuration */}
+                <div className="mt-6 pt-6 border-t border-slate-200">
+                  <h4 className="font-semibold mb-4 text-lg">Background Settings</h4>
+                  
+                  <div>
+                    <Label>Background Type</Label>
+                    <Select
+                      value={content.background_type || 'image'}
+                      onValueChange={(value) => {
+                        section.content.background_type = value;
+                        setSections([...sections]);
+                      }}
+                    >
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="image">Static Image</SelectItem>
+                        <SelectItem value="video">Video Background</SelectItem>
+                        <SelectItem value="carousel">Carousel/Slideshow</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {content.background_type === 'image' && (
+                    <div className="mt-4">
+                      <Label>Background Image URL</Label>
+                      <Input
+                        value={content.background_image || ''}
+                        onChange={(e) => {
+                          section.content.background_image = e.target.value;
+                          setSections([...sections]);
+                        }}
+                        placeholder="https://example.com/image.jpg"
+                      />
+                      {content.background_image && (
+                        <div className="mt-2">
+                          <img src={content.background_image} alt="Preview" className="w-full h-32 object-cover rounded" />
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {content.background_type === 'video' && (
+                    <div className="mt-4">
+                      <Label>Background Video URL (MP4)</Label>
+                      <Input
+                        value={content.background_video || ''}
+                        onChange={(e) => {
+                          section.content.background_video = e.target.value;
+                          setSections([...sections]);
+                        }}
+                        placeholder="https://example.com/video.mp4"
+                      />
+                      <p className="text-xs text-slate-500 mt-1">
+                        Recommended: Short loop video, max 10MB, 1920x1080
+                      </p>
+                    </div>
+                  )}
+
+                  {content.background_type === 'carousel' && (
+                    <div className="mt-4">
+                      <Label>Carousel Images (comma-separated URLs)</Label>
+                      <Textarea
+                        value={content.background_carousel?.join(',\n') || ''}
+                        onChange={(e) => {
+                          section.content.background_carousel = e.target.value.split(',').map(url => url.trim()).filter(Boolean);
+                          setSections([...sections]);
+                        }}
+                        placeholder="https://example.com/image1.jpg,&#10;https://example.com/image2.jpg,&#10;https://example.com/image3.jpg"
+                        rows={4}
+                      />
+                      <p className="text-xs text-slate-500 mt-1">
+                        Add multiple image URLs (one per line or comma-separated)
+                      </p>
+                    </div>
+                  )}
+
+                  <div className="mt-4">
+                    <Label>Background Overlay Opacity (0-1)</Label>
+                    <Input
+                      type="number"
+                      min="0"
+                      max="1"
+                      step="0.1"
+                      value={content.background_overlay || 0.3}
+                      onChange={(e) => {
+                        section.content.background_overlay = parseFloat(e.target.value);
+                        setSections([...sections]);
+                      }}
+                    />
+                    <p className="text-xs text-slate-500 mt-1">
+                      Dark overlay untuk readability text (0 = transparent, 1 = black)
+                    </p>
+                  </div>
+                </div>
               </>
             )}
           </div>
