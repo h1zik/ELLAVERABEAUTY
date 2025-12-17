@@ -1,14 +1,41 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from 'lucide-react';
+import { Facebook, Instagram, Twitter, Linkedin, Youtube, Mail, Phone, MapPin } from 'lucide-react';
 import { useSettings } from '../../context/SettingsContext';
 
 const Footer = () => {
   const { settings, loading } = useSettings();
 
   if (loading || !settings) {
-    return null; // or a loading skeleton
+    return null;
   }
+
+  // Default footer services if not customized
+  const defaultFooterServices = [
+    'Skincare Manufacturing',
+    'Body Care Products', 
+    'Hair Care Solutions',
+    'Fragrance Development',
+    'Private Label Services'
+  ];
+
+  const footerServices = settings.footer_services?.length > 0 
+    ? settings.footer_services 
+    : defaultFooterServices;
+
+  // Default quick links
+  const defaultQuickLinks = [
+    { name: 'Home', path: '/' },
+    { name: 'Services', path: '/services' },
+    { name: 'Products', path: '/products' },
+    { name: 'Our Clients', path: '/clients' },
+    { name: 'Articles', path: '/articles' },
+    { name: 'About Us', path: '/about' },
+  ];
+
+  const quickLinks = settings.footer_quick_links?.length > 0 
+    ? settings.footer_quick_links 
+    : defaultQuickLinks;
 
   return (
     <footer className="bg-slate-900 text-white pt-16 pb-8" data-testid="main-footer">
@@ -38,36 +65,51 @@ const Footer = () => {
                   <Twitter size={20} />
                 </a>
               )}
+              {settings.linkedin_url && settings.linkedin_url !== '#' && (
+                <a href={settings.linkedin_url} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-cyan-400 transition-colors">
+                  <Linkedin size={20} />
+                </a>
+              )}
+              {settings.youtube_url && settings.youtube_url !== '#' && (
+                <a href={settings.youtube_url} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-cyan-400 transition-colors">
+                  <Youtube size={20} />
+                </a>
+              )}
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-semibold text-lg mb-4">Quick Links</h4>
+            <h4 className="font-semibold text-lg mb-4">{settings.footer_links_title || 'Quick Links'}</h4>
             <ul className="space-y-2">
-              <li><Link to="/" className="text-slate-400 hover:text-cyan-400 transition-colors text-sm" data-testid="footer-link-home">Home</Link></li>
-              <li><Link to="/products" className="text-slate-400 hover:text-cyan-400 transition-colors text-sm" data-testid="footer-link-products">Products</Link></li>
-              <li><Link to="/clients" className="text-slate-400 hover:text-cyan-400 transition-colors text-sm" data-testid="footer-link-clients">Our Clients</Link></li>
-              <li><Link to="/articles" className="text-slate-400 hover:text-cyan-400 transition-colors text-sm" data-testid="footer-link-articles">Articles</Link></li>
-              <li><Link to="/about" className="text-slate-400 hover:text-cyan-400 transition-colors text-sm" data-testid="footer-link-about">About Us</Link></li>
+              {quickLinks.map((link, index) => (
+                <li key={index}>
+                  <Link 
+                    to={link.path} 
+                    className="text-slate-400 hover:text-cyan-400 transition-colors text-sm"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Services */}
           <div>
-            <h4 className="font-semibold text-lg mb-4">Our Services</h4>
+            <h4 className="font-semibold text-lg mb-4">{settings.footer_services_title || 'Our Services'}</h4>
             <ul className="space-y-2">
-              <li className="text-slate-400 text-sm">Skincare Manufacturing</li>
-              <li className="text-slate-400 text-sm">Body Care Products</li>
-              <li className="text-slate-400 text-sm">Hair Care Solutions</li>
-              <li className="text-slate-400 text-sm">Fragrance Development</li>
-              <li className="text-slate-400 text-sm">Private Label Services</li>
+              {footerServices.map((service, index) => (
+                <li key={index} className="text-slate-400 text-sm">
+                  {typeof service === 'string' ? service : service.name}
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Contact */}
           <div>
-            <h4 className="font-semibold text-lg mb-4">Contact Us</h4>
+            <h4 className="font-semibold text-lg mb-4">{settings.footer_contact_title || 'Contact Us'}</h4>
             <ul className="space-y-3">
               <li className="flex items-start space-x-2 text-slate-400 text-sm">
                 <MapPin size={16} className="mt-1 flex-shrink-0" />
@@ -86,7 +128,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-slate-800 pt-8 text-center text-slate-400 text-sm">
-          <p>&copy; {new Date().getFullYear()} {settings.site_name || 'Ellavera Beauty'}. All rights reserved.</p>
+          <p>{settings.footer_copyright || `© ${new Date().getFullYear()} ${settings.site_name || 'Ellavera Beauty'}. All rights reserved.`}</p>
         </div>
       </div>
     </footer>
