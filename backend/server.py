@@ -863,6 +863,96 @@ async def delete_review(review_id: str, admin: User = Depends(require_admin)):
         raise HTTPException(status_code=404, detail="Review not found")
     return {"message": "Review deleted successfully"}
 
+# ============= GALLERY ROUTES =============
+@api_router.get("/gallery", response_model=List[GalleryItem])
+async def get_gallery(category: Optional[str] = None, featured: Optional[bool] = None):
+    query = {}
+    if category:
+        query["category"] = category
+    if featured is not None:
+        query["featured"] = featured
+    
+    items = await db.gallery.find(query, {"_id": 0}).sort("order", 1).to_list(1000)
+    for item in items:
+        if isinstance(item.get('created_at'), str):
+            item['created_at'] = datetime.fromisoformat(item['created_at'])
+        if isinstance(item.get('updated_at'), str):
+            item['updated_at'] = datetime.fromisoformat(item['updated_at'])
+    return items
+
+@api_router.get("/gallery/categories")
+async def get_gallery_categories():
+    categories = await db.gallery.distinct("category")
+    return [c for c in categories if c]
+
+@api_router.get("/gallery/{item_id}", response_model=GalleryItem)
+async def get_gallery_item(item_id: str):
+    item = await db.gallery.find_one({"id": item_id}, {"_id": 0})
+    if not item:
+        raise HTTPException(status_code=404, detail="Gallery item not found")
+    
+    if isinstance(item.get('created_at'), str):
+        item['created_at'] = datetime.fromisoformat(item['created_at'])
+    if isinstance(item.get('updated_at'), str):
+        item['updated_at'] = datetime.fromisoformat(item['updated_at'])
+    
+    return GalleryItem(**item)
+
+@api_router.post("/gallery", response_model=GalleryItem)
+async def create_gallery_item(item_data: GalleryItemCreate, admin: User = Depends(require_admin)):
+    item_id = str(uuid.uuid4())
+    
+    item = {
+        "id": item_id,
+        "title": item_data.title,
+        "description": item_data.description,
+        "image_url": item_data.image_url,
+        "category": item_data.category,
+        "featured": item_data.featured,
+        "order": item_data.order,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "updated_at": datetime.now(timezone.utc).isoformat()
+    }
+    
+    await db.gallery.insert_one(item)
+    item['created_at'] = datetime.fromisoformat(item['created_at'])
+    item['updated_at'] = datetime.fromisoformat(item['updated_at'])
+    
+    return GalleryItem(**item)
+
+@api_router.put("/gallery/{item_id}", response_model=GalleryItem)
+async def update_gallery_item(item_id: str, item_data: GalleryItemCreate, admin: User = Depends(require_admin)):
+    existing = await db.gallery.find_one({"id": item_id})
+    if not existing:
+        raise HTTPException(status_code=404, detail="Gallery item not found")
+    
+    update_data = {
+        "title": item_data.title,
+        "description": item_data.description,
+        "image_url": item_data.image_url,
+        "category": item_data.category,
+        "featured": item_data.featured,
+        "order": item_data.order,
+        "updated_at": datetime.now(timezone.utc).isoformat()
+    }
+    
+    await db.gallery.update_one({"id": item_id}, {"$set": update_data})
+    
+    item = await db.gallery.find_one({"id": item_id}, {"_id": 0})
+    if isinstance(item.get('created_at'), str):
+        item['created_at'] = datetime.fromisoformat(item['created_at'])
+    if isinstance(item.get('updated_at'), str):
+        item['updated_at'] = datetime.fromisoformat(item['updated_at'])
+    
+    return GalleryItem(**item)
+
+@api_router.delete("/gallery/{item_id}")
+async def delete_gallery_item(item_id: str, admin: User = Depends(require_admin)):
+    result = await db.gallery.delete_one({"id": item_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Gallery item not found")
+    return {"message": "Gallery item deleted successfully"}
+
 # ============= SERVICE ROUTES =============
 @api_router.get("/services", response_model=List[Service])
 async def get_services(featured: Optional[bool] = None):
