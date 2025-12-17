@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle, Star, Sparkles, Quote } from 'lucide-react';
+import { ArrowRight, CheckCircle, Star, Sparkles, Quote, Calendar } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
 import { api } from '../utils/api';
