@@ -213,7 +213,22 @@ const ArticleManagement = () => {
               </div>
               <div>
                 <Label>Category</Label>
-                <Input value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })} required data-testid="article-category-input" placeholder="e.g., Industry News, Tips" />
+                {categories.length > 0 ? (
+                  <select
+                    value={formData.category}
+                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                    required
+                    data-testid="article-category-input"
+                    className="w-full h-10 px-3 rounded-md border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                  >
+                    <option value="">Select a category</option>
+                    {categories.map(cat => (
+                      <option key={cat.id} value={cat.name}>{cat.name}</option>
+                    ))}
+                  </select>
+                ) : (
+                  <Input value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })} required data-testid="article-category-input" placeholder="e.g., Industry News, Tips" />
+                )}
               </div>
               <div>
                 <Label>Excerpt</Label>
