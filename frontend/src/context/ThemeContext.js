@@ -35,6 +35,12 @@ export const ThemeProvider = ({ children }) => {
     document.documentElement.style.setProperty('--accent', theme.accent_color);
     document.documentElement.style.setProperty('--background', theme.background_color);
     document.documentElement.style.setProperty('--foreground', theme.text_color);
+    
+    // Generate light and dark variants using color-mix
+    document.documentElement.style.setProperty('--primary-light', `color-mix(in srgb, ${theme.primary_color} 20%, white)`);
+    document.documentElement.style.setProperty('--primary-dark', `color-mix(in srgb, ${theme.primary_color} 100%, black 20%)`);
+    document.documentElement.style.setProperty('--accent-light', `color-mix(in srgb, ${theme.accent_color} 20%, white)`);
+    document.documentElement.style.setProperty('--accent-dark', `color-mix(in srgb, ${theme.accent_color} 100%, black 20%)`);
   }, [theme]);
 
   const fetchTheme = async () => {
