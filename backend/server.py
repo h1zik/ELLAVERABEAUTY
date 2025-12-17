@@ -165,6 +165,24 @@ class ReviewCreate(BaseModel):
     company: Optional[str] = None
     photo_url: Optional[str] = None
 
+# ============= CATEGORY MODELS =============
+class Category(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str
+    name: str
+    slug: str
+    type: str  # 'product' or 'article'
+    description: Optional[str] = None
+    order: int = 0
+    created_at: datetime
+    updated_at: datetime
+
+class CategoryCreate(BaseModel):
+    name: str
+    type: str  # 'product' or 'article'
+    description: Optional[str] = None
+    order: int = 0
+
 # ============= GALLERY MODELS =============
 class GalleryItem(BaseModel):
     model_config = ConfigDict(extra="ignore")
