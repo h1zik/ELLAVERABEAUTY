@@ -165,6 +165,36 @@ class ReviewCreate(BaseModel):
     company: Optional[str] = None
     photo_url: Optional[str] = None
 
+# ============= SERVICE MODELS =============
+class Service(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str
+    name: str
+    slug: str
+    short_description: str
+    description: str
+    icon: str = "Sparkles"
+    image_url: Optional[str] = None
+    features: List[str] = []
+    benefits: Optional[str] = None
+    process_steps: Optional[str] = None
+    featured: bool = False
+    order: int = 0
+    created_at: datetime
+    updated_at: datetime
+
+class ServiceCreate(BaseModel):
+    name: str
+    short_description: str
+    description: str
+    icon: str = "Sparkles"
+    image_url: Optional[str] = None
+    features: List[str] = []
+    benefits: Optional[str] = None
+    process_steps: Optional[str] = None
+    featured: bool = False
+    order: int = 0
+
 # ============= THEME MODELS =============
 class ThemeSettings(BaseModel):
     model_config = ConfigDict(extra="ignore")
