@@ -319,40 +319,28 @@ const LandingPage = () => {
 
             {/* Desktop Flow Diagram */}
             <div className="hidden lg:block max-w-7xl mx-auto">
-              <div className="relative">
-                {/* Connection Lines */}
-                <div className="absolute top-20 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600" style={{ top: '5rem' }}></div>
-                
-                {/* Steps */}
-                <div className="grid grid-cols-3 gap-8">
-                  {processSection.content.steps?.slice(0, 6).map((item, index) => (
-                    <div key={index} className="relative scroll-scale" style={{ animationDelay: `${index * 0.1}s` }}>
-                      {/* Arrow */}
-                      {index < processSection.content.steps.length - 1 && index % 3 !== 2 && (
-                        <div className="absolute -right-4 top-16 z-10">
-                          <ArrowRight className="text-cyan-600" size={32} />
-                        </div>
-                      )}
-                      
-                      {/* Card with Badge */}
-                      <div className="relative pt-6 pl-6">
-                        {/* Step Number Badge - outside card for visibility */}
-                        <div className="absolute top-0 left-0 w-14 h-14 bg-gradient-to-br from-cyan-600 to-cyan-700 rounded-full flex items-center justify-center shadow-lg z-10">
-                          <span className="text-white text-xl font-bold">{item.step}</span>
-                        </div>
-                        
-                        <Card className="border-2 border-cyan-100 hover:border-cyan-400 hover:shadow-xl transition-all duration-300 bg-white overflow-hidden">
-                          <div className="pt-6 pb-6 px-6">
-                            <h3 className="text-xl font-bold mb-3 text-slate-800">{item.title}</h3>
-                            <p className="text-slate-600 text-sm leading-relaxed">{item.description}</p>
-                          </div>
-                          {/* Accent Line */}
-                          <div className="h-1 bg-gradient-to-r from-cyan-400 to-cyan-600"></div>
-                        </Card>
+              {/* Steps Grid */}
+              <div className="grid grid-cols-3 gap-8">
+                {processSection.content.steps?.slice(0, 6).map((item, index) => (
+                  <div key={index} className="scroll-scale" style={{ animationDelay: `${index * 0.1}s` }}>
+                    {/* Card with Badge */}
+                    <div className="relative pt-4 pl-4">
+                      {/* Step Number Badge */}
+                      <div className="absolute top-0 left-0 w-12 h-12 bg-gradient-to-br from-cyan-600 to-cyan-700 rounded-full flex items-center justify-center shadow-lg z-10">
+                        <span className="text-white text-lg font-bold">{item.step}</span>
                       </div>
+                      
+                      <Card className="border-2 border-cyan-100 hover:border-cyan-400 hover:shadow-xl transition-all duration-300 bg-white overflow-hidden">
+                        <div className="pt-6 pb-6 px-6">
+                          <h3 className="text-xl font-bold mb-3 text-slate-800">{item.title}</h3>
+                          <p className="text-slate-600 text-sm leading-relaxed">{item.description}</p>
+                        </div>
+                        {/* Accent Line */}
+                        <div className="h-1 bg-gradient-to-r from-cyan-400 to-cyan-600"></div>
+                      </Card>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
             </div>
 
