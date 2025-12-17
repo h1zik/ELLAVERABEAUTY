@@ -121,9 +121,12 @@ const LandingPage = () => {
             <>
               <div className="absolute inset-0 w-full h-full" style={{ zIndex: 0 }}>
                 <Swiper
-                  modules={[Autoplay]}
+                  modules={[Autoplay, EffectFade]}
+                  effect="fade"
+                  fadeEffect={{ crossFade: true }}
+                  speed={1500}
                   autoplay={{
-                    delay: 5000,
+                    delay: 4000,
                     disableOnInteraction: false,
                   }}
                   loop={heroSection.content.background_carousel.length > 1}
