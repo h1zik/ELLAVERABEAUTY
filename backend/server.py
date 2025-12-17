@@ -883,12 +883,14 @@ async def delete_review(review_id: str, admin: User = Depends(require_admin)):
 
 # ============= CATEGORY ROUTES =============
 @api_router.get("/categories", response_model=List[Category])
-async def get_categories(type: Optional[str] = None):
+async def get_categories(category_type: Optional[str] = None):
     query = {}
-    if type:
-        query["type"] = type
+    if category_type:
+        query["type"] = category_type
     
+    print(f"Categories query: {query}")
     categories = await db.categories.find(query, {"_id": 0}).sort("order", 1).to_list(1000)
+    print(f"Found {len(categories)} categories")
     for cat in categories:
         if isinstance(cat.get('created_at'), str):
             cat['created_at'] = datetime.fromisoformat(cat['created_at'])
