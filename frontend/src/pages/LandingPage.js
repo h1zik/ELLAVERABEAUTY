@@ -568,7 +568,11 @@ const LandingPage = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className={`grid grid-cols-1 gap-8 ${
+              articles.length === 1 ? 'md:grid-cols-1 max-w-lg mx-auto' :
+              articles.length === 2 ? 'md:grid-cols-2 max-w-3xl mx-auto' :
+              'md:grid-cols-3'
+            }`}>
               {articles.map((article, index) => (
                 <Card 
                   key={article.id} 
@@ -576,9 +580,9 @@ const LandingPage = () => {
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <div className="aspect-video bg-gradient-to-br from-cyan-100 to-cyan-50">
-                    {article.image_url ? (
+                    {article.cover_image ? (
                       <img 
-                        src={article.image_url} 
+                        src={article.cover_image} 
                         alt={article.title} 
                         className="w-full h-full object-cover"
                       />
@@ -597,7 +601,7 @@ const LandingPage = () => {
                         day: 'numeric' 
                       })}
                     </div>
-                    <p className="text-sm text-cyan-600 font-medium mb-2">{article.category_name}</p>
+                    <p className="text-sm text-cyan-600 font-medium mb-2">{article.category}</p>
                     <h3 className="text-lg font-bold mb-2 line-clamp-2">{article.title}</h3>
                     <p className="text-slate-600 text-sm mb-4 line-clamp-2">{article.excerpt || article.content?.substring(0, 100)}</p>
                     <Link to={`/articles/${article.id}`}>
