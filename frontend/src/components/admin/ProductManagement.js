@@ -50,7 +50,7 @@ const ProductManagement = () => {
     try {
       const [productsRes, categoriesRes] = await Promise.all([
         api.getProducts({}),
-        api.getCategories()
+        api.getCategories({ type: 'product' })
       ]);
       setProducts(productsRes.data);
       setCategories(categoriesRes.data);
