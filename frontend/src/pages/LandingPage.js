@@ -475,15 +475,22 @@ const LandingPage = () => {
       )}
 
       {/* Clients Section with Auto-Slide */}
-      {clients.length > 0 && (
+      {clientsSection && clients.length > 0 && (
         <section className="py-20 bg-slate-50 border-t border-slate-200" data-testid="clients-section">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16 scroll-reveal">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-                Trusted by <span className="text-gradient">Leading Brands</span>
+                {clientsSection.content.heading ? (
+                  <>
+                    {clientsSection.content.heading.split(' ').slice(0, -2).join(' ')}{' '}
+                    <span className="text-gradient">{clientsSection.content.heading.split(' ').slice(-2).join(' ')}</span>
+                  </>
+                ) : (
+                  <>Trusted by <span className="text-gradient">Leading Brands</span></>
+                )}
               </h2>
               <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                Join the brands that trust us for their cosmetic manufacturing
+                {clientsSection.content.subheading || 'Join the brands that trust us for their cosmetic manufacturing'}
               </p>
             </div>
 
