@@ -63,8 +63,8 @@ const Header = () => {
                 key={link.path}
                 to={link.path}
                 data-testid={`nav-link-${link.name.toLowerCase().replace(' ', '-')}`}
-                className={`text-sm font-medium transition-colors hover:text-cyan-600 ${
-                  location.pathname === link.path ? 'text-cyan-600' : 'text-slate-700'
+                className={`text-sm font-medium transition-colors hover:text-primary ${
+                  location.pathname === link.path ? 'text-primary' : 'text-slate-700'
                 }`}
               >
                 {link.name}
@@ -78,7 +78,7 @@ const Header = () => {
               <>
                 {user.is_admin && (
                   <Link to="/admin" data-testid="admin-link">
-                    <Button variant="outline" size="sm" className="border-cyan-600 text-cyan-600 hover:bg-cyan-50">
+                    <Button variant="outline" size="sm" className="border-primary text-primary hover:bg-primary-light">
                       Admin Dashboard
                     </Button>
                   </Link>
@@ -96,7 +96,7 @@ const Header = () => {
               </>
             ) : (
               <Link to="/auth" data-testid="login-link">
-                <Button size="sm" className="bg-cyan-600 hover:bg-cyan-700 text-white">
+                <Button size="sm" className="bg-primary hover:bg-primary-dark text-white">
                   Login
                 </Button>
               </Link>
@@ -123,7 +123,7 @@ const Header = () => {
                 onClick={() => setIsMobileMenuOpen(false)}
                 data-testid={`mobile-nav-link-${link.name.toLowerCase().replace(' ', '-')}`}
                 className={`block py-2 text-sm font-medium transition-colors ${
-                  location.pathname === link.path ? 'text-cyan-600' : 'text-slate-700'
+                  location.pathname === link.path ? 'text-primary' : 'text-slate-700'
                 }`}
               >
                 {link.name}
@@ -134,7 +134,7 @@ const Header = () => {
                 <>
                   {user.is_admin && (
                     <Link to="/admin" onClick={() => setIsMobileMenuOpen(false)} data-testid="mobile-admin-link">
-                      <Button variant="outline" size="sm" className="w-full mb-2 border-cyan-600 text-cyan-600">
+                      <Button variant="outline" size="sm" className="w-full mb-2 border-primary text-primary">
                         Admin Dashboard
                       </Button>
                     </Link>
@@ -154,7 +154,7 @@ const Header = () => {
                 </>
               ) : (
                 <Link to="/auth" onClick={() => setIsMobileMenuOpen(false)} data-testid="mobile-login-link">
-                  <Button size="sm" className="w-full bg-cyan-600 hover:bg-cyan-700 text-white">
+                  <Button size="sm" className="w-full bg-primary hover:bg-primary-dark text-white">
                     Login
                   </Button>
                 </Link>
