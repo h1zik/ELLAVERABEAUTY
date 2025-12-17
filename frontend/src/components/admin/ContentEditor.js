@@ -466,35 +466,14 @@ const ContentEditor = () => {
               />
             </div>
 
-            <ArrayItemEditor
-              title="Services"
-              items={content.services || []}
-              onChange={(newServices) => {
-                section.content.services = newServices;
-                setSections([...sections]);
-              }}
-              itemTemplate={{ name: '', description: '' }}
-              renderItem={(service, index, updateItem) => (
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <Label>Service Name</Label>
-                    <Input
-                      value={service.name || ''}
-                      onChange={(e) => updateItem(index, 'name', e.target.value)}
-                      placeholder="e.g., Skincare Manufacturing"
-                    />
-                  </div>
-                  <div>
-                    <Label>Description</Label>
-                    <Input
-                      value={service.description || ''}
-                      onChange={(e) => updateItem(index, 'description', e.target.value)}
-                      placeholder="Brief description"
-                    />
-                  </div>
-                </div>
-              )}
-            />
+            <div className="p-4 bg-cyan-50 rounded-lg border border-cyan-200">
+              <p className="text-sm text-cyan-800 mb-2">
+                <strong>Note:</strong> Services are now managed separately.
+              </p>
+              <p className="text-sm text-cyan-600">
+                Go to <strong>Services</strong> tab in the sidebar to add, edit, or delete services.
+              </p>
+            </div>
           </div>
         );
 
