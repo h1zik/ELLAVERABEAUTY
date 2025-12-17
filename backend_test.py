@@ -399,6 +399,12 @@ def main():
     ai_content_success, ai_content_data = tester.test_ai_content_generation()
     ai_image_success, ai_image_data = tester.test_ai_image_generation()
     
+    # Test Hero Section Carousel Background Feature
+    print("\n🎨 Testing Hero Section Carousel Background...")
+    hero_get_success, hero_data = tester.test_get_homepage_sections()
+    hero_carousel_success, hero_carousel_data = tester.test_update_hero_section_carousel()
+    hero_static_success, hero_static_data = tester.test_update_hero_section_static()
+    
     # Print final results
     print("\n" + "=" * 60)
     print(f"📊 Final Results: {tester.tests_passed}/{tester.tests_run} tests passed")
@@ -416,6 +422,9 @@ def main():
     print(f"   Product Creation: {'✅' if product_success else '❌'}")
     print(f"   AI Content Generation: {'✅' if ai_content_success else '❌'}")
     print(f"   AI Image Generation: {'✅' if ai_image_success else '❌'}")
+    print(f"   Hero Section Data: {'✅' if hero_get_success else '❌'}")
+    print(f"   Hero Carousel Update: {'✅' if hero_carousel_success else '❌'}")
+    print(f"   Hero Static Update: {'✅' if hero_static_success else '❌'}")
     
     return 0 if tester.tests_passed == tester.tests_run else 1
 
