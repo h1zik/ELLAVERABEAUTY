@@ -881,6 +881,96 @@ async def delete_review(review_id: str, admin: User = Depends(require_admin)):
         raise HTTPException(status_code=404, detail="Review not found")
     return {"message": "Review deleted successfully"}
 
+# ============= CATEGORY ROUTES =============
+@api_router.get("/categories", response_model=List[Category])
+async def get_categories(type: Optional[str] = None):
+    query = {}
+    if type:
+        query["type"] = type
+    
+    categories = await db.categories.find(query, {"_id": 0}).sort("order", 1).to_list(1000)
+    for cat in categories:
+        if isinstance(cat.get('created_at'), str):
+            cat['created_at'] = datetime.fromisoformat(cat['created_at'])
+        if isinstance(cat.get('updated_at'), str):
+            cat['updated_at'] = datetime.fromisoformat(cat['updated_at'])
+    return categories
+
+@api_router.get("/categories/{category_id}", response_model=Category)
+async def get_category(category_id: str):
+    category = await db.categories.find_one({"id": category_id}, {"_id": 0})
+    if not category:
+        category = await db.categories.find_one({"slug": category_id}, {"_id": 0})
+    if not category:
+        raise HTTPException(status_code=404, detail="Category not found")
+    
+    if isinstance(category.get('created_at'), str):
+        category['created_at'] = datetime.fromisoformat(category['created_at'])
+    if isinstance(category.get('updated_at'), str):
+        category['updated_at'] = datetime.fromisoformat(category['updated_at'])
+    
+    return Category(**category)
+
+@api_router.post("/categories", response_model=Category)
+async def create_category(cat_data: CategoryCreate, admin: User = Depends(require_admin)):
+    category_id = str(uuid.uuid4())
+    slug = cat_data.name.lower().replace(" ", "-")
+    
+    # Check if slug already exists for this type
+    existing = await db.categories.find_one({"slug": slug, "type": cat_data.type})
+    if existing:
+        raise HTTPException(status_code=400, detail="Category with this name already exists")
+    
+    category = {
+        "id": category_id,
+        "name": cat_data.name,
+        "slug": slug,
+        "type": cat_data.type,
+        "description": cat_data.description,
+        "order": cat_data.order,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "updated_at": datetime.now(timezone.utc).isoformat()
+    }
+    
+    await db.categories.insert_one(category)
+    category['created_at'] = datetime.fromisoformat(category['created_at'])
+    category['updated_at'] = datetime.fromisoformat(category['updated_at'])
+    
+    return Category(**category)
+
+@api_router.put("/categories/{category_id}", response_model=Category)
+async def update_category(category_id: str, cat_data: CategoryCreate, admin: User = Depends(require_admin)):
+    existing = await db.categories.find_one({"id": category_id})
+    if not existing:
+        raise HTTPException(status_code=404, detail="Category not found")
+    
+    slug = cat_data.name.lower().replace(" ", "-")
+    
+    update_data = {
+        "name": cat_data.name,
+        "slug": slug,
+        "description": cat_data.description,
+        "order": cat_data.order,
+        "updated_at": datetime.now(timezone.utc).isoformat()
+    }
+    
+    await db.categories.update_one({"id": category_id}, {"$set": update_data})
+    
+    category = await db.categories.find_one({"id": category_id}, {"_id": 0})
+    if isinstance(category.get('created_at'), str):
+        category['created_at'] = datetime.fromisoformat(category['created_at'])
+    if isinstance(category.get('updated_at'), str):
+        category['updated_at'] = datetime.fromisoformat(category['updated_at'])
+    
+    return Category(**category)
+
+@api_router.delete("/categories/{category_id}")
+async def delete_category(category_id: str, admin: User = Depends(require_admin)):
+    result = await db.categories.delete_one({"id": category_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Category not found")
+    return {"message": "Category deleted successfully"}
+
 # ============= GALLERY ROUTES =============
 @api_router.get("/gallery", response_model=List[GalleryItem])
 async def get_gallery(category: Optional[str] = None, featured: Optional[bool] = None):
