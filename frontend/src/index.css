@@ -48,7 +48,7 @@ h1, h2, h3, h4, h5, h6 {
 
 @layer utilities {
   .text-gradient {
-    background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -78,6 +78,41 @@ h1, h2, h3, h4, h5, h6 {
   .parallax {
     transform: translateZ(0);
     will-change: transform;
+  }
+
+  /* Dynamic theme color utilities */
+  .bg-primary {
+    background-color: var(--primary) !important;
+  }
+  .bg-primary-light {
+    background-color: var(--primary-light) !important;
+  }
+  .bg-primary-dark {
+    background-color: var(--primary-dark) !important;
+  }
+  .bg-accent {
+    background-color: var(--accent) !important;
+  }
+  .text-primary {
+    color: var(--primary) !important;
+  }
+  .text-accent {
+    color: var(--accent) !important;
+  }
+  .border-primary {
+    border-color: var(--primary) !important;
+  }
+  .border-accent {
+    border-color: var(--accent) !important;
+  }
+  .hover\:bg-primary-dark:hover {
+    background-color: var(--primary-dark) !important;
+  }
+  .hover\:text-primary:hover {
+    color: var(--primary) !important;
+  }
+  .ring-primary {
+    --tw-ring-color: var(--primary) !important;
   }
 }
 /* Hero Carousel Swiper Styles */
