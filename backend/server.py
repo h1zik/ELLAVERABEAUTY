@@ -883,10 +883,10 @@ async def delete_review(review_id: str, admin: User = Depends(require_admin)):
 
 # ============= CATEGORY ROUTES =============
 @api_router.get("/categories")
-async def get_categories(category_type: str = None):
+async def get_categories(category_type: Optional[str] = Query(None, alias="type")):
     query = {}
-    if category_type and category_type.strip():
-        query["type"] = category_type.strip()
+    if category_type:
+        query["type"] = category_type
     
     categories = await db.categories.find(query, {"_id": 0}).sort("order", 1).to_list(1000)
     
