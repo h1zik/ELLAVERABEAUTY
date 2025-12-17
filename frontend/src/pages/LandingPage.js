@@ -181,17 +181,36 @@ const LandingPage = () => {
           
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
-              <div className="inline-flex items-center space-x-2 bg-cyan-100 text-cyan-800 px-4 py-2 rounded-full mb-6 float-animation">
+              <div 
+                className="inline-flex items-center space-x-2 px-4 py-2 rounded-full mb-6 float-animation"
+                style={{
+                  backgroundColor: heroSection.content.badge_bg_color || '#cffafe',
+                  color: heroSection.content.badge_text_color || '#155e75'
+                }}
+              >
                 <Sparkles size={16} />
                 <span className="text-sm font-medium">{heroSection.content.badge_text || 'Premium Cosmetic Manufacturing'}</span>
               </div>
               
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight" data-testid="hero-title">
+              <h1 
+                className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight" 
+                data-testid="hero-title"
+                style={{ color: heroSection.content.title_color || '#ffffff' }}
+              >
                 {heroSection.content.title || 'Transform Your Beauty Brand with'}
-                <span className="block text-gradient mt-2">{heroSection.content.title_highlight || 'Ellavera Beauty'}</span>
+                <span 
+                  className="block mt-2"
+                  style={{ color: heroSection.content.title_highlight_color || '#06b6d4' }}
+                >
+                  {heroSection.content.title_highlight || 'Ellavera Beauty'}
+                </span>
               </h1>
               
-              <p className="text-base sm:text-lg text-slate-600 mb-8 max-w-2xl mx-auto" data-testid="hero-description">
+              <p 
+                className="text-base sm:text-lg mb-8 max-w-2xl mx-auto" 
+                data-testid="hero-description"
+                style={{ color: heroSection.content.description_color || '#e2e8f0' }}
+              >
                 {heroSection.content.description || 'We manufacture premium cosmetic products tailored to your brand vision. From formulation to packaging, we bring your beauty products to life.'}
               </p>
               
