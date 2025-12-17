@@ -156,7 +156,15 @@ const LandingPage = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div 
+              className={`grid grid-cols-1 md:grid-cols-2 gap-8 ${
+                featuresSection.content.features?.length === 1 ? 'lg:grid-cols-1 max-w-md mx-auto' :
+                featuresSection.content.features?.length === 2 ? 'lg:grid-cols-2 max-w-3xl mx-auto' :
+                featuresSection.content.features?.length === 3 ? 'lg:grid-cols-3' :
+                featuresSection.content.features?.length === 4 ? 'lg:grid-cols-2 xl:grid-cols-4' :
+                'lg:grid-cols-3'
+              }`}
+            >
               {featuresSection.content.features?.map((feature, index) => {
                 const iconMap = {
                   CheckCircle: CheckCircle,
