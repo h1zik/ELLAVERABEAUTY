@@ -721,6 +721,155 @@ const ContentEditor = () => {
           </div>
         );
 
+      case 'certifications':
+        return (
+          <div className="space-y-4">
+            <div>
+              <Label>Heading</Label>
+              <Input
+                value={content.heading || ''}
+                onChange={(e) => {
+                  section.content.heading = e.target.value;
+                  setSections([...sections]);
+                }}
+                placeholder="Certifications & Quality Standards"
+              />
+            </div>
+            <div>
+              <Label>Subheading</Label>
+              <Textarea
+                value={content.subheading || ''}
+                onChange={(e) => {
+                  section.content.subheading = e.target.value;
+                  setSections([...sections]);
+                }}
+                rows={2}
+                placeholder="We maintain the highest industry standards..."
+              />
+            </div>
+
+            <ArrayItemEditor
+              title="Certifications"
+              items={content.items || []}
+              onChange={(newItems) => {
+                section.content.items = newItems;
+                setSections([...sections]);
+              }}
+              itemTemplate={{ name: '', description: '' }}
+              renderItem={(cert, index, updateItem) => (
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <Label>Certification Name</Label>
+                    <Input
+                      value={cert.name || ''}
+                      onChange={(e) => updateItem(index, 'name', e.target.value)}
+                      placeholder="e.g., BPOM Certified"
+                    />
+                  </div>
+                  <div>
+                    <Label>Description</Label>
+                    <Input
+                      value={cert.description || ''}
+                      onChange={(e) => updateItem(index, 'description', e.target.value)}
+                      placeholder="e.g., Indonesian FDA Approved"
+                    />
+                  </div>
+                </div>
+              )}
+            />
+          </div>
+        );
+
+      case 'team':
+        return (
+          <div className="space-y-4">
+            <div>
+              <Label>Heading</Label>
+              <Input
+                value={content.heading || ''}
+                onChange={(e) => {
+                  section.content.heading = e.target.value;
+                  setSections([...sections]);
+                }}
+                placeholder="Our Expert Team"
+              />
+            </div>
+            <div>
+              <Label>Subheading</Label>
+              <Textarea
+                value={content.subheading || ''}
+                onChange={(e) => {
+                  section.content.subheading = e.target.value;
+                  setSections([...sections]);
+                }}
+                rows={2}
+                placeholder="Led by experienced professionals..."
+              />
+            </div>
+            <div>
+              <Label>Team Description</Label>
+              <Textarea
+                value={content.description || ''}
+                onChange={(e) => {
+                  section.content.description = e.target.value;
+                  setSections([...sections]);
+                }}
+                rows={4}
+                placeholder="Describe your team's expertise..."
+              />
+            </div>
+
+            <ArrayItemEditor
+              title="Team Members (Optional)"
+              items={content.members || []}
+              onChange={(newMembers) => {
+                section.content.members = newMembers;
+                setSections([...sections]);
+              }}
+              itemTemplate={{ name: '', position: '', bio: '', photo: '' }}
+              renderItem={(member, index, updateItem) => (
+                <div className="space-y-3">
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <Label>Name</Label>
+                      <Input
+                        value={member.name || ''}
+                        onChange={(e) => updateItem(index, 'name', e.target.value)}
+                        placeholder="John Doe"
+                      />
+                    </div>
+                    <div>
+                      <Label>Position</Label>
+                      <Input
+                        value={member.position || ''}
+                        onChange={(e) => updateItem(index, 'position', e.target.value)}
+                        placeholder="Head of R&D"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Label>Bio (Optional)</Label>
+                    <Textarea
+                      value={member.bio || ''}
+                      onChange={(e) => updateItem(index, 'bio', e.target.value)}
+                      rows={2}
+                      placeholder="Brief bio..."
+                    />
+                  </div>
+                  <div>
+                    <Label>Photo URL (Optional)</Label>
+                    <Input
+                      value={member.photo || ''}
+                      onChange={(e) => updateItem(index, 'photo', e.target.value)}
+                      placeholder="https://..."
+                    />
+                  </div>
+                </div>
+              )}
+            />
+          </div>
+        );
+
       case 'text':
       case 'vision_mission':
         return (
