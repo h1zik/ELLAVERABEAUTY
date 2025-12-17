@@ -216,13 +216,13 @@ const LandingPage = () => {
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link to={heroSection.content.cta_primary_link || '/products'} data-testid="cta-explore-products">
-                  <Button size="lg" className="bg-cyan-600 hover:bg-cyan-700 text-white px-8 py-6 text-lg rounded-full">
+                  <Button size="lg" className="bg-primary hover:bg-primary-dark text-white px-8 py-6 text-lg rounded-full">
                     {heroSection.content.cta_primary_text || 'Explore Products'}
                     <ArrowRight className="ml-2" size={20} />
                   </Button>
                 </Link>
                 <Link to={heroSection.content.cta_secondary_link || '/contact'} data-testid="cta-get-quote">
-                  <Button size="lg" variant="outline" className="border-2 border-cyan-600 text-cyan-600 hover:bg-cyan-50 px-8 py-6 text-lg rounded-full">
+                  <Button size="lg" variant="outline" className="border-2 border-primary text-primary hover:bg-primary-light px-8 py-6 text-lg rounded-full">
                     {heroSection.content.cta_secondary_text || 'Get a Quote'}
                   </Button>
                 </Link>
@@ -232,8 +232,8 @@ const LandingPage = () => {
 
           {/* Scroll Indicator */}
           <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <div className="w-6 h-10 border-2 border-cyan-600 rounded-full flex items-start justify-center p-1">
-              <div className="w-1 h-3 bg-cyan-600 rounded-full"></div>
+            <div className="w-6 h-10 border-2 border-primary rounded-full flex items-start justify-center p-1">
+              <div className="w-1 h-3 bg-primary rounded-full"></div>
             </div>
           </div>
         </section>
@@ -276,8 +276,8 @@ const LandingPage = () => {
                 
                 return (
                   <Card key={index} className="p-8 hover:shadow-xl transition-shadow scroll-scale border-none shadow-md">
-                    <div className="bg-cyan-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                      <IconComponent className="text-cyan-600" size={28} />
+                    <div className="bg-primary-light w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                      <IconComponent className="text-primary" size={28} />
                     </div>
                     <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
                     <p className="text-slate-600">{feature.description}</p>
@@ -319,10 +319,10 @@ const LandingPage = () => {
             >
               {services.map((service, index) => (
                 <Link to={`/services/${service.id}`} key={service.id}>
-                  <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all scroll-fade-up group hover:border-cyan-200 border-2 border-transparent h-full">
-                    <h3 className="text-lg font-semibold text-cyan-600 mb-2 group-hover:text-cyan-700">{service.name}</h3>
+                  <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all scroll-fade-up group hover:border-primary-light border-2 border-transparent h-full">
+                    <h3 className="text-lg font-semibold text-primary mb-2 group-hover:text-primary-dark">{service.name}</h3>
                     <p className="text-sm text-slate-600 mb-3">{service.short_description}</p>
-                    <span className="text-cyan-600 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
+                    <span className="text-primary text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
                       Learn More <ArrowRight size={14} />
                     </span>
                   </div>
@@ -332,7 +332,7 @@ const LandingPage = () => {
 
             <div className="text-center mt-12">
               <Link to="/services">
-                <Button size="lg" variant="outline" className="border-cyan-600 text-cyan-600 hover:bg-cyan-50 px-8 rounded-full">
+                <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary-light px-8 rounded-full">
                   View All Services
                   <ArrowRight className="ml-2" size={20} />
                 </Button>
@@ -364,17 +364,17 @@ const LandingPage = () => {
                     {/* Card with Badge */}
                     <div className="relative pt-4 pl-4">
                       {/* Step Number Badge */}
-                      <div className="absolute top-0 left-0 w-12 h-12 bg-gradient-to-br from-cyan-600 to-cyan-700 rounded-full flex items-center justify-center shadow-lg z-10">
+                      <div className="absolute top-0 left-0 w-12 h-12 bg-gradient-to-br from-primary to-primary-dark rounded-full flex items-center justify-center shadow-lg z-10">
                         <span className="text-white text-lg font-bold">{item.step}</span>
                       </div>
                       
-                      <Card className="border-2 border-cyan-100 hover:border-cyan-400 hover:shadow-xl transition-all duration-300 bg-white overflow-hidden">
+                      <Card className="border-2 border-primary-light hover:border-primary hover:shadow-xl transition-all duration-300 bg-white overflow-hidden">
                         <div className="pt-6 pb-6 px-6">
                           <h3 className="text-xl font-bold mb-3 text-slate-800">{item.title}</h3>
                           <p className="text-slate-600 text-sm leading-relaxed">{item.description}</p>
                         </div>
                         {/* Accent Line */}
-                        <div className="h-1 bg-gradient-to-r from-cyan-400 to-cyan-600"></div>
+                        <div className="h-1 bg-gradient-to-r from-primary to-primary"></div>
                       </Card>
                     </div>
                   </div>
@@ -388,22 +388,22 @@ const LandingPage = () => {
                 <div key={index} className="relative scroll-fade-up" style={{ animationDelay: `${index * 0.1}s` }}>
                   {/* Connection Line */}
                   {index < processSection.content.steps.length - 1 && (
-                    <div className="absolute left-8 top-20 bottom-0 w-1 bg-gradient-to-b from-cyan-400 to-cyan-600 -z-10"></div>
+                    <div className="absolute left-8 top-20 bottom-0 w-1 bg-gradient-to-b from-primary to-primary -z-10"></div>
                   )}
                   
                   <div className="flex gap-4 mb-6">
                     {/* Step Number */}
                     <div className="flex-shrink-0">
-                      <div className="w-16 h-16 bg-gradient-to-br from-cyan-600 to-cyan-700 text-white rounded-full flex items-center justify-center text-2xl font-bold shadow-lg">
+                      <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-dark text-white rounded-full flex items-center justify-center text-2xl font-bold shadow-lg">
                         {item.step}
                       </div>
                     </div>
                     
                     {/* Content Card */}
-                    <Card className="flex-1 p-6 border-2 border-cyan-100 hover:border-cyan-400 transition-all bg-white">
+                    <Card className="flex-1 p-6 border-2 border-primary-light hover:border-primary transition-all bg-white">
                       <h3 className="text-xl font-bold mb-2 text-slate-800">{item.title}</h3>
                       <p className="text-slate-600 text-sm">{item.description}</p>
-                      <div className="mt-4 h-1 bg-gradient-to-r from-cyan-400 to-cyan-600 rounded-full"></div>
+                      <div className="mt-4 h-1 bg-gradient-to-r from-primary to-primary rounded-full"></div>
                     </Card>
                   </div>
                 </div>
@@ -433,17 +433,17 @@ const LandingPage = () => {
                     {product.images && product.images[0] ? (
                       <img src={product.images[0]} alt={product.name} className="w-full h-full object-cover" />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center text-cyan-600">
+                      <div className="w-full h-full flex items-center justify-center text-primary">
                         <Sparkles size={48} />
                       </div>
                     )}
                   </div>
                   <div className="p-6">
-                    <p className="text-sm text-cyan-600 font-medium mb-2">{product.category_name}</p>
+                    <p className="text-sm text-primary font-medium mb-2">{product.category_name}</p>
                     <h3 className="text-xl font-bold mb-2">{product.name}</h3>
                     <p className="text-slate-600 text-sm mb-4 line-clamp-2">{product.description}</p>
                     <Link to={`/products/${product.id}`}>
-                      <Button variant="outline" className="w-full border-cyan-600 text-cyan-600 hover:bg-cyan-50">
+                      <Button variant="outline" className="w-full border-primary text-primary hover:bg-primary-light">
                         View Details
                       </Button>
                     </Link>
@@ -454,7 +454,7 @@ const LandingPage = () => {
 
             <div className="text-center mt-12">
               <Link to="/products">
-                <Button size="lg" className="bg-cyan-600 hover:bg-cyan-700 text-white px-8 rounded-full">
+                <Button size="lg" className="bg-primary hover:bg-primary-dark text-white px-8 rounded-full">
                   View All Products
                   <ArrowRight className="ml-2" size={20} />
                 </Button>
@@ -510,7 +510,7 @@ const LandingPage = () => {
 
             <div className="text-center mt-8">
               <Link to="/clients">
-                <Button variant="outline" className="border-cyan-600 text-cyan-600 hover:bg-cyan-50">
+                <Button variant="outline" className="border-primary text-primary hover:bg-primary-light">
                   View All Clients
                 </Button>
               </Link>
@@ -556,7 +556,7 @@ const LandingPage = () => {
               {reviews.map((review) => (
                 <SwiperSlide key={review.id}>
                   <Card className="p-8 h-full border-none shadow-lg hover:shadow-xl transition-shadow">
-                    <Quote className="text-cyan-600 mb-4" size={32} />
+                    <Quote className="text-primary mb-4" size={32} />
                     <p className="text-slate-700 mb-6 italic line-clamp-4">"{review.review_text}"</p>
                     
                     <div className="flex items-center gap-4 mt-auto">
@@ -626,7 +626,7 @@ const LandingPage = () => {
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">
-                        <Sparkles size={48} className="text-cyan-400" />
+                        <Sparkles size={48} className="text-primary" />
                       </div>
                     )}
                   </div>
@@ -639,11 +639,11 @@ const LandingPage = () => {
                         day: 'numeric' 
                       })}
                     </div>
-                    <p className="text-sm text-cyan-600 font-medium mb-2">{article.category}</p>
+                    <p className="text-sm text-primary font-medium mb-2">{article.category}</p>
                     <h3 className="text-lg font-bold mb-2 line-clamp-2">{article.title}</h3>
                     <p className="text-slate-600 text-sm mb-4 line-clamp-2">{article.excerpt || article.content?.substring(0, 100)}</p>
                     <Link to={`/articles/${article.id}`}>
-                      <Button variant="outline" size="sm" className="border-cyan-600 text-cyan-600 hover:bg-cyan-50">
+                      <Button variant="outline" size="sm" className="border-primary text-primary hover:bg-primary-light">
                         Read More
                         <ArrowRight size={14} className="ml-1" />
                       </Button>
@@ -655,7 +655,7 @@ const LandingPage = () => {
 
             <div className="text-center mt-12">
               <Link to="/articles">
-                <Button size="lg" className="bg-cyan-600 hover:bg-cyan-700 text-white px-8 rounded-full">
+                <Button size="lg" className="bg-primary hover:bg-primary-dark text-white px-8 rounded-full">
                   View All Articles
                   <ArrowRight className="ml-2" size={20} />
                 </Button>
@@ -667,7 +667,7 @@ const LandingPage = () => {
 
       {/* CTA Section */}
       {ctaSection && (
-        <section className="py-20 bg-gradient-to-br from-cyan-600 to-cyan-700 text-white" data-testid="cta-section">
+        <section className="py-20 bg-gradient-to-br from-primary to-primary-dark text-white" data-testid="cta-section">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
               {ctaSection.content.heading || 'Ready to Launch Your Beauty Brand?'}
@@ -676,7 +676,7 @@ const LandingPage = () => {
               {ctaSection.content.description || "Let's discuss how we can bring your cosmetic product vision to life"}
             </p>
             <Link to={ctaSection.content.button_link || '/contact'} data-testid="cta-contact-button">
-              <Button size="lg" className="bg-white text-cyan-600 hover:bg-slate-100 px-8 py-6 text-lg rounded-full">
+              <Button size="lg" className="bg-white text-primary hover:bg-slate-100 px-8 py-6 text-lg rounded-full">
                 {ctaSection.content.button_text || 'Contact Us Today'}
                 <ArrowRight className="ml-2" size={20} />
               </Button>
