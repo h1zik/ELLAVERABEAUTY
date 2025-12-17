@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle, ArrowRight, Sparkles, Package, Beaker, Palette, Truck, Shield, Award } from 'lucide-react';
+import { CheckCircle, ArrowRight, Sparkles, Package, Beaker, Palette, Truck, Shield, Award, Leaf, Heart, Star, Zap, Target, Layers, Settings } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
 import { api } from '../utils/api';
 import { updatePageTitle } from '../utils/pageTitle';
 import LoadingSpinner from '../components/layout/LoadingSpinner';
 import { initScrollReveal } from '../utils/scrollReveal';
+
+// Icon mapping
+const iconMap = {
+  Sparkles, Beaker, Package, Palette, Truck, Shield, 
+  Award, Leaf, Heart, Star, Zap, Target, Layers, Settings
+};
 
 const ServicesPage = () => {
   const [services, setServices] = useState([]);
@@ -29,61 +35,14 @@ const ServicesPage = () => {
 
   const fetchServices = async () => {
     try {
-      const sectionsRes = await api.getPageSections('home');
-      const servicesSection = sectionsRes.data.find(s => s.section_type === 'services');
-      if (servicesSection?.content?.services) {
-        setServices(servicesSection.content.services);
-      }
+      const response = await api.getServices({});
+      setServices(response.data);
     } catch (error) {
       console.error('Failed to fetch services:', error);
     } finally {
       setLoading(false);
     }
   };
-
-  // Default services with icons if none from API
-  const defaultServices = [
-    {
-      icon: Beaker,
-      name: 'Product Formulation',
-      description: 'Custom formulation development tailored to your brand vision and market needs. Our expert chemists create unique, effective formulas.',
-      features: ['Custom formula development', 'Ingredient sourcing', 'Stability testing', 'Safety assessments']
-    },
-    {
-      icon: Package,
-      name: 'Private Label Manufacturing',
-      description: 'Full-service private label solutions from concept to finished product. Launch your brand with our proven formulations.',
-      features: ['Ready-to-market formulas', 'Brand customization', 'Flexible MOQs', 'Quick turnaround']
-    },
-    {
-      icon: Palette,
-      name: 'Packaging Design',
-      description: 'Creative packaging solutions that make your products stand out on the shelf and appeal to your target market.',
-      features: ['Custom packaging design', 'Sustainable options', 'Label design', 'Brand consistency']
-    },
-    {
-      icon: Shield,
-      name: 'Quality Assurance',
-      description: 'Rigorous quality control processes ensure every product meets the highest standards of safety and efficacy.',
-      features: ['GMP compliance', 'Batch testing', 'Documentation', 'Certifications']
-    },
-    {
-      icon: Truck,
-      name: 'Fulfillment Services',
-      description: 'End-to-end logistics support from warehousing to shipping, ensuring your products reach customers efficiently.',
-      features: ['Warehousing', 'Order fulfillment', 'Global shipping', 'Inventory management']
-    },
-    {
-      icon: Award,
-      name: 'Regulatory Compliance',
-      description: 'Navigate complex regulatory requirements with our expert guidance for domestic and international markets.',
-      features: ['FDA compliance', 'EU regulations', 'Product registration', 'Documentation support']
-    }
-  ];
-
-  const displayServices = services.length > 0 
-    ? services.map((s, i) => ({ ...defaultServices[i % defaultServices.length], name: s.name, description: s.description }))
-    : defaultServices;
 
   if (loading) return <LoadingSpinner fullScreen />;
 
@@ -104,34 +63,49 @@ const ServicesPage = () => {
       {/* Services Grid */}
       <section className="py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {displayServices.map((service, index) => {
-              const IconComponent = service.icon || Sparkles;
-              return (
-                <Card 
-                  key={index} 
-                  className="p-8 hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-cyan-200 scroll-fade-up"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-2xl flex items-center justify-center mb-6">
-                    <IconComponent className="text-white" size={28} />
-                  </div>
-                  <h3 className="text-xl font-bold mb-3 text-slate-800">{service.name}</h3>
-                  <p className="text-slate-600 mb-6">{service.description}</p>
-                  {service.features && (
-                    <ul className="space-y-2">
-                      {service.features.map((feature, fIndex) => (
-                        <li key={fIndex} className="flex items-center gap-2 text-sm text-slate-600">
-                          <CheckCircle size={16} className="text-cyan-600 flex-shrink-0" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </Card>
-              );
-            })}
-          </div>
+          {services.length === 0 ? (
+            <div className="text-center py-12">
+              <Sparkles size={48} className="mx-auto text-slate-300 mb-4" />
+              <h3 className="text-xl font-medium text-slate-600 mb-2">No Services Available</h3>
+              <p className="text-slate-500">Check back later for our service offerings</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {services.map((service, index) => {
+                const IconComponent = iconMap[service.icon] || Sparkles;
+                return (
+                  <Link to={`/services/${service.id}`} key={service.id}>
+                    <Card 
+                      className="p-8 hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-cyan-200 scroll-fade-up h-full group"
+                      style={{ animationDelay: `${index * 0.1}s` }}
+                    >
+                      <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <IconComponent className="text-white" size={28} />
+                      </div>
+                      <h3 className="text-xl font-bold mb-3 text-slate-800 group-hover:text-cyan-600 transition-colors">
+                        {service.name}
+                      </h3>
+                      <p className="text-slate-600 mb-6">{service.short_description}</p>
+                      {service.features && service.features.length > 0 && (
+                        <ul className="space-y-2 mb-6">
+                          {service.features.slice(0, 4).map((feature, fIndex) => (
+                            <li key={fIndex} className="flex items-center gap-2 text-sm text-slate-600">
+                              <CheckCircle size={16} className="text-cyan-600 flex-shrink-0" />
+                              {feature}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                      <div className="flex items-center text-cyan-600 font-medium group-hover:gap-2 transition-all">
+                        Learn More 
+                        <ArrowRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
+                      </div>
+                    </Card>
+                  </Link>
+                );
+              })}
+            </div>
+          )}
         </div>
       </section>
 
