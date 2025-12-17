@@ -219,11 +219,11 @@ const ArticleManagement = () => {
                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                     required
                     data-testid="article-category-input"
-                    className="w-full h-10 px-3 rounded-md border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                    className="w-full h-10 px-3 rounded-md border border-slate-200 bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-cyan-500 shadow-sm"
                   >
-                    <option value="">Select a category</option>
+                    <option value="" className="bg-white text-slate-500">Select a category</option>
                     {categories.map(cat => (
-                      <option key={cat.id} value={cat.name}>{cat.name}</option>
+                      <option key={cat.id} value={cat.name} className="bg-white text-slate-900">{cat.name}</option>
                     ))}
                   </select>
                 ) : (
