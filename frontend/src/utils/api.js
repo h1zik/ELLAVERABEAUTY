@@ -89,6 +89,13 @@ export const api = {
   updateGalleryItem: (id, data) => axios.put(`${API}/gallery/${id}`, data, { headers: getAuthHeaders() }),
   deleteGalleryItem: (id) => axios.delete(`${API}/gallery/${id}`, { headers: getAuthHeaders() }),
 
+  // Categories
+  getCategories: (params) => axios.get(`${API}/categories`, { params }),
+  getCategory: (id) => axios.get(`${API}/categories/${id}`),
+  createCategory: (data) => axios.post(`${API}/categories`, data, { headers: getAuthHeaders() }),
+  updateCategory: (id, data) => axios.put(`${API}/categories/${id}`, data, { headers: getAuthHeaders() }),
+  deleteCategory: (id) => axios.delete(`${API}/categories/${id}`, { headers: getAuthHeaders() }),
+
   // Contact
   submitContact: (data) => axios.post(`${API}/contact`, data),
   getContactLeads: () => axios.get(`${API}/contact/leads`, { headers: getAuthHeaders() }),
