@@ -57,6 +57,18 @@ const AboutPage = () => {
   const heroSection = getSection('hero');
   const textSection = getSection('text');
   const visionMissionSection = getSection('vision_mission');
+  const certificationsSection = getSection('certifications');
+  const teamSection = getSection('team');
+
+  // Default certifications if not customized
+  const defaultCertifications = [
+    { name: 'BPOM Certified', description: 'Indonesian FDA Approved' },
+    { name: 'Halal Certified', description: 'MUI Halal Certification' },
+    { name: 'ISO 9001:2015', description: 'Quality Management System' },
+    { name: 'GMP Certified', description: 'Good Manufacturing Practice' }
+  ];
+
+  const certifications = certificationsSection?.content?.items || defaultCertifications;
 
   return (
     <div className="min-h-screen pt-24 pb-16" data-testid="about-page">
@@ -128,19 +140,26 @@ const AboutPage = () => {
         {/* Certifications */}
         <section className="mb-20">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Certifications & Quality Standards</h2>
+            <h2 className="text-3xl font-bold mb-4">
+              {certificationsSection?.content?.heading || 'Certifications & Quality Standards'}
+            </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              We maintain the highest industry standards and certifications
+              {certificationsSection?.content?.subheading || 'We maintain the highest industry standards and certifications'}
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
-            {['BPOM Certified', 'Halal Certified', 'ISO 9001:2015', 'GMP Certified'].map((cert, index) => (
+          <div className={`grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-5xl mx-auto ${
+            certifications.length <= 4 ? 'md:grid-cols-4' : 'md:grid-cols-3 lg:grid-cols-4'
+          }`}>
+            {certifications.map((cert, index) => (
               <Card key={index} className="p-6 text-center border-none shadow-md hover:shadow-lg transition-shadow">
                 <div className="bg-cyan-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Award className="text-cyan-600" size={28} />
                 </div>
-                <h4 className="font-semibold">{cert}</h4>
+                <h4 className="font-semibold mb-1">{cert.name}</h4>
+                {cert.description && (
+                  <p className="text-sm text-slate-500">{cert.description}</p>
+                )}
               </Card>
             ))}
           </div>
@@ -149,9 +168,11 @@ const AboutPage = () => {
         {/* Team Section */}
         <section className="mb-20">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Our Expert Team</h2>
+            <h2 className="text-3xl font-bold mb-4">
+              {teamSection?.content?.heading || 'Our Expert Team'}
+            </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              Led by experienced professionals in cosmetic science and manufacturing
+              {teamSection?.content?.subheading || 'Led by experienced professionals in cosmetic science and manufacturing'}
             </p>
           </div>
 
@@ -160,9 +181,33 @@ const AboutPage = () => {
               <Users className="text-cyan-600" size={36} />
             </div>
             <p className="text-lg text-slate-600 leading-relaxed">
-              Our team consists of skilled chemists, quality control specialists, production managers, and customer service professionals who are dedicated to delivering excellence in every project. With decades of combined experience, we bring deep industry knowledge and innovative thinking to every formulation.
+              {teamSection?.content?.description || 'Our team consists of skilled chemists, quality control specialists, production managers, and customer service professionals who are dedicated to delivering excellence in every project. With decades of combined experience, we bring deep industry knowledge and innovative thinking to every formulation.'}
             </p>
           </div>
+
+          {/* Team Members Grid (if provided) */}
+          {teamSection?.content?.members && teamSection.content.members.length > 0 && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-5xl mx-auto mt-12">
+              {teamSection.content.members.map((member, index) => (
+                <Card key={index} className="p-6 text-center border-none shadow-md">
+                  <div className="w-24 h-24 rounded-full bg-cyan-100 mx-auto mb-4 overflow-hidden">
+                    {member.photo ? (
+                      <img src={member.photo} alt={member.name} className="w-full h-full object-cover" />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <Users className="text-cyan-400" size={32} />
+                      </div>
+                    )}
+                  </div>
+                  <h4 className="font-semibold">{member.name}</h4>
+                  <p className="text-sm text-cyan-600">{member.position}</p>
+                  {member.bio && (
+                    <p className="text-sm text-slate-500 mt-2">{member.bio}</p>
+                  )}
+                </Card>
+              ))}
+            </div>
+          )}
         </section>
       </div>
     </div>
