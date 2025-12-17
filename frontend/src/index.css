@@ -10,6 +10,10 @@
   --background: #ffffff;
   --foreground: #0f172a;
   --cyan-50: #ecfeff;
+  --primary-light: color-mix(in srgb, var(--primary) 20%, white);
+  --primary-dark: color-mix(in srgb, var(--primary) 80%, black);
+  --accent-light: color-mix(in srgb, var(--accent) 20%, white);
+  --accent-dark: color-mix(in srgb, var(--accent) 80%, black);
 }
 
 * {
