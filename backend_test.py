@@ -243,6 +243,124 @@ class EllaveraBeutyAPITester:
             print(f"   Generated image (base64 length): {len(response['image_base64'])}")
         return success, response
 
+    def test_get_homepage_sections(self):
+        """Test getting homepage sections for hero carousel"""
+        success, response = self.run_test(
+            "Get Homepage Sections",
+            "GET",
+            "pages/home/sections",
+            200
+        )
+        if success and isinstance(response, list):
+            print(f"   Found {len(response)} homepage sections")
+            hero_section = next((s for s in response if s.get('section_type') == 'hero'), None)
+            if hero_section:
+                print(f"   Hero section found with ID: {hero_section.get('id')}")
+                content = hero_section.get('content', {})
+                bg_type = content.get('background_type', 'static')
+                print(f"   Background type: {bg_type}")
+                if bg_type == 'carousel':
+                    carousel_images = content.get('background_carousel', [])
+                    print(f"   Carousel images count: {len(carousel_images)}")
+                    return True, hero_section
+                elif bg_type == 'video':
+                    video_url = content.get('background_video')
+                    print(f"   Video URL: {video_url}")
+                    return True, hero_section
+                else:
+                    static_image = content.get('background_image')
+                    print(f"   Static image: {static_image}")
+                    return True, hero_section
+            else:
+                print("   No hero section found")
+                return False, {}
+        return success, response
+
+    def test_update_hero_section_carousel(self):
+        """Test updating hero section to carousel background"""
+        # First get existing hero section
+        success, sections = self.test_get_homepage_sections()
+        if not success:
+            return False, {}
+        
+        hero_section = next((s for s in sections if s.get('section_type') == 'hero'), None)
+        if not hero_section:
+            print("   No hero section found to update")
+            return False, {}
+        
+        # Update to carousel background with test images
+        updated_content = hero_section.get('content', {}).copy()
+        updated_content.update({
+            'background_type': 'carousel',
+            'background_carousel': [
+                'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k=',
+                'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k='
+            ],
+            'background_overlay': 0.4
+        })
+        
+        update_data = {
+            'page_name': hero_section.get('page_name'),
+            'section_name': hero_section.get('section_name'),
+            'section_type': hero_section.get('section_type'),
+            'content': updated_content,
+            'order': hero_section.get('order'),
+            'visible': hero_section.get('visible', True)
+        }
+        
+        success, response = self.run_test(
+            "Update Hero Section to Carousel",
+            "PUT",
+            f"pages/sections/{hero_section['id']}",
+            200,
+            data=update_data
+        )
+        
+        if success:
+            print("   Hero section updated to carousel background")
+        return success, response
+
+    def test_update_hero_section_static(self):
+        """Test updating hero section to static background"""
+        # First get existing hero section
+        success, sections = self.test_get_homepage_sections()
+        if not success:
+            return False, {}
+        
+        hero_section = next((s for s in sections if s.get('section_type') == 'hero'), None)
+        if not hero_section:
+            print("   No hero section found to update")
+            return False, {}
+        
+        # Update to static background
+        updated_content = hero_section.get('content', {}).copy()
+        updated_content.update({
+            'background_type': 'static',
+            'background_image': 'https://images.unsplash.com/photo-1596704017254-9b121068ec31?w=1920&q=80',
+            'background_overlay': 0.3
+        })
+        
+        update_data = {
+            'page_name': hero_section.get('page_name'),
+            'section_name': hero_section.get('section_name'),
+            'section_type': hero_section.get('section_type'),
+            'content': updated_content,
+            'order': hero_section.get('order'),
+            'visible': hero_section.get('visible', True)
+        }
+        
+        success, response = self.run_test(
+            "Update Hero Section to Static Image",
+            "PUT",
+            f"pages/sections/{hero_section['id']}",
+            200,
+            data=update_data
+        )
+        
+        if success:
+            print("   Hero section updated to static background")
+        return success, response
+
 def main():
     print("🧪 Starting Ellavera Beauty API Testing...")
     print("=" * 60)
