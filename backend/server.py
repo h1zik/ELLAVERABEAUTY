@@ -412,39 +412,6 @@ async def login(credentials: UserLogin):
 async def get_me(current_user: User = Depends(get_current_user)):
     return current_user
 
-# ============= PRODUCT CATEGORY ROUTES =============
-@api_router.get("/categories", response_model=List[ProductCategory])
-async def get_categories():
-    categories = await db.categories.find({}, {"_id": 0}).to_list(1000)
-    for cat in categories:
-        if isinstance(cat['created_at'], str):
-            cat['created_at'] = datetime.fromisoformat(cat['created_at'])
-    return categories
-
-@api_router.post("/categories", response_model=ProductCategory)
-async def create_category(category_data: ProductCategoryCreate, admin: User = Depends(require_admin)):
-    category_id = str(uuid.uuid4())
-    slug = category_data.name.lower().replace(" ", "-")
-    
-    category = {
-        "id": category_id,
-        "name": category_data.name,
-        "slug": slug,
-        "description": category_data.description,
-        "created_at": datetime.now(timezone.utc).isoformat()
-    }
-    
-    await db.categories.insert_one(category)
-    category['created_at'] = datetime.fromisoformat(category['created_at'])
-    return ProductCategory(**category)
-
-@api_router.delete("/categories/{category_id}")
-async def delete_category(category_id: str, admin: User = Depends(require_admin)):
-    result = await db.categories.delete_one({"id": category_id})
-    if result.deleted_count == 0:
-        raise HTTPException(status_code=404, detail="Category not found")
-    return {"message": "Category deleted successfully"}
-
 # ============= PRODUCT ROUTES =============
 @api_router.get("/products", response_model=List[Product])
 async def get_products(category_id: Optional[str] = None, featured: Optional[bool] = None):
