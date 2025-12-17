@@ -842,6 +842,105 @@ async def delete_review(review_id: str, admin: User = Depends(require_admin)):
         raise HTTPException(status_code=404, detail="Review not found")
     return {"message": "Review deleted successfully"}
 
+# ============= SERVICE ROUTES =============
+@api_router.get("/services", response_model=List[Service])
+async def get_services(featured: Optional[bool] = None):
+    query = {}
+    if featured is not None:
+        query["featured"] = featured
+    
+    services = await db.services.find(query, {"_id": 0}).sort("order", 1).to_list(1000)
+    for service in services:
+        if isinstance(service.get('created_at'), str):
+            service['created_at'] = datetime.fromisoformat(service['created_at'])
+        if isinstance(service.get('updated_at'), str):
+            service['updated_at'] = datetime.fromisoformat(service['updated_at'])
+    return services
+
+@api_router.get("/services/{service_id}", response_model=Service)
+async def get_service(service_id: str):
+    service = await db.services.find_one({"id": service_id}, {"_id": 0})
+    if not service:
+        # Try finding by slug
+        service = await db.services.find_one({"slug": service_id}, {"_id": 0})
+    if not service:
+        raise HTTPException(status_code=404, detail="Service not found")
+    
+    if isinstance(service.get('created_at'), str):
+        service['created_at'] = datetime.fromisoformat(service['created_at'])
+    if isinstance(service.get('updated_at'), str):
+        service['updated_at'] = datetime.fromisoformat(service['updated_at'])
+    
+    return Service(**service)
+
+@api_router.post("/services", response_model=Service)
+async def create_service(service_data: ServiceCreate, admin: User = Depends(require_admin)):
+    service_id = str(uuid.uuid4())
+    slug = service_data.name.lower().replace(" ", "-")
+    
+    service = {
+        "id": service_id,
+        "name": service_data.name,
+        "slug": slug,
+        "short_description": service_data.short_description,
+        "description": service_data.description,
+        "icon": service_data.icon,
+        "image_url": service_data.image_url,
+        "features": service_data.features,
+        "benefits": service_data.benefits,
+        "process_steps": service_data.process_steps,
+        "featured": service_data.featured,
+        "order": service_data.order,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "updated_at": datetime.now(timezone.utc).isoformat()
+    }
+    
+    await db.services.insert_one(service)
+    service['created_at'] = datetime.fromisoformat(service['created_at'])
+    service['updated_at'] = datetime.fromisoformat(service['updated_at'])
+    
+    return Service(**service)
+
+@api_router.put("/services/{service_id}", response_model=Service)
+async def update_service(service_id: str, service_data: ServiceCreate, admin: User = Depends(require_admin)):
+    existing = await db.services.find_one({"id": service_id})
+    if not existing:
+        raise HTTPException(status_code=404, detail="Service not found")
+    
+    slug = service_data.name.lower().replace(" ", "-")
+    
+    update_data = {
+        "name": service_data.name,
+        "slug": slug,
+        "short_description": service_data.short_description,
+        "description": service_data.description,
+        "icon": service_data.icon,
+        "image_url": service_data.image_url,
+        "features": service_data.features,
+        "benefits": service_data.benefits,
+        "process_steps": service_data.process_steps,
+        "featured": service_data.featured,
+        "order": service_data.order,
+        "updated_at": datetime.now(timezone.utc).isoformat()
+    }
+    
+    await db.services.update_one({"id": service_id}, {"$set": update_data})
+    
+    service = await db.services.find_one({"id": service_id}, {"_id": 0})
+    if isinstance(service.get('created_at'), str):
+        service['created_at'] = datetime.fromisoformat(service['created_at'])
+    if isinstance(service.get('updated_at'), str):
+        service['updated_at'] = datetime.fromisoformat(service['updated_at'])
+    
+    return Service(**service)
+
+@api_router.delete("/services/{service_id}")
+async def delete_service(service_id: str, admin: User = Depends(require_admin)):
+    result = await db.services.delete_one({"id": service_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Service not found")
+    return {"message": "Service deleted successfully"}
+
 # ============= THEME ROUTES =============
 @api_router.get("/theme", response_model=ThemeSettings)
 async def get_theme():
