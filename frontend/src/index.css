@@ -76,3 +76,16 @@ h1, h2, h3, h4, h5, h6 {
     will-change: transform;
   }
 }
+/* Hero Carousel Swiper Styles */
+.swiper-slide {
+  height: 100%;
+}
+
+section .swiper {
+  height: 100%;
+  width: 100%;
+}
+
+section .swiper-wrapper {
+  height: 100%;
+}
