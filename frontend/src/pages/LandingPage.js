@@ -241,7 +241,7 @@ const LandingPage = () => {
 
       {/* Why Choose Us Section */}
       {featuresSection && (
-        <section className="py-20 bg-white" data-testid="why-choose-section">
+        <section className="py-20 bg-slate-50" data-testid="why-choose-section">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16 scroll-fade-up">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
