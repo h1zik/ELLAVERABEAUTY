@@ -34,6 +34,7 @@ import SiteSettingsManagement from '../components/admin/SiteSettingsManagement';
 import ContentEditor from '../components/admin/ContentEditor';
 import PageBuilderManagement from '../components/admin/PageBuilderManagement';
 import ServiceManagement from '../components/admin/ServiceManagement';
+import GalleryManagement from '../components/admin/GalleryManagement';
 import LoadingSpinner from '../components/layout/LoadingSpinner';
 import { api } from '../utils/api';
 
