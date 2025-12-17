@@ -6,43 +6,50 @@
 - Admin Login: admin@ellavera.com / admin123
 
 ## Current Test Focus
-- Hero Section Carousel Background - BUG FIX VERIFICATION
+Testing bug fixes and new features:
+1. Header background fix (no more transparent at top)
+2. Process section desktop bug fix (step badges visible)
+3. New Services page
+4. Articles section on Homepage
 
-## Latest Test Results
+## Latest Test Results - December 17, 2025
 
-### Hero Carousel Background Fix - December 17, 2025
-- **Issue**: Hero section slideshow background was not displaying uploaded images
-- **Root Cause**: Swiper component inside hero section needed proper height/width styling for full-screen background
-- **Fix Applied**: 
-  1. Changed from `<img>` tag to `<div>` with background-image CSS for proper full-viewport coverage
-  2. Added wrapper container with absolute positioning
-  3. Applied `height: 100vh` and `width: 100vw` to ensure full coverage
-  4. Added CSS in index.css for Swiper slides height
-- **Status**: FIXED AND VERIFIED
-- **Verification**: 
-  - Screenshot 1: Shows manufacturing lab image as background
-  - Screenshot 2: Shows beauty model image after 5-second autoplay transition
-  - Carousel autoplay working correctly with 5-second interval
+### Bug Fixes
+1. **Header Background** - FIXED
+   - Header now has white/semi-transparent background at all times
+   - Mobile menu has proper white background with shadow
+   - No more content overlap issues on mobile
 
-## Test Tasks
-| Task | Status | Notes |
-|------|--------|-------|
-| Hero Carousel Background | ✅ FIXED | Slideshow with autoplay working |
-| Static Image Background | ✅ Working | Verified in previous tests |
-| Video Background | ⚠️ Not tested | Need video URL to test |
-| Background Overlay | ✅ Working | Opacity control functional |
+2. **Process Section Desktop** - FIXED
+   - Step number badges now visible (moved outside card overflow)
+   - Clean design with badges floating above cards
 
-## Incorporate User Feedback
-- User reported hero carousel not showing uploaded images
-- Images were saved correctly in backend (base64 format)
-- Issue was frontend rendering/styling, not data storage
+### New Features
+1. **Services Page** (/services) - ADDED
+   - Dedicated services page with cards
+   - Features: Skincare, Body Care, Hair Care services
+   - Includes checklist features per service
+   - "Why Choose Ellavera Beauty?" stats section
+   - CTA section at bottom
+
+2. **Articles Section on Homepage** - ADDED
+   - Shows latest 3 articles
+   - Card design with image, date, category, title
+   - "View All Articles" button
+
+3. **Navigation Updated**
+   - "Services" link added to navigation menu
 
 ## Admin Credentials
 - Email: admin@ellavera.com
 - Password: admin123
 
-## Previous Issues Resolved
-- Logo upload now saves to database
-- Dynamic content editing working
-- Client/Review carousels functioning
-- Page Builder drag-and-drop operational
+## Test Tasks
+| Feature | Status | Notes |
+|---------|--------|-------|
+| Header background fix | ✅ | White bg at top |
+| Mobile menu fix | ✅ | No overlap |
+| Process section fix | ✅ | Badges visible |
+| Services page | ✅ | New page created |
+| Articles on homepage | ✅ | Shows 3 articles |
+| Navigation update | ✅ | Services link added |
