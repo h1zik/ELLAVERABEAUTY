@@ -198,7 +198,14 @@ const LandingPage = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div 
+              className={`grid grid-cols-1 sm:grid-cols-2 gap-6 ${
+                servicesSection.content.services?.length === 1 ? 'lg:grid-cols-1 max-w-md mx-auto' :
+                servicesSection.content.services?.length === 2 ? 'lg:grid-cols-2 max-w-2xl mx-auto' :
+                servicesSection.content.services?.length === 3 ? 'lg:grid-cols-3 max-w-4xl mx-auto' :
+                'lg:grid-cols-4'
+              }`}
+            >
               {servicesSection.content.services?.map((service, index) => (
                 <div key={index} className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow scroll-fade-up">
                   <h3 className="text-lg font-semibold text-cyan-600 mb-2">{service.name}</h3>
