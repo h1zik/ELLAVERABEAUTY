@@ -199,8 +199,8 @@ const LandingPage = () => {
               >
                 {heroSection.content.title || 'Transform Your Beauty Brand with'}
                 <span 
-                  className="block mt-2"
-                  style={{ color: heroSection.content.title_highlight_color || '#06b6d4' }}
+                  className="block mt-2 text-primary"
+                  style={heroSection.content.title_highlight_color ? { color: heroSection.content.title_highlight_color } : undefined}
                 >
                   {heroSection.content.title_highlight || 'Ellavera Beauty'}
                 </span>
