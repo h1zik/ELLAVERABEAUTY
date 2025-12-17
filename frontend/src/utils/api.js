@@ -74,6 +74,13 @@ export const api = {
   updateReview: (id, data) => axios.put(`${API}/reviews/${id}`, data, { headers: getAuthHeaders() }),
   deleteReview: (id) => axios.delete(`${API}/reviews/${id}`, { headers: getAuthHeaders() }),
 
+  // Services
+  getServices: (params) => axios.get(`${API}/services`, { params }),
+  getService: (id) => axios.get(`${API}/services/${id}`),
+  createService: (data) => axios.post(`${API}/services`, data, { headers: getAuthHeaders() }),
+  updateService: (id, data) => axios.put(`${API}/services/${id}`, data, { headers: getAuthHeaders() }),
+  deleteService: (id) => axios.delete(`${API}/services/${id}`, { headers: getAuthHeaders() }),
+
   // Contact
   submitContact: (data) => axios.post(`${API}/contact`, data),
   getContactLeads: () => axios.get(`${API}/contact/leads`, { headers: getAuthHeaders() }),
