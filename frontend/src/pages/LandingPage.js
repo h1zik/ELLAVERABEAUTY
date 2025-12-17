@@ -466,7 +466,7 @@ const LandingPage = () => {
 
       {/* Clients Section with Auto-Slide */}
       {clients.length > 0 && (
-        <section className="py-20 bg-white" data-testid="clients-section">
+        <section className="py-20 bg-slate-50 border-t border-slate-200" data-testid="clients-section">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16 scroll-reveal">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
