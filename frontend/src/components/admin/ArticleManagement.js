@@ -14,6 +14,7 @@ import LoadingSpinner from '../layout/LoadingSpinner';
 
 const ArticleManagement = () => {
   const [articles, setArticles] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingArticle, setEditingArticle] = useState(null);
@@ -35,8 +36,23 @@ const ArticleManagement = () => {
   });
 
   useEffect(() => {
-    fetchArticles();
+    fetchData();
   }, []);
+
+  const fetchData = async () => {
+    try {
+      const [articlesRes, categoriesRes] = await Promise.all([
+        api.getArticles({}),
+        api.getCategories({ type: 'article' })
+      ]);
+      setArticles(articlesRes.data);
+      setCategories(categoriesRes.data);
+    } catch (error) {
+      toast.error('Failed to fetch data');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const fetchArticles = async () => {
     try {
@@ -44,8 +60,6 @@ const ArticleManagement = () => {
       setArticles(response.data);
     } catch (error) {
       toast.error('Failed to fetch articles');
-    } finally {
-      setLoading(false);
     }
   };
 
