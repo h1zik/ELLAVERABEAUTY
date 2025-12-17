@@ -90,7 +90,14 @@ export const api = {
   deleteGalleryItem: (id) => axios.delete(`${API}/gallery/${id}`, { headers: getAuthHeaders() }),
 
   // Categories
-  getCategories: (params) => axios.get(`${API}/categories`, { params }),
+  getCategories: (params) => {
+    const newParams = { ...params };
+    if (newParams.type) {
+      newParams.category_type = newParams.type;
+      delete newParams.type;
+    }
+    return axios.get(`${API}/categories`, { params: newParams });
+  },
   getCategory: (id) => axios.get(`${API}/categories/${id}`),
   createCategory: (data) => axios.post(`${API}/categories`, data, { headers: getAuthHeaders() }),
   updateCategory: (id, data) => axios.put(`${API}/categories/${id}`, data, { headers: getAuthHeaders() }),
