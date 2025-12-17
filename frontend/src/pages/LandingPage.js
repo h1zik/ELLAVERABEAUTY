@@ -7,9 +7,10 @@ import { api } from '../utils/api';
 import { initScrollReveal } from '../utils/scrollReveal';
 import { updatePageTitle } from '../utils/pageTitle';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Pagination } from 'swiper/modules';
+import { Autoplay, Pagination, EffectFade } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import 'swiper/css/effect-fade';
 
 const LandingPage = () => {
   const [clients, setClients] = useState([]);
