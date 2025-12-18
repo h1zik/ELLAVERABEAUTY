@@ -21,7 +21,8 @@ import {
   Mail,
   Briefcase,
   Image,
-  Tag
+  Tag,
+  Database
 } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
