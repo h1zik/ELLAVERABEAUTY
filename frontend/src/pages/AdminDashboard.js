@@ -294,29 +294,49 @@ const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen bg-slate-100" data-testid="admin-dashboard">
-      {/* Sidebar */}
+      {/* Mobile Menu Overlay */}
+      {mobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+
+      {/* Sidebar - Hidden on mobile by default, shown when mobileMenuOpen is true */}
       <aside 
-        className={`fixed left-0 top-0 h-full bg-white shadow-xl z-50 transition-all duration-300 ${
-          sidebarCollapsed ? 'w-20' : 'w-64'
-        }`}
+        className={`fixed left-0 top-0 h-full bg-white shadow-xl z-50 transition-all duration-300
+          ${sidebarCollapsed ? 'lg:w-20' : 'lg:w-64'}
+          ${mobileMenuOpen ? 'w-64 translate-x-0' : '-translate-x-full lg:translate-x-0'}
+          lg:translate-x-0
+        `}
       >
         {/* Logo Area */}
         <div className="h-16 flex items-center justify-between px-4 border-b border-slate-100">
-          {!sidebarCollapsed && (
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center">
-                <LayoutDashboard size={20} className="text-white" />
-              </div>
-              <div>
-                <h1 className="font-bold text-slate-800">Ellavera</h1>
-                <p className="text-xs text-slate-500">Admin Panel</p>
-              </div>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center">
+              <LayoutDashboard size={20} className="text-white" />
             </div>
-          )}
+            {(!sidebarCollapsed || mobileMenuOpen) && (
+              <div>
+                <h1 className="font-bold text-slate-800">Admin</h1>
+                <p className="text-xs text-slate-500">Dashboard</p>
+              </div>
+            )}
+          </div>
+          {/* Close button for mobile */}
           <Button 
             variant="ghost" 
             size="icon"
-            className="h-8 w-8 rounded-lg hover:bg-slate-100"
+            className="h-8 w-8 rounded-lg hover:bg-slate-100 lg:hidden"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <X size={18} />
+          </Button>
+          {/* Collapse button for desktop */}
+          <Button 
+            variant="ghost" 
+            size="icon"
+            className="h-8 w-8 rounded-lg hover:bg-slate-100 hidden lg:flex"
             onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
           >
             {sidebarCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
@@ -331,7 +351,10 @@ const AdminDashboard = () => {
             return (
               <button
                 key={item.id}
-                onClick={() => setActiveTab(item.id)}
+                onClick={() => {
+                  setActiveTab(item.id);
+                  setMobileMenuOpen(false); // Close mobile menu on selection
+                }}
                 className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 ${
                   isActive 
                     ? 'bg-gradient-to-r from-cyan-500 to-cyan-600 text-white shadow-lg shadow-cyan-500/30' 
@@ -340,7 +363,7 @@ const AdminDashboard = () => {
                 data-testid={`tab-${item.id}`}
               >
                 <Icon size={20} className={isActive ? 'text-white' : ''} />
-                {!sidebarCollapsed && (
+                {(!sidebarCollapsed || mobileMenuOpen) && (
                   <span className="font-medium text-sm">{item.label}</span>
                 )}
               </button>
@@ -355,7 +378,7 @@ const AdminDashboard = () => {
             className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl text-slate-600 hover:bg-red-50 hover:text-red-600 transition-all duration-200`}
           >
             <LogOut size={20} />
-            {!sidebarCollapsed && (
+            {(!sidebarCollapsed || mobileMenuOpen) && (
               <span className="font-medium text-sm">Logout</span>
             )}
           </button>
@@ -364,13 +387,23 @@ const AdminDashboard = () => {
 
       {/* Main Content */}
       <main 
-        className={`transition-all duration-300 ${
-          sidebarCollapsed ? 'ml-20' : 'ml-64'
-        }`}
+        className={`transition-all duration-300 
+          lg:${sidebarCollapsed ? 'ml-20' : 'ml-64'}
+          ml-0 lg:ml-64
+        `}
       >
         {/* Top Bar */}
-        <header className="h-16 bg-white shadow-sm flex items-center justify-between px-8 sticky top-0 z-40">
-          <div>
+        <header className="h-16 bg-white shadow-sm flex items-center justify-between px-4 sm:px-6 lg:px-8 sticky top-0 z-30">
+          {/* Mobile menu button */}
+          <Button 
+            variant="ghost" 
+            size="icon"
+            className="lg:hidden h-10 w-10"
+            onClick={() => setMobileMenuOpen(true)}
+          >
+            <Menu size={24} />
+          </Button>
+          <div className="hidden lg:block">
             <h2 className="text-xl font-bold text-slate-800 capitalize">
               {activeTab === 'dashboard' ? 'Dashboard' : menuItems.find(m => m.id === activeTab)?.label}
             </h2>
