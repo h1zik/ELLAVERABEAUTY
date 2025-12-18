@@ -270,6 +270,8 @@ const AdminDashboard = () => {
         return <DashboardOverview />;
       case 'content':
         return <ContentEditor />;
+      case 'pageTitles':
+        return <PageTitlesEditor />;
       case 'builder':
         return <PageBuilderManagement />;
       case 'services':
