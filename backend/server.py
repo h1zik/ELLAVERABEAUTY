@@ -1425,11 +1425,44 @@ async def backup_data(
     try:
         # Create a ZIP file in memory
         zip_buffer = io.BytesIO()
+        media_count = 0
+        
+        def extract_base64_images(obj, path=""):
+            """Recursively extract base64 images from object and return list of (filename, data)"""
+            images = []
+            if isinstance(obj, dict):
+                for key, value in obj.items():
+                    if isinstance(value, str) and value.startswith("data:image"):
+                        # Extract base64 image
+                        try:
+                            mime_match = value.split(";")[0].split(":")[1] if ":" in value else "image/png"
+                            ext = mime_match.split("/")[1] if "/" in mime_match else "png"
+                            if ext == "jpeg":
+                                ext = "jpg"
+                            b64_data = value.split(",")[1] if "," in value else value
+                            images.append((f"{path}_{key}.{ext}", base64.b64decode(b64_data)))
+                        except:
+                            pass
+                    elif isinstance(value, (dict, list)):
+                        images.extend(extract_base64_images(value, f"{path}_{key}"))
+            elif isinstance(obj, list):
+                for idx, item in enumerate(obj):
+                    images.extend(extract_base64_images(item, f"{path}_{idx}"))
+            return images
         
         with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
             for collection_name, collection in collections_to_backup:
                 # Fetch all documents from collection
                 documents = await collection.find({}, {"_id": 0}).to_list(10000)
+                
+                # Extract media files if requested
+                if include_media:
+                    for idx, doc in enumerate(documents):
+                        doc_id = doc.get("id", str(idx))
+                        images = extract_base64_images(doc, f"{collection_name}/{doc_id}")
+                        for filename, img_data in images:
+                            zip_file.writestr(f"media/{filename}", img_data)
+                            media_count += 1
                 
                 if format == "json":
                     # Convert datetime objects to ISO strings for JSON serialization
