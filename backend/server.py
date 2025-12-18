@@ -1470,18 +1470,23 @@ async def backup_data(format: str = Query("json", enum=["json", "csv", "sql"]), 
             # Also backup settings
             settings = await db.settings.find_one({}, {"_id": 0})
             if settings:
-                for key, value in settings.items():
-                    if isinstance(value, datetime):
-                        settings[key] = value.isoformat()
-                
                 if format == "json":
+                    for key, value in settings.items():
+                        if isinstance(value, datetime):
+                            settings[key] = value.isoformat()
                     zip_file.writestr("settings.json", json.dumps(settings, indent=2, ensure_ascii=False))
-                else:
+                elif format == "csv":
+                    for key, value in settings.items():
+                        if isinstance(value, datetime):
+                            settings[key] = value.isoformat()
                     output = io.StringIO()
                     writer = csv.DictWriter(output, fieldnames=list(settings.keys()))
                     writer.writeheader()
                     writer.writerow(settings)
                     zip_file.writestr("settings.csv", output.getvalue())
+                elif format == "sql":
+                    sql_content = generate_sql_insert("settings", [settings])
+                    zip_file.writestr("settings.sql", sql_content)
             
             # Backup theme
             theme = await db.theme.find_one({}, {"_id": 0})
