@@ -448,16 +448,20 @@ async def get_products(category_id: Optional[str] = None, featured: Optional[boo
         query["featured"] = featured
     
     products = await db.products.find(query, {"_id": 0}).to_list(1000)
+    
+    # Batch fetch all categories to avoid N+1 query problem
+    category_ids = list(set(p.get('category_id') for p in products if p.get('category_id')))
+    categories_list = await db.categories.find({"id": {"$in": category_ids}}, {"_id": 0, "id": 1, "name": 1}).to_list(1000) if category_ids else []
+    categories_dict = {cat['id']: cat['name'] for cat in categories_list}
+    
     for prod in products:
         if isinstance(prod['created_at'], str):
             prod['created_at'] = datetime.fromisoformat(prod['created_at'])
         if isinstance(prod['updated_at'], str):
             prod['updated_at'] = datetime.fromisoformat(prod['updated_at'])
         
-        # Add category name
-        if prod.get('category_id'):
-            category = await db.categories.find_one({"id": prod['category_id']}, {"_id": 0})
-            prod['category_name'] = category['name'] if category else None
+        # Add category name from batch-fetched dict
+        prod['category_name'] = categories_dict.get(prod.get('category_id'))
     
     return products
 
