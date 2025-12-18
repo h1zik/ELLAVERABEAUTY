@@ -67,10 +67,14 @@ const ProductsPage = () => {
       <section className="bg-gradient-to-br from-primary-light to-white py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl sm:text-5xl font-bold mb-4" data-testid="products-title">
-            Our <span className="text-gradient">Products</span>
+            {pageInfo.title?.includes(' ') ? (
+              <>{pageInfo.title.split(' ').slice(0, -1).join(' ')} <span className="text-gradient">{pageInfo.title.split(' ').slice(-1)}</span></>
+            ) : (
+              <span className="text-gradient">{pageInfo.title}</span>
+            )}
           </h1>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Explore our premium range of cosmetic manufacturing solutions
+            {pageInfo.subtitle}
           </p>
         </div>
       </section>
