@@ -6,6 +6,7 @@ import { Card } from '../components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 import { api } from '../utils/api';
 import { usePageTitle } from '../hooks/usePageTitle';
+import { useSettings } from '../context/SettingsContext';
 import LoadingSpinner from '../components/layout/LoadingSpinner';
 import { initScrollReveal } from '../utils/scrollReveal';
 
@@ -14,8 +15,10 @@ const ProductsPage = () => {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [loading, setLoading] = useState(true);
+  const { settings } = useSettings();
   
-  usePageTitle('Products');
+  const pageInfo = settings?.page_titles?.products || { title: 'Our Products', subtitle: 'Discover our range of quality products' };
+  usePageTitle(pageInfo.title);
 
   useEffect(() => {
     fetchData();
