@@ -128,7 +128,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-slate-800 pt-8 text-center text-slate-400 text-sm">
-          <p>{settings.footer_copyright || `© ${new Date().getFullYear()} ${settings.site_name || 'Ellavera Beauty'}. All rights reserved.`}</p>
+          <p>{settings.footer_copyright || `© ${new Date().getFullYear()} ${settings.site_name || ''}. All rights reserved.`}</p>
         </div>
       </div>
     </footer>
