@@ -5,7 +5,7 @@ export const updatePageTitle = (title, siteName = null) => {
   const currentTitle = document.title;
   const defaultSiteName = currentTitle.includes(' - ') 
     ? currentTitle.split(' - ')[0].split(' | ').pop()
-    : 'Ellavera Beauty';
+    : 'Website';
   
   const finalSiteName = siteName || defaultSiteName;
   
