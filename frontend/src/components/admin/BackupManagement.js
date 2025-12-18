@@ -128,6 +128,25 @@ const BackupManagement = () => {
               </p>
             </div>
 
+            {/* Include Media Checkbox */}
+            <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
+              <input
+                type="checkbox"
+                id="include-media"
+                checked={includeMedia}
+                onChange={(e) => setIncludeMedia(e.target.checked)}
+                className="w-4 h-4 text-cyan-600 rounded border-slate-300 focus:ring-cyan-500"
+              />
+              <div>
+                <label htmlFor="include-media" className="text-sm font-medium cursor-pointer">
+                  Include Media Files
+                </label>
+                <p className="text-xs text-slate-500">
+                  Extract all images/photos as separate files in the backup
+                </p>
+              </div>
+            </div>
+
             <Button 
               onClick={handleDownload} 
               disabled={isDownloading}
