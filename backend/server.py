@@ -261,6 +261,7 @@ class SiteSettings(BaseModel):
     site_name: str = "Ellavera Beauty"
     site_tagline: str = "Premium Cosmetic Manufacturing"
     logo_url: Optional[str] = None
+    favicon_url: Optional[str] = None
     logo_text: str = "Ellavera Beauty"
     footer_text: str = "Premium cosmetic manufacturing solutions for your brand."
     contact_email: str = "info@ellavera.com"
