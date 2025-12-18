@@ -219,13 +219,13 @@ const ContactPage = () => {
           </div>
         </div>
 
-        {/* Map Section */}
-        {mapSection && (
+        {/* Map Section - Uses google_maps_url from Site Settings */}
+        {settings?.google_maps_url && (
           <div className="mt-12">
-            <h2 className="text-2xl font-bold mb-6 text-center">{mapSection.content.heading || 'Visit Our Office'}</h2>
+            <h2 className="text-2xl font-bold mb-6 text-center">{mapSection?.content?.heading || 'Visit Our Office'}</h2>
             <div className="rounded-2xl overflow-hidden shadow-lg">
               <iframe
-                src={mapSection.content.google_maps_url}
+                src={settings.google_maps_url}
                 width="100%"
                 height="450"
                 style={{ border: 0 }}
