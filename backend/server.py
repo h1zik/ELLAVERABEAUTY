@@ -1462,6 +1462,10 @@ async def backup_data(format: str = Query("json", enum=["json", "csv", "sql"]), 
                             writer.writerow(row)
                         
                         zip_file.writestr(f"{collection_name}.csv", output.getvalue())
+                
+                elif format == "sql":
+                    sql_content = generate_sql_insert(collection_name, documents)
+                    zip_file.writestr(f"{collection_name}.sql", sql_content)
             
             # Also backup settings
             settings = await db.settings.find_one({}, {"_id": 0})
