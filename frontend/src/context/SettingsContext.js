@@ -34,14 +34,9 @@ export const SettingsProvider = ({ children }) => {
     fetchSettings();
   }, []);
 
-  // Update document title and favicon when settings change
+  // Update favicon when settings change (title is handled by usePageTitle hook)
   useEffect(() => {
     if (settings) {
-      // Update browser tab title using site_name and site_tagline
-      const siteName = settings.site_name || 'Ellavera Beauty';
-      const tagline = settings.site_tagline || 'Premium Cosmetic Manufacturing';
-      document.title = `${siteName} - ${tagline}`;
-      
       // Update favicon if favicon_url is provided
       if (settings.favicon_url) {
         // Update the dynamic favicon link
