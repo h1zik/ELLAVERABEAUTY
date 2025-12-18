@@ -37,10 +37,10 @@ export const SettingsProvider = ({ children }) => {
   // Update document title and favicon when settings change
   useEffect(() => {
     if (settings) {
-      // Update browser tab title
-      document.title = settings.site_name 
-        ? `${settings.site_name} - Premium Cosmetic Manufacturing`
-        : 'Ellavera Beauty - Premium Cosmetic Manufacturing';
+      // Update browser tab title using site_name and site_tagline
+      const siteName = settings.site_name || 'Ellavera Beauty';
+      const tagline = settings.site_tagline || 'Premium Cosmetic Manufacturing';
+      document.title = `${siteName} - ${tagline}`;
       
       // Update favicon if logo_url is provided
       if (settings.favicon_url) {
