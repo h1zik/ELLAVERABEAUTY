@@ -49,7 +49,7 @@ const AuthPage = () => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-light via-white to-primary-light py-12 px-4 sm:px-6 lg:px-8" data-testid="auth-page">
       <Card className="w-full max-w-md p-8 shadow-xl border-none">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gradient mb-2">Ellavera Beauty</h1>
+          <h1 className="text-3xl font-bold text-gradient mb-2">{settings?.site_name || 'Welcome'}</h1>
           <p className="text-slate-600">Welcome back!</p>
         </div>
 
