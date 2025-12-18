@@ -1402,7 +1402,11 @@ def generate_sql_insert(table_name: str, documents: list) -> str:
     return "\n".join(lines) + "\n\n"
 
 @api_router.get("/admin/backup")
-async def backup_data(format: str = Query("json", enum=["json", "csv", "sql"]), admin: User = Depends(require_admin)):
+async def backup_data(
+    format: str = Query("json", enum=["json", "csv", "sql"]), 
+    include_media: bool = Query(False, description="Extract and include media files separately"),
+    admin: User = Depends(require_admin)
+):
     """Export all data from database in JSON, CSV, or SQL format (ZIP file)"""
     
     collections_to_backup = [
