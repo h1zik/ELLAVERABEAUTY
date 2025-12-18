@@ -1360,9 +1360,50 @@ async def generate_image(request: AIImageGenerateRequest, admin: User = Depends(
         raise HTTPException(status_code=500, detail=f"Image generation failed: {str(e)}")
 
 # ============= BACKUP ROUTES =============
+def generate_sql_insert(table_name: str, documents: list) -> str:
+    """Generate SQL INSERT statements from documents"""
+    if not documents:
+        return f"-- No data in {table_name}\n"
+    
+    lines = [f"-- Table: {table_name}", f"-- Records: {len(documents)}\n"]
+    
+    # Get all unique keys
+    all_keys = set()
+    for doc in documents:
+        all_keys.update(doc.keys())
+    columns = sorted(list(all_keys))
+    
+    # Generate INSERT statements
+    for doc in documents:
+        values = []
+        for col in columns:
+            val = doc.get(col)
+            if val is None:
+                values.append("NULL")
+            elif isinstance(val, bool):
+                values.append("1" if val else "0")
+            elif isinstance(val, (int, float)):
+                values.append(str(val))
+            elif isinstance(val, datetime):
+                values.append(f"'{val.isoformat()}'")
+            elif isinstance(val, (list, dict)):
+                # Store as JSON string
+                json_str = json.dumps(val, ensure_ascii=False).replace("'", "''")
+                values.append(f"'{json_str}'")
+            else:
+                # Escape single quotes
+                str_val = str(val).replace("'", "''")
+                values.append(f"'{str_val}'")
+        
+        cols_str = ", ".join([f"`{c}`" for c in columns])
+        vals_str = ", ".join(values)
+        lines.append(f"INSERT INTO `{table_name}` ({cols_str}) VALUES ({vals_str});")
+    
+    return "\n".join(lines) + "\n\n"
+
 @api_router.get("/admin/backup")
-async def backup_data(format: str = Query("json", enum=["json", "csv"]), admin: User = Depends(require_admin)):
-    """Export all data from database in JSON or CSV format (ZIP file)"""
+async def backup_data(format: str = Query("json", enum=["json", "csv", "sql"]), admin: User = Depends(require_admin)):
+    """Export all data from database in JSON, CSV, or SQL format (ZIP file)"""
     
     collections_to_backup = [
         ("products", db.products),
