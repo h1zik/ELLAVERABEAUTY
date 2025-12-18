@@ -5,6 +5,7 @@ import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
 import { api } from '../utils/api';
 import { usePageTitle } from '../hooks/usePageTitle';
+import { useSettings } from '../context/SettingsContext';
 import LoadingSpinner from '../components/layout/LoadingSpinner';
 import { initScrollReveal } from '../utils/scrollReveal';
 
@@ -17,8 +18,10 @@ const iconMap = {
 const ServicesPage = () => {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { settings } = useSettings();
   
-  usePageTitle('Services');
+  const pageInfo = settings?.page_titles?.services || { title: 'Our Services', subtitle: 'Professional solutions for your needs' };
+  usePageTitle(pageInfo.title);
 
   useEffect(() => {
     fetchServices();
