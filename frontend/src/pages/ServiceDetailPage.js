@@ -4,7 +4,7 @@ import { ArrowLeft, ArrowRight, CheckCircle, Sparkles, Beaker, Package, Palette,
 import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
 import { api } from '../utils/api';
-import { updatePageTitle } from '../utils/pageTitle';
+import { usePageTitle } from '../hooks/usePageTitle';
 import LoadingSpinner from '../components/layout/LoadingSpinner';
 
 // Icon mapping
@@ -19,6 +19,9 @@ const ServiceDetailPage = () => {
   const [relatedServices, setRelatedServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  
+  // Update page title when service is loaded
+  usePageTitle(service?.name || 'Service');
 
   useEffect(() => {
     fetchService();
@@ -32,7 +35,6 @@ const ServiceDetailPage = () => {
         api.getServices({})
       ]);
       setService(serviceRes.data);
-      updatePageTitle(serviceRes.data.name);
       
       // Get related services (excluding current one)
       const related = allServicesRes.data.filter(s => s.id !== id).slice(0, 3);
