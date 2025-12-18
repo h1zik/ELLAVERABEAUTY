@@ -277,6 +277,8 @@ const AdminDashboard = () => {
         return <SiteSettingsManagement />;
       case 'theme':
         return <ThemeManagement />;
+      case 'backup':
+        return <BackupManagement />;
       default:
         return <DashboardOverview />;
     }
