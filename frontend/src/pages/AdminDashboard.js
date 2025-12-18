@@ -94,6 +94,7 @@ const AdminDashboard = () => {
     { id: 'articles', label: 'Articles', icon: Newspaper },
     { id: 'categories', label: 'Categories', icon: Tag },
     { id: 'gallery', label: 'Gallery', icon: Image },
+    { id: 'certifications', label: 'Certifications', icon: Award },
     { id: 'clients', label: 'Clients', icon: Users },
     { id: 'reviews', label: 'Reviews', icon: Star },
     { id: 'leads', label: 'Leads', icon: MessageSquare },
