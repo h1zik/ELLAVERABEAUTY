@@ -135,15 +135,15 @@ const AdminDashboard = () => {
   );
 
   const DashboardOverview = () => (
-    <div className="space-y-8">
+    <div className="space-y-6 lg:space-y-8">
       {/* Welcome Section */}
-      <div className="bg-gradient-to-r from-cyan-600 to-cyan-700 rounded-2xl p-8 text-white">
-        <h1 className="text-2xl font-bold mb-2">Welcome back, {user?.name || 'Admin'}!</h1>
-        <p className="text-cyan-100">Here's what's happening with your website today.</p>
+      <div className="bg-gradient-to-r from-cyan-600 to-cyan-700 rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 text-white">
+        <h1 className="text-xl sm:text-2xl font-bold mb-1 sm:mb-2">Welcome back, {user?.name || 'Admin'}!</h1>
+        <p className="text-cyan-100 text-sm sm:text-base">Here's what's happening with your website today.</p>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
         <StatCard 
           title="Total Products" 
           value={stats.products} 
