@@ -58,6 +58,7 @@ const AboutPage = () => {
   const textSection = getSection('text');
   const visionMissionSection = getSection('vision_mission');
   const certificationsSection = getSection('certifications');
+  const proofCertificationsSection = getSection('proof_certifications');
   const teamSection = getSection('team');
 
   // Default certifications if not customized
