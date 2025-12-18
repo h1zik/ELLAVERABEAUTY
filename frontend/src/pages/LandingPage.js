@@ -125,7 +125,7 @@ const LandingPage = () => {
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight" data-testid="hero-title" style={{ color: section.content.title_color || '#ffffff' }}>
             {section.content.title || 'Transform Your Beauty Brand with'}
             <span className="block mt-2 text-primary" style={section.content.title_highlight_color ? { color: section.content.title_highlight_color } : undefined}>
-              {section.content.title_highlight || 'Ellavera Beauty'}
+              {section.content.title_highlight || ''}
             </span>
           </h1>
           
