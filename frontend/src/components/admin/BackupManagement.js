@@ -120,7 +120,9 @@ const BackupManagement = () => {
               <p className="text-xs text-slate-500 mt-1">
                 {format === 'json' 
                   ? 'JSON preserves all data structure and is ideal for restoration'
-                  : 'CSV is compatible with Excel/Google Sheets but may lose nested data structure'
+                  : format === 'csv'
+                  ? 'CSV is compatible with Excel/Google Sheets but may lose nested data structure'
+                  : 'SQL generates INSERT statements for MySQL/PostgreSQL databases'
                 }
               </p>
             </div>
