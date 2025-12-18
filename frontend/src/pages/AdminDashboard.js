@@ -408,32 +408,43 @@ const AdminDashboard = () => {
               {activeTab === 'dashboard' ? 'Dashboard' : menuItems.find(m => m.id === activeTab)?.label}
             </h2>
           </div>
-          <div className="flex items-center gap-4">
+          {/* Page title for mobile */}
+          <h2 className="text-lg font-bold text-slate-800 capitalize lg:hidden flex-1 text-center">
+            {activeTab === 'dashboard' ? 'Dashboard' : menuItems.find(m => m.id === activeTab)?.label}
+          </h2>
+          
+          <div className="flex items-center gap-2 sm:gap-4">
             <Button 
               variant="outline" 
               size="sm"
-              className="gap-2"
+              className="gap-2 hidden sm:flex"
               onClick={() => window.open('/', '_blank')}
             >
               <Eye size={16} />
-              View Site
+              <span className="hidden md:inline">View Site</span>
             </Button>
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+            <Button 
+              variant="outline" 
+              size="icon"
+              className="sm:hidden h-9 w-9"
+              onClick={() => window.open('/', '_blank')}
+            >
+              <Eye size={16} />
+            </Button>
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="w-8 h-8 sm:w-9 sm:h-9 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-full flex items-center justify-center text-white font-semibold text-xs sm:text-sm">
                 {user?.name?.charAt(0) || 'A'}
               </div>
-              {!sidebarCollapsed && (
-                <div className="hidden md:block">
-                  <p className="text-sm font-medium text-slate-800">{user?.name || 'Admin'}</p>
-                  <p className="text-xs text-slate-500">{user?.email}</p>
-                </div>
-              )}
+              <div className="hidden lg:block">
+                <p className="text-sm font-medium text-slate-800">{user?.name || 'Admin'}</p>
+                <p className="text-xs text-slate-500">{user?.email}</p>
+              </div>
             </div>
           </div>
         </header>
 
-        {/* Content Area */}
-        <div className="p-8">
+        {/* Content Area - Responsive padding */}
+        <div className="p-4 sm:p-6 lg:p-8">
           {renderContent()}
         </div>
       </main>
