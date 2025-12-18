@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Download, Database, FileJson, FileSpreadsheet, Loader2, HardDrive } from 'lucide-react';
+import { Download, Database, FileJson, FileSpreadsheet, FileCode, Loader2, HardDrive } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Card } from '../ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
