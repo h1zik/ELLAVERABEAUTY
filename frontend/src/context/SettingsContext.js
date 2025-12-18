@@ -34,6 +34,27 @@ export const SettingsProvider = ({ children }) => {
     fetchSettings();
   }, []);
 
+  // Update document title and favicon when settings change
+  useEffect(() => {
+    if (settings) {
+      // Update browser tab title
+      document.title = settings.site_name 
+        ? `${settings.site_name} - Premium Cosmetic Manufacturing`
+        : 'Ellavera Beauty - Premium Cosmetic Manufacturing';
+      
+      // Update favicon if logo_url is provided
+      if (settings.favicon_url) {
+        let link = document.querySelector("link[rel*='icon']");
+        if (!link) {
+          link = document.createElement('link');
+          link.rel = 'icon';
+          document.head.appendChild(link);
+        }
+        link.href = settings.favicon_url;
+      }
+    }
+  }, [settings]);
+
   return (
     <SettingsContext.Provider value={{ settings, loading, refreshSettings }}>
       {children}
