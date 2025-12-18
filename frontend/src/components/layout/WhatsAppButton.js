@@ -7,7 +7,7 @@ const WhatsAppButton = () => {
 
   const handleClick = () => {
     const phoneNumber = settings?.whatsapp_number || '6281234567890';
-    const message = settings?.whatsapp_message || `Hello ${settings?.site_name || 'Ellavera Beauty'}! I'm interested in your cosmetic manufacturing services.`;
+    const message = settings?.whatsapp_message || `Hello${settings?.site_name ? ' ' + settings.site_name : ''}! I'm interested in your services.`;
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
   };
