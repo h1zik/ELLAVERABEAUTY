@@ -109,6 +109,12 @@ const BackupManagement = () => {
                       <span>CSV (Spreadsheet)</span>
                     </div>
                   </SelectItem>
+                  <SelectItem value="sql">
+                    <div className="flex items-center gap-2">
+                      <FileCode size={16} />
+                      <span>SQL (Database)</span>
+                    </div>
+                  </SelectItem>
                 </SelectContent>
               </Select>
               <p className="text-xs text-slate-500 mt-1">
