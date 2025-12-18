@@ -43,6 +43,7 @@ import GalleryManagement from '../components/admin/GalleryManagement';
 import CategoryManagement from '../components/admin/CategoryManagement';
 import BackupManagement from '../components/admin/BackupManagement';
 import ProofCertificationsEditor from '../components/admin/ProofCertificationsEditor';
+import PageTitlesEditor from '../components/admin/PageTitlesEditor';
 import LoadingSpinner from '../components/layout/LoadingSpinner';
 import { api } from '../utils/api';
 
