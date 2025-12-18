@@ -44,7 +44,7 @@ const Footer = () => {
           {/* Brand */}
           <div>
             <h3 className="text-2xl font-bold text-gradient mb-4" data-testid="footer-brand">
-              {settings.site_name || 'Ellavera Beauty'}
+              {settings.site_name || ''}
             </h3>
             <p className="text-slate-400 text-sm mb-4">
               {settings.footer_text || 'Premium cosmetic manufacturing solutions for your brand. We create beauty products that inspire confidence.'}
