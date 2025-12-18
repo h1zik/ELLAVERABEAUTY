@@ -9,6 +9,7 @@ import { toast } from 'sonner';
 
 const BackupManagement = () => {
   const [format, setFormat] = useState('json');
+  const [includeMedia, setIncludeMedia] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
   const [stats, setStats] = useState(null);
   const [loadingStats, setLoadingStats] = useState(true);
