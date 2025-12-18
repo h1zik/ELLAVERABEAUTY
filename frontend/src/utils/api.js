@@ -117,4 +117,12 @@ export const api = {
   // Site Settings
   getSettings: () => axios.get(`${API}/settings`),
   updateSettings: (data) => axios.put(`${API}/settings`, data, { headers: getAuthHeaders() }),
+
+  // Backup
+  getBackupStats: () => axios.get(`${API}/admin/backup/stats`, { headers: getAuthHeaders() }),
+  downloadBackup: (format) => axios.get(`${API}/admin/backup`, { 
+    params: { format },
+    headers: getAuthHeaders(),
+    responseType: 'arraybuffer'
+  }),
 };
