@@ -115,11 +115,11 @@ const AdminDashboard = () => {
   if (!user || !user.is_admin) return null;
 
   const StatCard = ({ title, value, icon: Icon, color, trend }) => (
-    <Card className="p-6 bg-white border-none shadow-sm hover:shadow-md transition-all duration-300">
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="text-sm font-medium text-slate-500 mb-1">{title}</p>
-          <p className="text-3xl font-bold text-slate-800">{value}</p>
+    <Card className="p-3 sm:p-4 lg:p-6 bg-white border-none shadow-sm hover:shadow-md transition-all duration-300">
+      <div className="flex items-center justify-between gap-2">
+        <div className="min-w-0 flex-1">
+          <p className="text-xs sm:text-sm font-medium text-slate-500 mb-1 truncate">{title}</p>
+          <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-800">{value}</p>
           {trend && (
             <p className="text-xs text-green-600 mt-1 flex items-center gap-1">
               <TrendingUp size={12} />
@@ -127,8 +127,10 @@ const AdminDashboard = () => {
             </p>
           )}
         </div>
-        <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${color}`}>
-          <Icon size={24} className="text-white" />
+        <div className={`w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-xl lg:rounded-2xl flex items-center justify-center flex-shrink-0 ${color}`}>
+          <Icon size={18} className="text-white sm:hidden" />
+          <Icon size={20} className="text-white hidden sm:block lg:hidden" />
+          <Icon size={24} className="text-white hidden lg:block" />
         </div>
       </div>
     </Card>
