@@ -32,7 +32,7 @@ const BackupManagement = () => {
   const handleDownload = async () => {
     setIsDownloading(true);
     try {
-      const response = await api.downloadBackup(format);
+      const response = await api.downloadBackup(format, includeMedia);
       
       // Create blob and download
       const blob = new Blob([response.data], { type: 'application/zip' });
