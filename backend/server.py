@@ -1359,6 +1359,136 @@ async def generate_image(request: AIImageGenerateRequest, admin: User = Depends(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Image generation failed: {str(e)}")
 
+# ============= BACKUP ROUTES =============
+@api_router.get("/admin/backup")
+async def backup_data(format: str = Query("json", enum=["json", "csv"]), admin: User = Depends(require_admin)):
+    """Export all data from database in JSON or CSV format (ZIP file)"""
+    
+    collections_to_backup = [
+        ("products", db.products),
+        ("articles", db.articles),
+        ("clients", db.clients),
+        ("reviews", db.reviews),
+        ("services", db.services),
+        ("gallery_items", db.gallery_items),
+        ("categories", db.categories),
+        ("page_sections", db.page_sections),
+        ("contact_leads", db.contact_leads),
+        ("users", db.users),
+    ]
+    
+    try:
+        # Create a ZIP file in memory
+        zip_buffer = io.BytesIO()
+        
+        with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
+            for collection_name, collection in collections_to_backup:
+                # Fetch all documents from collection
+                documents = await collection.find({}, {"_id": 0}).to_list(10000)
+                
+                if format == "json":
+                    # Convert datetime objects to ISO strings for JSON serialization
+                    for doc in documents:
+                        for key, value in doc.items():
+                            if isinstance(value, datetime):
+                                doc[key] = value.isoformat()
+                    
+                    content = json.dumps(documents, indent=2, ensure_ascii=False)
+                    zip_file.writestr(f"{collection_name}.json", content)
+                
+                elif format == "csv":
+                    if documents:
+                        output = io.StringIO()
+                        # Get all unique keys from all documents
+                        all_keys = set()
+                        for doc in documents:
+                            all_keys.update(doc.keys())
+                        fieldnames = sorted(list(all_keys))
+                        
+                        writer = csv.DictWriter(output, fieldnames=fieldnames, extrasaction='ignore')
+                        writer.writeheader()
+                        
+                        for doc in documents:
+                            # Convert complex types to strings
+                            row = {}
+                            for key, value in doc.items():
+                                if isinstance(value, (list, dict)):
+                                    row[key] = json.dumps(value, ensure_ascii=False)
+                                elif isinstance(value, datetime):
+                                    row[key] = value.isoformat()
+                                else:
+                                    row[key] = value
+                            writer.writerow(row)
+                        
+                        zip_file.writestr(f"{collection_name}.csv", output.getvalue())
+            
+            # Also backup settings
+            settings = await db.settings.find_one({}, {"_id": 0})
+            if settings:
+                for key, value in settings.items():
+                    if isinstance(value, datetime):
+                        settings[key] = value.isoformat()
+                
+                if format == "json":
+                    zip_file.writestr("settings.json", json.dumps(settings, indent=2, ensure_ascii=False))
+                else:
+                    output = io.StringIO()
+                    writer = csv.DictWriter(output, fieldnames=list(settings.keys()))
+                    writer.writeheader()
+                    writer.writerow(settings)
+                    zip_file.writestr("settings.csv", output.getvalue())
+            
+            # Backup theme
+            theme = await db.theme.find_one({}, {"_id": 0})
+            if theme:
+                for key, value in theme.items():
+                    if isinstance(value, datetime):
+                        theme[key] = value.isoformat()
+                
+                if format == "json":
+                    zip_file.writestr("theme.json", json.dumps(theme, indent=2, ensure_ascii=False))
+                else:
+                    output = io.StringIO()
+                    writer = csv.DictWriter(output, fieldnames=list(theme.keys()))
+                    writer.writeheader()
+                    writer.writerow(theme)
+                    zip_file.writestr("theme.csv", output.getvalue())
+        
+        zip_buffer.seek(0)
+        
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f"backup_{timestamp}.zip"
+        
+        return StreamingResponse(
+            zip_buffer,
+            media_type="application/zip",
+            headers={"Content-Disposition": f"attachment; filename={filename}"}
+        )
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Backup failed: {str(e)}")
+
+@api_router.get("/admin/backup/stats")
+async def backup_stats(admin: User = Depends(require_admin)):
+    """Get statistics about data that will be backed up"""
+    
+    stats = {
+        "products": await db.products.count_documents({}),
+        "articles": await db.articles.count_documents({}),
+        "clients": await db.clients.count_documents({}),
+        "reviews": await db.reviews.count_documents({}),
+        "services": await db.services.count_documents({}),
+        "gallery_items": await db.gallery_items.count_documents({}),
+        "categories": await db.categories.count_documents({}),
+        "page_sections": await db.page_sections.count_documents({}),
+        "contact_leads": await db.contact_leads.count_documents({}),
+        "users": await db.users.count_documents({}),
+    }
+    
+    stats["total"] = sum(stats.values())
+    
+    return stats
+
 # Include the router in the main app
 app.include_router(api_router)
 
