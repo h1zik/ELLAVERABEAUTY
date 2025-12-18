@@ -190,30 +190,33 @@ const AdminDashboard = () => {
             className="h-auto py-6 flex flex-col items-center gap-2 hover:bg-cyan-50 hover:border-cyan-300 transition-all"
             onClick={() => setActiveTab('articles')}
           >
-            <Newspaper size={24} className="text-cyan-600" />
-            <span className="text-sm font-medium">Write Article</span>
+            <Newspaper size={20} className="text-cyan-600 sm:hidden" />
+            <Newspaper size={24} className="text-cyan-600 hidden sm:block" />
+            <span className="text-xs sm:text-sm font-medium">Write Article</span>
           </Button>
           <Button 
             variant="outline" 
-            className="h-auto py-6 flex flex-col items-center gap-2 hover:bg-cyan-50 hover:border-cyan-300 transition-all"
+            className="h-auto py-4 sm:py-6 flex flex-col items-center gap-1 sm:gap-2 hover:bg-cyan-50 hover:border-cyan-300 transition-all"
             onClick={() => setActiveTab('content')}
           >
-            <FileText size={24} className="text-cyan-600" />
-            <span className="text-sm font-medium">Edit Content</span>
+            <FileText size={20} className="text-cyan-600 sm:hidden" />
+            <FileText size={24} className="text-cyan-600 hidden sm:block" />
+            <span className="text-xs sm:text-sm font-medium">Edit Content</span>
           </Button>
           <Button 
             variant="outline" 
-            className="h-auto py-6 flex flex-col items-center gap-2 hover:bg-cyan-50 hover:border-cyan-300 transition-all"
+            className="h-auto py-4 sm:py-6 flex flex-col items-center gap-1 sm:gap-2 hover:bg-cyan-50 hover:border-cyan-300 transition-all"
             onClick={() => setActiveTab('settings')}
           >
-            <Settings size={24} className="text-cyan-600" />
-            <span className="text-sm font-medium">Site Settings</span>
+            <Settings size={20} className="text-cyan-600 sm:hidden" />
+            <Settings size={24} className="text-cyan-600 hidden sm:block" />
+            <span className="text-xs sm:text-sm font-medium">Site Settings</span>
           </Button>
         </div>
       </div>
 
       {/* Recent Activity Placeholder */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         <Card className="p-6 bg-white border-none shadow-sm">
           <h3 className="text-lg font-semibold text-slate-800 mb-4 flex items-center gap-2">
             <Eye size={20} className="text-cyan-600" />
