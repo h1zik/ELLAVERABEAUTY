@@ -141,6 +141,50 @@ const SiteSettingsManagement = () => {
                 placeholder="Used when no logo image is set"
               />
             </div>
+
+            <div>
+              <Label>Favicon (Browser Tab Icon)</Label>
+              <div className="mt-2 space-y-3">
+                {settings.favicon_url && (
+                  <div className="relative inline-block">
+                    <img
+                      src={settings.favicon_url}
+                      alt="Favicon"
+                      className="h-10 w-10 object-contain border-2 border-slate-200 rounded-lg p-1 bg-white"
+                    />
+                  </div>
+                )}
+                <div>
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    onChange={async (e) => {
+                      const file = e.target.files[0];
+                      if (!file) return;
+
+                      if (file.size > 500 * 1024) {
+                        toast.error('Favicon size must be less than 500KB');
+                        return;
+                      }
+
+                      try {
+                        const response = await api.uploadImage(file);
+                        setSettings({ ...settings, favicon_url: response.data.data_url });
+                        toast.success('Favicon uploaded! Click Save to apply.');
+                      } catch (error) {
+                        toast.error('Failed to upload favicon');
+                      }
+                    }}
+                    data-testid="favicon-upload-input"
+                    className="mt-1"
+                  />
+                  <p className="text-xs text-slate-500 mt-1">
+                    Upload PNG or ICO (max 500KB). Recommended size: 32x32px or 64x64px
+                  </p>
+                </div>
+              </div>
+            </div>
+
             <div>
               <Label>Footer Description</Label>
               <Textarea
