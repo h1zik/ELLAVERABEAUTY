@@ -269,15 +269,22 @@ class SiteSettings(BaseModel):
     favicon_url: Optional[str] = None
     logo_text: str = "Ellavera Beauty"
     footer_text: str = "Premium cosmetic manufacturing solutions for your brand."
+    footer_copyright: Optional[str] = None
+    footer_links_title: str = "Quick Links"
+    footer_services_title: str = "Our Services"
+    footer_contact_title: str = "Contact Us"
+    footer_services: List[str] = []
     contact_email: str = "info@ellavera.com"
     contact_phone: str = "+62 123 456 7890"
     contact_address: str = "Jakarta, Indonesia"
     whatsapp_number: str = "6281234567890"
-    whatsapp_message: str = "Hello Ellavera Beauty! I'm interested in your cosmetic manufacturing services."
+    whatsapp_message: str = "Hello! I'm interested in your services."
     google_maps_url: str = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d253840.65833061103!2d106.68942995!3d-6.229386599999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e945e34b9d%3A0x5371bf0fdad786a2!2sJakarta%2C%20Indonesia!5e0!3m2!1sen!2s!4v1620000000000!5m2!1sen!2s"
     facebook_url: str = "#"
     instagram_url: str = "#"
     twitter_url: str = "#"
+    linkedin_url: Optional[str] = None
+    youtube_url: Optional[str] = None
     updated_at: datetime
 
 class SiteSettingsUpdate(BaseModel):
