@@ -3,7 +3,7 @@ import { X, Filter, Grid3X3, LayoutGrid } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
 import { api } from '../utils/api';
-import { updatePageTitle } from '../utils/pageTitle';
+import { usePageTitle } from '../hooks/usePageTitle';
 import LoadingSpinner from '../components/layout/LoadingSpinner';
 import { Dialog, DialogContent } from '../components/ui/dialog';
 
@@ -14,9 +14,10 @@ const GalleryPage = () => {
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(null);
   const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'masonry'
+  
+  usePageTitle('Gallery');
 
   useEffect(() => {
-    updatePageTitle('Gallery');
     fetchData();
   }, []);
 
