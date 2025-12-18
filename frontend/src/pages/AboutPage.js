@@ -166,6 +166,55 @@ const AboutPage = () => {
           </div>
         </section>
 
+        {/* Proof of Certifications Section - Certificate Images */}
+        {proofCertificationsSection && proofCertificationsSection.content?.images?.length > 0 && (
+          <section className="mb-20">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold mb-4">
+                {proofCertificationsSection.content.heading || 'Proof of Certifications'}
+              </h2>
+              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+                {proofCertificationsSection.content.subheading || 'Our official certification documents'}
+              </p>
+            </div>
+
+            <div className={`grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-5xl mx-auto ${
+              proofCertificationsSection.content.images.length >= 3 ? 'lg:grid-cols-3' : ''
+            }`}>
+              {proofCertificationsSection.content.images.map((cert, index) => (
+                <Card key={index} className="overflow-hidden border-none shadow-lg hover:shadow-xl transition-shadow group">
+                  <div className="aspect-[3/4] bg-slate-100 relative">
+                    <img 
+                      src={cert.image_url} 
+                      alt={cert.title || `Certificate ${index + 1}`}
+                      className="w-full h-full object-contain p-4"
+                    />
+                    {/* Zoom on hover overlay */}
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                      <a 
+                        href={cert.image_url} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="opacity-0 group-hover:opacity-100 transition-opacity bg-white text-primary px-4 py-2 rounded-full text-sm font-medium shadow-lg"
+                      >
+                        View Full Size
+                      </a>
+                    </div>
+                  </div>
+                  {cert.title && (
+                    <div className="p-4 text-center border-t">
+                      <h4 className="font-semibold text-slate-800">{cert.title}</h4>
+                      {cert.description && (
+                        <p className="text-sm text-slate-500 mt-1">{cert.description}</p>
+                      )}
+                    </div>
+                  )}
+                </Card>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* Team Section */}
         <section className="mb-20">
           <div className="text-center mb-12">
