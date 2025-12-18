@@ -42,15 +42,28 @@ export const SettingsProvider = ({ children }) => {
       const tagline = settings.site_tagline || 'Premium Cosmetic Manufacturing';
       document.title = `${siteName} - ${tagline}`;
       
-      // Update favicon if logo_url is provided
+      // Update favicon if favicon_url is provided
       if (settings.favicon_url) {
-        let link = document.querySelector("link[rel*='icon']");
+        // Update the dynamic favicon link
+        let link = document.getElementById('dynamic-favicon');
         if (!link) {
           link = document.createElement('link');
+          link.id = 'dynamic-favicon';
           link.rel = 'icon';
+          link.type = 'image/png';
+          link.sizes = '32x32';
           document.head.appendChild(link);
         }
         link.href = settings.favicon_url;
+        
+        // Also update apple-touch-icon for mobile
+        let appleIcon = document.querySelector("link[rel='apple-touch-icon']");
+        if (!appleIcon) {
+          appleIcon = document.createElement('link');
+          appleIcon.rel = 'apple-touch-icon';
+          document.head.appendChild(appleIcon);
+        }
+        appleIcon.href = settings.favicon_url;
       }
     }
   }, [settings]);
