@@ -289,6 +289,16 @@ class SiteSettings(BaseModel):
     twitter_url: str = "#"
     linkedin_url: Optional[str] = None
     youtube_url: Optional[str] = None
+    # Page titles and subtitles
+    page_titles: dict = {
+        "products": {"title": "Our Products", "subtitle": "Discover our range of quality products"},
+        "services": {"title": "Our Services", "subtitle": "Professional solutions for your needs"},
+        "articles": {"title": "Articles & News", "subtitle": "Latest updates and insights"},
+        "gallery": {"title": "Gallery", "subtitle": "See our work and facilities"},
+        "clients": {"title": "Our Clients", "subtitle": "Trusted by leading brands"},
+        "contact": {"title": "Contact Us", "subtitle": "Get in touch with our team"},
+        "about": {"title": "About Us", "subtitle": "Learn more about our company"}
+    }
     updated_at: datetime
 
 class SiteSettingsUpdate(BaseModel):
