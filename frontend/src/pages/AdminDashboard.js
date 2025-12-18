@@ -268,6 +268,8 @@ const AdminDashboard = () => {
         return <ArticleManagement />;
       case 'gallery':
         return <GalleryManagement />;
+      case 'certifications':
+        return <ProofCertificationsEditor />;
       case 'categories':
         return <CategoryManagement />;
       case 'clients':
