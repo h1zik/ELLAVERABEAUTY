@@ -51,7 +51,7 @@ const Header = () => {
               />
             ) : (
               <div className="text-2xl sm:text-3xl font-bold text-gradient">
-                {settings?.logo_text || settings?.site_name || 'Ellavera Beauty'}
+                {settings?.logo_text || settings?.site_name || ''}
               </div>
             )}
           </Link>
