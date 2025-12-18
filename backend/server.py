@@ -30,8 +30,12 @@ mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
-# JWT Configuration
-JWT_SECRET = os.environ.get('JWT_SECRET', 'ellavera_jwt_secret_key')
+# JWT Configuration - Require JWT_SECRET in production, use secure default only for development
+JWT_SECRET = os.environ.get('JWT_SECRET')
+if not JWT_SECRET:
+    import secrets
+    JWT_SECRET = secrets.token_hex(32)  # Generate secure random secret if not set
+    logging.warning("JWT_SECRET not set in environment, using generated secret. Set JWT_SECRET in production!")
 JWT_ALGORITHM = os.environ.get('JWT_ALGORITHM', 'HS256')
 JWT_EXPIRATION = int(os.environ.get('JWT_EXPIRATION_HOURS', '24'))
 
