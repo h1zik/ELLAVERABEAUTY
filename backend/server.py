@@ -324,6 +324,7 @@ class SiteSettingsUpdate(BaseModel):
     linkedin_url: Optional[str] = None
     youtube_url: Optional[str] = None
     twitter_url: Optional[str] = None
+    page_titles: Optional[dict] = None
 
 # ============= CONTACT MODELS =============
 class ContactLead(BaseModel):
