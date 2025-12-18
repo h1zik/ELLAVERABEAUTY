@@ -174,15 +174,16 @@ const AdminDashboard = () => {
 
       {/* Quick Actions */}
       <div>
-        <h2 className="text-lg font-semibold text-slate-800 mb-4">Quick Actions</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <h2 className="text-base sm:text-lg font-semibold text-slate-800 mb-3 sm:mb-4">Quick Actions</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
           <Button 
             variant="outline" 
-            className="h-auto py-6 flex flex-col items-center gap-2 hover:bg-cyan-50 hover:border-cyan-300 transition-all"
+            className="h-auto py-4 sm:py-6 flex flex-col items-center gap-1 sm:gap-2 hover:bg-cyan-50 hover:border-cyan-300 transition-all"
             onClick={() => setActiveTab('products')}
           >
-            <Package size={24} className="text-cyan-600" />
-            <span className="text-sm font-medium">Add Product</span>
+            <Package size={20} className="text-cyan-600 sm:hidden" />
+            <Package size={24} className="text-cyan-600 hidden sm:block" />
+            <span className="text-xs sm:text-sm font-medium">Add Product</span>
           </Button>
           <Button 
             variant="outline" 
