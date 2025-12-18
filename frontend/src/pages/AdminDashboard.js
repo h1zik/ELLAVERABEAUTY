@@ -97,6 +97,7 @@ const AdminDashboard = () => {
     { id: 'leads', label: 'Leads', icon: MessageSquare },
     { id: 'settings', label: 'Settings', icon: Settings },
     { id: 'theme', label: 'Theme', icon: Palette },
+    { id: 'backup', label: 'Backup', icon: Database },
   ];
 
   const handleLogout = () => {
