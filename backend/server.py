@@ -294,6 +294,11 @@ class SiteSettingsUpdate(BaseModel):
     favicon_url: Optional[str] = None
     logo_text: Optional[str] = None
     footer_text: Optional[str] = None
+    footer_copyright: Optional[str] = None
+    footer_links_title: Optional[str] = None
+    footer_services_title: Optional[str] = None
+    footer_contact_title: Optional[str] = None
+    footer_services: Optional[List[str]] = None
     contact_email: Optional[str] = None
     contact_phone: Optional[str] = None
     contact_address: Optional[str] = None
@@ -302,6 +307,9 @@ class SiteSettingsUpdate(BaseModel):
     google_maps_url: Optional[str] = None
     facebook_url: Optional[str] = None
     instagram_url: Optional[str] = None
+    linkedin_url: Optional[str] = None
+    youtube_url: Optional[str] = None
+    twitter_url: Optional[str] = None
 
 # ============= CONTACT MODELS =============
 class ContactLead(BaseModel):
