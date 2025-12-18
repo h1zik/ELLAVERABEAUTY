@@ -4,7 +4,7 @@ import { CheckCircle, ArrowRight, Sparkles, Package, Beaker, Palette, Truck, Shi
 import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
 import { api } from '../utils/api';
-import { updatePageTitle } from '../utils/pageTitle';
+import { usePageTitle } from '../hooks/usePageTitle';
 import LoadingSpinner from '../components/layout/LoadingSpinner';
 import { initScrollReveal } from '../utils/scrollReveal';
 
@@ -17,9 +17,10 @@ const iconMap = {
 const ServicesPage = () => {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
+  
+  usePageTitle('Services');
 
   useEffect(() => {
-    updatePageTitle('Services');
     fetchServices();
   }, []);
 
