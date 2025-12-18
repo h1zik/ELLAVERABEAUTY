@@ -37,6 +37,7 @@ import PageBuilderManagement from '../components/admin/PageBuilderManagement';
 import ServiceManagement from '../components/admin/ServiceManagement';
 import GalleryManagement from '../components/admin/GalleryManagement';
 import CategoryManagement from '../components/admin/CategoryManagement';
+import BackupManagement from '../components/admin/BackupManagement';
 import LoadingSpinner from '../components/layout/LoadingSpinner';
 import { api } from '../utils/api';
 
