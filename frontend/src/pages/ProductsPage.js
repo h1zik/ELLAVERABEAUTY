@@ -5,7 +5,7 @@ import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 import { api } from '../utils/api';
-import { updatePageTitle } from '../utils/pageTitle';
+import { usePageTitle } from '../hooks/usePageTitle';
 import LoadingSpinner from '../components/layout/LoadingSpinner';
 import { initScrollReveal } from '../utils/scrollReveal';
 
@@ -14,9 +14,10 @@ const ProductsPage = () => {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [loading, setLoading] = useState(true);
+  
+  usePageTitle('Products');
 
   useEffect(() => {
-    updatePageTitle('Products');
     fetchData();
   }, []);
 
