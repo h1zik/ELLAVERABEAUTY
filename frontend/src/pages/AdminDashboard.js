@@ -217,12 +217,13 @@ const AdminDashboard = () => {
 
       {/* Recent Activity Placeholder */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-        <Card className="p-6 bg-white border-none shadow-sm">
-          <h3 className="text-lg font-semibold text-slate-800 mb-4 flex items-center gap-2">
-            <Eye size={20} className="text-cyan-600" />
+        <Card className="p-4 sm:p-6 bg-white border-none shadow-sm">
+          <h3 className="text-base sm:text-lg font-semibold text-slate-800 mb-3 sm:mb-4 flex items-center gap-2">
+            <Eye size={18} className="text-cyan-600 sm:hidden" />
+            <Eye size={20} className="text-cyan-600 hidden sm:block" />
             Website Preview
           </h3>
-          <div className="aspect-video bg-slate-100 rounded-xl overflow-hidden relative group">
+          <div className="aspect-video bg-slate-100 rounded-lg sm:rounded-xl overflow-hidden relative group">
             <iframe 
               src="/" 
               className="w-full h-full border-0 pointer-events-none"
@@ -230,7 +231,7 @@ const AdminDashboard = () => {
             />
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all flex items-center justify-center">
               <Button 
-                className="opacity-0 group-hover:opacity-100 transition-all bg-white text-slate-800 hover:bg-white/90"
+                className="opacity-0 group-hover:opacity-100 transition-all bg-white text-slate-800 hover:bg-white/90 text-xs sm:text-sm"
                 onClick={() => window.open('/', '_blank')}
               >
                 <Eye size={16} className="mr-2" />
