@@ -1491,18 +1491,23 @@ async def backup_data(format: str = Query("json", enum=["json", "csv", "sql"]), 
             # Backup theme
             theme = await db.theme.find_one({}, {"_id": 0})
             if theme:
-                for key, value in theme.items():
-                    if isinstance(value, datetime):
-                        theme[key] = value.isoformat()
-                
                 if format == "json":
+                    for key, value in theme.items():
+                        if isinstance(value, datetime):
+                            theme[key] = value.isoformat()
                     zip_file.writestr("theme.json", json.dumps(theme, indent=2, ensure_ascii=False))
-                else:
+                elif format == "csv":
+                    for key, value in theme.items():
+                        if isinstance(value, datetime):
+                            theme[key] = value.isoformat()
                     output = io.StringIO()
                     writer = csv.DictWriter(output, fieldnames=list(theme.keys()))
                     writer.writeheader()
                     writer.writerow(theme)
                     zip_file.writestr("theme.csv", output.getvalue())
+                elif format == "sql":
+                    sql_content = generate_sql_insert("theme", [theme])
+                    zip_file.writestr("theme.sql", sql_content)
         
         zip_buffer.seek(0)
         
