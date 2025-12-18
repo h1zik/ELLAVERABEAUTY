@@ -2,15 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { Award, Target, Eye, Users } from 'lucide-react';
 import { Card } from '../components/ui/card';
 import { api } from '../utils/api';
-import { updatePageTitle } from '../utils/pageTitle';
+import { usePageTitle } from '../hooks/usePageTitle';
 
 const AboutPage = () => {
   const [sections, setSections] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  
+  usePageTitle('About Us');
 
   useEffect(() => {
-    updatePageTitle('About Us');
     fetchData();
   }, []);
 
