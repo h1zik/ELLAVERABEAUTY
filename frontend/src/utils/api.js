@@ -120,8 +120,8 @@ export const api = {
 
   // Backup
   getBackupStats: () => axios.get(`${API}/admin/backup/stats`, { headers: getAuthHeaders() }),
-  downloadBackup: (format) => axios.get(`${API}/admin/backup`, { 
-    params: { format },
+  downloadBackup: (format, includeMedia = false) => axios.get(`${API}/admin/backup`, { 
+    params: { format, include_media: includeMedia },
     headers: getAuthHeaders(),
     responseType: 'arraybuffer'
   }),
